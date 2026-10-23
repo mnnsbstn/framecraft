@@ -1,13 +1,13 @@
 # FrameCraft
 
-Eigene native macOS-App für Bildschirmaufnahme, automatische Klick-Zooms, geglättete Cursorbewegung und MP4-Export. Inspiriert vom Arbeitsablauf von Screen Studio; eigene Oberfläche, eigene Implementierung und eigene Testmedien.
+An independent native macOS app for screen recording, automatic click zooms, smooth cursor movement, and MP4 export. Inspired by the Screen Studio workflow, with its own interface, implementation, and test media.
 
-**Stand: 0.3.0 · macOS 15+ · 17 Tests bestanden.** Entwicklung auf Apple Silicon mit Swift 6.4. Aufnahme auf diesem Mac in Version 0.2 praktisch geprüft; Version 0.3 mit derselben Aufnahme exportiert. Keine vollständige Screen-Studio-Nachbildung.
+**Status: 0.3.0 · macOS 15+ · 17 tests passed.** Developed on Apple Silicon with Swift 6.4. Recording was tested on this Mac in version 0.2; version 0.3 exported the same recording. This is not a complete Screen Studio replica.
 
-## Starten
+## Getting started
 
-- [Lokale App 0.3.0 für Apple Silicon herunterladen](artifacts/FrameCraft-0.3.0-macos-arm64.zip), entpacken und FrameCraft.app öffnen. Der Build ist lokal ad hoc signiert, nicht Developer-ID-signiert oder öffentlich notarisiert.
-- Alternativ mit eingerichtetem Xcode aus dem Quellprojekt bauen:
+- [Download the local Apple Silicon build 0.3.0](artifacts/FrameCraft-0.3.0-macos-arm64.zip), extract it, and open FrameCraft.app. The build is locally ad hoc signed, without Developer ID signing or public notarization.
+- Alternatively, build from source with a configured Xcode installation:
 
 ```sh
 git clone https://github.com/mnnsbstn/framecraft.git
@@ -16,49 +16,53 @@ cd framecraft
 ./script/build_and_run.sh --verify
 ```
 
-Die App entsteht unter `dist/FrameCraft.app`. Das Skript fordert zum geordneten Schließen einer bereits laufenden App auf, damit keine Aufnahme verloren geht. Weitere Optionen: `--build`, `--logs`, `--debug`.
+The app is created at `dist/FrameCraft.app`. If the app is already running, the script asks you to quit it normally to avoid losing a recording. Other options: `--build`, `--logs`, `--debug`.
 
-Für eine neue Aufnahme FrameCraft unter macOS → Datenschutz & Sicherheit → Bildschirm- & Systemaudioaufnahme freigeben. Mikrofon nur bei aktivierter Mikrofonaufnahme. Nach lokalem Neubau kann macOS eine erneute Freigabe verlangen; der aktuelle 0.3-Build wurde nach Neubau noch nicht mit einer neuen Aufnahme geprüft.
+For a new recording, allow FrameCraft in macOS System Settings → Privacy & Security → Screen & System Audio Recording. Microphone access is required only when microphone recording is enabled. A local rebuild may require permission to be granted again; a new recording has not yet been tested after rebuilding version 0.3.
 
-## Benutzen
+## Using the app
 
-1. **Aufnehmen**: Fenster oder Bildschirm wählen; alternativ Video importieren oder Demo laden.
-2. Aufnahme stoppen: Klick-Zooms entstehen automatisch. Unter **Zoom & Schnitt** Fokus, Stärke und Zeiten bearbeiten.
-3. Unter **Gestaltung** Format, Hintergrund, Rahmen und Cursor einstellen.
-4. Mit **⌘S** ein `.framecraft`-Projekt speichern; **Video exportieren** erstellt eine MP4.
-5. Zum Weiterarbeiten den gesamten Projektordner über **Projekt öffnen** auswählen. Originalvideo und JSON müssen zusammenbleiben.
+The app interface remains German. The English instructions below refer to these existing controls.
 
-## Funktionen
+1. Choose **Record** (`Aufnehmen`) and select a window or display; alternatively, import a video or load the demo.
+2. Stop recording to generate click zooms automatically. Under **Zoom & Trim** (`Zoom & Schnitt`), edit focus, zoom strength, and timing.
+3. Under **Appearance** (`Gestaltung`), adjust the format, background, frame, and cursor.
+4. Press **⌘S** to save a `.framecraft` project; **Export video** (`Video exportieren`) creates an MP4.
+5. To resume editing, select the entire project folder using **Open project** (`Projekt öffnen`). Keep the original video and JSON together.
 
-- Fenster-/Displayaufnahme, Systemton und optionales Mikrofon; Stop auch in der Menüleiste.
-- Automatische Zooms aus Klicks; neue Ziele lösen alte ab, Kameraübergänge über 600 ms, kurze Pausen ohne Zwischen-Auszoomen.
-- Separate Mausspur: Glättung 0–250 ms, Größe, Sichtbarkeit und Klickmarkierungen. Keine Tastaturaufzeichnung.
-- Nichtdestruktiver Schnitt, manuelle Zooms, Wiedergabe/Scrubbing, drei Seitenverhältnisse, vier Verläufe, Rahmen und Schatten.
-- Gemeinsame Vorschau-/Exportpipeline, MP4 mit 30 fps, Fortschritt/Abbruch und Schutz vor Überschreiben.
-- Editierbare Projekte und Kompatibilität mit älteren Projekten ohne Mausspur.
+## Features
 
-## Beispiele und Nachweise
+- Window/display recording, system audio, and optional microphone input; recording can also be stopped from the menu bar.
+- Automatic click zooms: new targets replace old ones, with 600 ms camera transitions and no intermediate zoom-out during short gaps.
+- Separate cursor track: 0–250 ms smoothing, size, visibility, and click indicators. No keyboard input recording.
+- Nondestructive trimming, manual zooms, playback/scrubbing, three aspect ratios, four gradients, frames, and shadows.
+- Shared preview/export pipeline, 30 fps MP4 output, progress/cancellation, and overwrite protection.
+- Editable projects, including compatibility with older projects without cursor tracks.
 
-- [Sanfte Zooms – aktueller Export](examples/FrameCraft-Sanfte-Zooms.mp4)
-- [Klicktest – Export aus Version 0.2](examples/FrameCraft-Klicktest.mp4)
-- [Editierbares Klicktest-Projekt](examples/FrameCraft-Klicktest.framecraft)
-- [Cursor-Demo](examples/FrameCraft-Cursor-Demo.mp4) und [Demoprojekt](examples/FrameCraft-Cursor-Demo.framecraft)
-- Weitere eigene Testmedien und Projekte liegen unter [examples](examples).
+## Examples and verification
 
-Live-Klicktest: 10,925 Sekunden, 10 Klicks, 590 Mauspositionen, sechs automatische Zooms. Export Full HD/30 fps ohne Ton; Klickpunkte nach Glättung exakt, Projekt erneut geöffnet. Version 0.3: 17 Tests bestanden, Build/Start/Signatur geprüft und neue Kamerafahrt exportiert. Details: [Prüfstatus](docs/Build-Status.txt), [Testprotokoll](docs/verification/tests-0.3.0.txt), [Analyse](docs/Analyse.md), [Entwicklung und Bedienung](docs/Entwicklung.md), [Changelog](CHANGELOG.md).
+- [Smooth zooms — current export](examples/FrameCraft-Sanfte-Zooms.mp4)
+- [Click test — version 0.2 export](examples/FrameCraft-Klicktest.mp4)
+- [Editable click-test project](examples/FrameCraft-Klicktest.framecraft)
+- [Cursor demo](examples/FrameCraft-Cursor-Demo.mp4) and [demo project](examples/FrameCraft-Cursor-Demo.framecraft)
+- More original test media and projects are available in [examples](examples).
 
-## Planung und Dokumentation
+Live click test: 10.925 seconds, 10 clicks, 590 cursor positions, and six automatic zooms. Full HD/30 fps export without audio; smoothed cursor positions match clicks exactly, and the project was reopened successfully. Version 0.3: 17 tests passed, build/start/signature checks succeeded, and the new camera motion was exported. See [verification status](docs/Build-Status.txt), [test log](docs/verification/tests-0.3.0.txt), [analysis](docs/Analyse.md), [development and usage](docs/Entwicklung.md), and [changelog](CHANGELOG.md).
 
-[Linear-Projekt](https://linear.app/mnnsbstn/project/framecraft-00c6db8009c8) · [Entwicklungsjournal](https://linear.app/mnnsbstn/document/framecraft-entwicklungsjournal-prufnachweise-und-roadmap-33f00559e3ba)
+## Planning and documentation
 
-Alle bestehenden und künftigen Arbeiten einschließlich neuer, bislang ungeplanter Features werden in Linear dokumentiert. [AGENTS.md](AGENTS.md) hält die Arbeitsweise fest. [docs/Linear.md](docs/Linear.md) und [docs/linear](docs/linear) enthalten lesbare und maschinenlesbare Momentaufnahmen; Linear bleibt der aktuelle Planungsstand. Keine automatische Hintergrund-Synchronisation.
+[Linear project](https://linear.app/mnnsbstn/project/framecraft-00c6db8009c8) · [Development journal](https://linear.app/mnnsbstn/document/framecraft-entwicklungsjournal-prufnachweise-und-roadmap-33f00559e3ba)
 
-## REA und Grenzen
+All existing and future work, including previously unplanned features, is documented in Linear. [AGENTS.md](AGENTS.md) records the workflow. [docs/Linear.md](docs/Linear.md) and [docs/linear](docs/linear) contain readable and machine-readable snapshots; Linear remains the current planning source. No automatic background synchronization is configured.
 
-REA wurde dauerhaft lokal eingerichtet und zur lesenden Referenzuntersuchung verwendet. [Einrichtung/Wiederverwendung](docs/rea/REA-Nutzung.md), [Prüfbelege](docs/rea) und [Referenzbefund](docs/REA-Befunde.json). Herkunft/Integrität wurden geprüft; das ist kein vollständiges Sicherheitsaudit. Die Referenz-App wurde wegen Prüfsummen-/Signaturproblemen nicht ausgeführt und ist nicht Bestandteil dieses Repositories.
+**Language policy:** all GitHub documentation is maintained in English. The app, Linear, local German documentation, and user communication remain German. Linear snapshots in this repository are English translations, not verbatim exports. Existing artifact filenames, technical identifiers, URLs, and raw evidence are preserved; German UI labels are quoted where needed to locate a control.
 
-Systemton, Mikrofon und vollständige Displayaufnahme sind noch nicht praktisch abgenommen. Aktuell fester Pfeilcursor; eingebrannte Cursor importierter Videos sind nicht glättbar. Bereichsaufnahme, Webcam, Mehrclip-Schnitt, Untertitel, GIF, Cloud-Sharing, freie Exportqualität und ziehbare Zoomkanten stehen im Ideenbacklog. Sehr kurze Zoomintervalle können einen sanften Auslauf über ihr Ende hinaus haben.
+## REA and limitations
 
-## Repository-Inhalt
+REA was set up persistently on the local machine and used for read-only reference inspection. See [setup/reuse](docs/rea/REA-Nutzung.md), [verification evidence](docs/rea), and [reference findings](docs/REA-Befunde.json). Provenance and integrity were checked; this is not a full security audit. The reference app was not executed because of checksum/signature issues and is not included in this repository.
 
-Quellen, Tests, lokale Build-Anweisungen, Dokumentation, REA-Belege, Linear-Snapshot, eigene Beispielprojekte/-videos und App-Archiv. Rechnerbezogene Pfade in veröffentlichten Textbelegen wurden neutralisiert. Build-Caches, Zugangsdaten und fremde Binärpakete wurden nicht übernommen. [SHA-256-Dateiliste](docs/verification/SHA256SUMS.txt) dokumentiert den veröffentlichten Stand ohne sich selbst.
+System audio, microphone input, and full-display recording have not yet been practically validated. The cursor currently uses a fixed arrow shape; cursors embedded in imported videos cannot be smoothed. Region recording, webcam overlays, multi-clip editing, subtitles, GIF, cloud sharing, configurable export quality, and draggable zoom edges are in the ideas backlog. Very short zoom intervals may ease out beyond their nominal end.
+
+## Repository contents
+
+Source, tests, local build instructions, documentation, REA evidence, a Linear snapshot, original example projects/videos, and an app archive. Machine-specific paths in published text evidence have been neutralized. Build caches, credentials, and third-party reference binaries are excluded. The [SHA-256 manifest](docs/verification/SHA256SUMS.txt) covers the published files except itself.

@@ -1,27 +1,33 @@
-# Änderungsverlauf
+# Changelog
 
-## 0.3.0 — 23. Oktober 2026
+## Documentation — October 23, 2026
 
-- Zeitliche Kameraziele statt Mischung aller aktiven Zooms; keine Rücksprünge zu überholten Zielen.
-- 600-ms-Glättung mit kontinuierlicher Bewegung bei Retargeting; kurze Pausen bis 300 ms verbinden.
-- Manuelle Priorität und reproduzierbare Abfrage für Vorschau, Scrubbing und Export.
-- Vier neue Kameratests, insgesamt 17 Tests bestanden; echte Klickaufnahme erneut exportiert.
+- Translate all GitHub documentation and narrative fields in Linear snapshots into English.
+- Establish an English documentation policy for future repository changes; keep the app, Linear, local German documentation, and user communication in German.
+- Preserve source code, tests, build scripts, media, evidence identifiers, and existing artifact paths.
 
-## 0.2.0 — 23. Oktober 2026
+## 0.3.0 — October 23, 2026
 
-- Klickerfassung, automatische Zooms, separate Mausspur und geglätteter Cursor.
-- Cursorgröße/Sichtbarkeit und Klickmarkierungen; Speicherung und Altprojekt-Kompatibilität.
-- Sechs zusätzliche Tests, insgesamt 13 bestanden. Echter Nutzer-Maustest und Export erfolgreich.
-- Nur FrameCraft-Bildschirmfreigabe nach Ad-hoc-Neubau erneuert.
+- Use ordered camera targets instead of blending all active zooms; prevent returns to outdated targets.
+- Smooth transitions over 600 ms while preserving continuous motion during retargeting; bridge gaps of up to 300 ms.
+- Preserve manual zoom priority and deterministic evaluation for preview, scrubbing, and export.
+- Add four camera tests, bringing the total to 17 passing tests; re-export the real click recording.
 
-## 0.1 — 23. Oktober 2026
+## 0.2.0 — October 23, 2026
 
-- Native Aufnahme-/Editor-App, Import/Demo, manuelle Zooms, Schnitt und Gestaltung.
-- Gemeinsame Vorschau-/MP4-Pipeline, Projektspeicherung und lokale App-Paketierung.
-- Sieben Tests, Demo- und echte tonlose Fensteraufnahme geprüft.
-- REA-Installation/Integrität verifiziert; offizielle Referenz lesend untersucht.
+- Add click capture, automatic zooms, a separate cursor track, and cursor smoothing.
+- Add cursor size/visibility and click indicators, persistence, and compatibility with older projects.
+- Add six tests, bringing the total to 13 passing tests. Complete a real user mouse test and export.
+- Renew only FrameCraft's screen recording permission after the ad hoc rebuild.
 
-## Projektablage
+## 0.1 — October 23, 2026
 
-- Linear-Projekt mit Entwicklungsjournal, abgeschlossenen Aufgaben und Ideenbacklog eingerichtet.
-- Quellcode, Nachweise und eigene Beispieldaten in mnnsbstn/framecraft übernommen.
+- Implement the native recording/editor app, import/demo, manual zooms, trimming, and appearance controls.
+- Add the shared preview/MP4 pipeline, project persistence, and local app packaging.
+- Pass seven tests and verify demo output and a real window recording without audio.
+- Verify the REA installation/integrity and inspect the official reference package read-only.
+
+## Project organization
+
+- Create a Linear project with a development journal, completed work, and an ideas backlog.
+- Publish source code, evidence, and original example data in mnnsbstn/framecraft.

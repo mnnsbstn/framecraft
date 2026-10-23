@@ -1,94 +1,98 @@
-# FrameCraft
+# FrameCraft: development and usage
 
-Eine eigenständige, native macOS-App für Bildschirmvideos, inspiriert vom Arbeitsablauf von Screen Studio. Eigene SwiftUI-Oberfläche und eigene Aufnahme-/Rendering-Implementierung; keine übernommenen Screen-Studio-Assets oder Programmteile.
+An independent native macOS screen-video app inspired by the Screen Studio workflow. It uses its own SwiftUI interface and recording/rendering implementation; no Screen Studio assets or program components were copied.
 
-**Status: Version 0.3.0 ist auf diesem Mac gebaut und gestartet.** 17 automatisierte Tests bestehen. Die verbesserten Kamerafahrten wurden mit dem gespeicherten Live-Klicktest exportiert und geprüft. Die Aufnahmefunktion wurde zuletzt mit Version 0.2 praktisch abgenommen. Die neue Cursor-Demo wurde exportiert; eine echte Fensteraufnahme mit manuellem Zoom wurde bereits mit Version 0.1 erfolgreich geprüft. Die Bildschirmfreigabe wurde erfolgreich erneuert. Eine echte Fensteraufnahme mit Mausbewegungen und Klicks ist ebenfalls geprüft: 10 Klicks, 6 automatische Zooms, 590 Mauspositionen, Full-HD-Export und erneutes Öffnen des Projekts erfolgreich.
+**Status: version 0.3.0 was built and launched on this Mac.** All 17 automated tests pass. Improved camera motion was exported and verified using the saved live click test. Recording was last practically validated in version 0.2. The cursor demo was exported; a real window recording with a manual zoom had already been verified in version 0.1. Screen recording permission was successfully renewed. A real window recording with mouse movement and clicks also passed: 10 clicks, 6 automatic zooms, 590 cursor positions, successful Full HD export, and successful project reopening.
 
-## Sofort benutzen
+## Start using it
 
-Öffne `dist/FrameCraft.app` per Doppelklick. Die App bleibt in diesem Projektordner auch für spätere Sessions verfügbar. Der Quellcode und das Build-Skript liegen daneben; ein laufender Codex-Chat ist zum Benutzen nicht nötig.
+Double-click `dist/FrameCraft.app`. The app remains available in the project folder for future sessions. Source code and the build script are included; using the app does not require an active Codex chat. The interface remains German.
 
-1. **Aufnehmen** wählen, Bildschirm oder Fenster auswählen und Aufnahme starten. Alternativ ein Video importieren oder **Demo ausprobieren** verwenden.
-2. Aufnahme beenden. In der Zeitleiste zu einer Stelle springen und **Zoom hinzufügen** wählen. Unter **Zoom & Schnitt** Stärke, Fokus, Zoomdauer sowie Anfang/Ende einstellen.
-3. Unter **Gestaltung** Format, Verlauf, Abstand und Ecken anpassen.
-4. Mit **⌘S** das editierbare Projekt sichern. Mit **Video exportieren** eine MP4-Datei erzeugen.
-5. Später über **Projekt öffnen** den gesamten `.framecraft`-Ordner auswählen. Er enthält Originalvideo und Einstellungen und muss zusammenbleiben.
+1. Choose **Record** (`Aufnehmen`), select a display or window, and start recording. Alternatively, import a video or choose **Try demo** (`Demo ausprobieren`).
+2. Stop recording. Jump to a point in the timeline and choose **Add zoom** (`Zoom hinzufügen`). Under **Zoom & Trim** (`Zoom & Schnitt`), adjust strength, focus, zoom duration, and trim start/end.
+3. Under **Appearance** (`Gestaltung`), adjust the format, gradient, padding, and corners.
+4. Press **⌘S** to save an editable project. Use **Export video** (`Video exportieren`) to create an MP4.
+5. Later, use **Open project** (`Projekt öffnen`) to select the entire `.framecraft` folder. Keep its original video and settings together.
 
-Die Bildschirmfreigabe für Version 0.2 wurde durch Entfernen des alten FrameCraft-Eintrags und Hinzufügen der aktuellen App erfolgreich erneuert. Andere App-Freigaben wurden nicht geändert. Falls macOS nach einem Neubau erneut fragt: unter **Systemeinstellungen → Datenschutz & Sicherheit → Bildschirm- & Systemaudioaufnahme** FrameCraft freigeben und neu starten. Mikrofonzugriff wird nur bei aktivierter Mikrofonaufnahme benötigt.
+Screen recording permission for version 0.2 was renewed by removing the old FrameCraft entry and adding the current app. Other apps' permissions were unchanged. If macOS asks again after a rebuild, allow FrameCraft in **System Settings → Privacy & Security → Screen & System Audio Recording**, then restart it. Microphone access is needed only when microphone recording is enabled.
 
-Der aktuelle Live-Test liegt als `FrameCraft-Klicktest.mp4` und editierbares `FrameCraft-Klicktest.framecraft` daneben. Weitere Beispiele: `FrameCraft-Demo.mp4` (Hochformat) und `FrameCraft-Aufnahmetest.mp4` (echte Fensteraufnahme), jeweils mit editierbarem `.framecraft`-Projekt.
+The current live test is available as `FrameCraft-Klicktest.mp4` and the editable `FrameCraft-Klicktest.framecraft` project. Other examples include `FrameCraft-Demo.mp4` (portrait) and `FrameCraft-Aufnahmetest.mp4` (a real window recording), each with an editable `.framecraft` project. In this repository, these files are under `examples/`.
 
-## Bauen und starten
+## Build and run
 
-Voraussetzungen: macOS 15 oder neuer, eingerichtetes Xcode mit Swift-Compiler. Es gibt keine Drittanbieter-Paketabhängigkeiten.
+Requirements: macOS 15 or later and configured Xcode with a working Swift compiler. There are no third-party package dependencies.
 
-Im Projektordner:
+From the project directory:
 
 ```sh
 ./script/build_and_run.sh --test
 ./script/build_and_run.sh --verify
 ```
 
-Der Run-Button dieses Codex-Chats startet ebenfalls das Build-Skript. Es erstellt `dist/FrameCraft.app`, signiert lokal und öffnet das App-Bundle. Das ist keine Developer-ID-Signatur oder Notarisierung für eine öffentliche Verteilung. Wenn FrameCraft bereits läuft, fordert das Skript zum geordneten Schließen auf, damit keine laufende Aufnahme verloren geht.
+The Codex Run action also starts the build script. It creates `dist/FrameCraft.app`, signs it locally, and opens the bundle. This is not Developer ID signing or notarization for public distribution. If FrameCraft is already running, the script asks you to quit normally to avoid losing an active recording.
 
-Weitere Optionen: `--build` baut ohne Start, `--logs` öffnet die App mit Loganzeige, `--debug` startet den Debugger.
+Other options: `--build` builds without launching; `--logs` opens the app with log output; `--debug` starts the debugger.
 
-## Funktionen
+## Features
 
-- Bildschirm- oder Fensteraufnahme über ScreenCaptureKit, Systemton und optional Mikrofon.
-- Aufnahme beenden im Fenster oder über die Menüleiste. Die eigene App wird aus Bildschirmaufnahmen ausgeschlossen.
-- MP4-/MOV-Import und eine selbst erzeugte sechssekündige Demo zum Testen ohne Bildschirmfreigabe.
-- Nichtdestruktiver Anfangs-/Endschnitt, Abspielen und Scrubbing.
-- Manuelle Zoomintervalle mit Stärke, Start/Ende und Fokuspunkt. Neue Aufnahmen erzeugen automatisch Zooms aus Mausklicks. Nahe Wiederholungsklicks verlängern denselben Zoom; entfernte Ziele bekommen eigene Zooms mit einer durchgehenden Kamerafahrt. Neuere Ziele lösen ältere ab, ohne später zu ihnen zurückzuspringen. Manuelle Zooms bleiben beim Neuberechnen erhalten.
-- Separate Mausspur für neue Aufnahmen: ein eigener Pfeilcursor, einstellbare Glättung (0–250 ms), Größe, Sichtbarkeit und Klickmarkierungen. Identisch in Vorschau und Export.
-- Vier eigene Farbverläufe, Abstand, Eckenradius und fester Schatten; 16:9, 9:16 und 1:1.
-- Gemeinsame Core-Image-Komposition für Vorschau und MP4-Export, 30 fps, Fortschritt und Abbruch.
-- Projektordner mit Originalvideo und JSON-Bearbeitungseinstellungen; Speichern und erneutes Öffnen.
+- Display/window recording through ScreenCaptureKit, system audio, and optional microphone input.
+- Stop recording from the window or menu bar. The app itself is excluded from display recordings.
+- MP4/MOV import and an original six-second demo for testing without screen recording permission.
+- Nondestructive start/end trimming, playback, and scrubbing.
+- Manual zoom intervals with strength, start/end, and focus point. New recordings generate zooms automatically from clicks. Nearby repeated clicks extend the same zoom; distant targets receive separate intervals connected by continuous camera motion. Newer targets replace older ones without returning to them later. Manual zooms survive recalculation.
+- Separate cursor tracks for new recordings: a custom arrow cursor, adjustable smoothing (0–250 ms), size, visibility, and click indicators. Preview and export use the same rendering.
+- Four original gradients, padding, corner radius, and a fixed shadow; 16:9, 9:16, and 1:1 aspect ratios.
+- Shared Core Image composition for preview and MP4 export, at 30 fps, with progress and cancellation.
+- Project folders containing the original video and JSON editing settings; save and reopen support.
 
-Aufnahmedateien werden nach ausdrücklichem Start in `~/Movies/FrameCraft` gespeichert. Die neue App fordert ihre Bildschirm-/Mikrofonfreigabe selbst an. Der praktische Aufnahmetest verwendete ausschließlich ein eigenes TextEdit-Testfenster ohne Systemton und Mikrofon. Mausdaten werden ausschließlich während laufender Aufnahmen erfasst und auf die Aufnahmequelle begrenzt. Es werden keine Tastatureingaben erfasst. Sichere das `.framecraft`-Projekt, damit die separate Mausspur erhalten bleibt; die reine Original-MP4 enthält bei neuen Aufnahmen keinen eingebrannten Cursor.
+Recordings are saved to `~/Movies/FrameCraft` after an explicit start. The app requests its own screen/microphone permissions. Practical recording tests used only an original TextEdit test window without system audio or microphone input. Mouse data is captured only during recording and restricted to the selected source. Keyboard input is not captured. Save the `.framecraft` project to retain the separate cursor track; original MP4 files from new recordings do not contain a burned-in cursor.
 
-Die erste Version enthält keine Bereichsaufnahme, Webcam-Komposition, wechselnde Cursorformen (z. B. Textcursor), Mehrclip-Schnitte, Untertitel, GIF, Cloud-Sharing oder freie Exportqualitätsauswahl. Zoomintervalle werden über Regler bearbeitet; Ziehen ihrer Kanten in der Zeitleiste ist noch nicht implementiert. Es ist keine vollständige Screen-Studio-Nachbildung.
+The current version does not include region recording, webcam composition, changing cursor shapes (such as a text cursor), multi-clip editing, subtitles, GIF, cloud sharing, or configurable export quality. Zoom intervals are edited using controls; dragging their timeline edges is not implemented. This is not a complete Screen Studio replica.
 
-## Sanfte Kamerafahrten (Version 0.3)
+## Smooth camera motion (version 0.3)
 
-Schnelle Klickfolgen werden als zeitliche Folge von Kamerazielen abgespielt. Die Fahrt wird über 600 ms geglättet; ein neuer Klick übernimmt die laufende Bewegung ohne Sprung in Position oder Geschwindigkeit. Pausen von bis zu 300 ms zwischen Zoomintervallen bleiben innerhalb derselben Aufnahmefahrt. Manuelle Zooms haben weiterhin Vorrang. Die Berechnung ist für Vorschau und Export identisch und auch beim Springen in der Zeitleiste reproduzierbar.
+Rapid click sequences play as an ordered sequence of camera targets. Motion is smoothed over 600 ms; a new click takes over the current motion without a jump in position or velocity. Gaps of up to 300 ms between zoom intervals remain within the same camera movement. Manual zooms retain priority. Calculation is identical for preview and export and deterministic when jumping through the timeline.
 
-Die Verbesserung gilt sofort auch für vorhandene Projekte. Öffne zum Beispiel `FrameCraft-Klicktest.framecraft` und exportiere neu. `FrameCraft-Sanfte-Zooms.mp4` ist der neue Export; `FrameCraft-Klicktest.mp4` bleibt als Vergleich mit Version 0.2 erhalten. Sehr kurze Zoomintervalle werden sanft ein- und ausgeblendet; ihr Auslauf kann bis zu 600 ms nach dem letzten Zielwechsel dauern.
+The improvement also applies to existing projects. For example, open `FrameCraft-Klicktest.framecraft` and export it again. `FrameCraft-Sanfte-Zooms.mp4` is the new export; `FrameCraft-Klicktest.mp4` is retained for comparison with version 0.2. Very short intervals ease in and out; the tail can continue for up to 600 ms after the last target change.
 
-Vier neue Tests prüfen ausbleibende Rücksprünge, kontinuierliche Bewegung bei schnellen Zielwechseln, gültige Bildausschnitte, kurze Pausen, manuelle Priorität, Zeitleistensprünge und sehr kurze Zooms. Mit den bisherigen 13 Tests sind es 17 bestandene Tests.
+Four new tests cover prevention of target rebound, continuous movement during rapid target changes, valid crops, short gaps, manual priority, timeline jumps, and very short zooms. Combined with the previous 13 tests, all 17 pass.
 
-## Klick-Zooms und Cursor verwenden
+## Using click zooms and the cursor
 
-Bei **neuen Aufnahmen** werden Zooms nach dem Stoppen automatisch gesetzt. Unter **Zoom & Schnitt → Zooms aus Klicks erzeugen** lassen sie sich erneut berechnen. Ein bearbeiteter Zoom wird manuell und bleibt erhalten.
+For **new recordings**, zooms are added automatically after stopping. Under **Zoom & Trim → Generate zooms from clicks** (`Zoom & Schnitt → Zooms aus Klicks erzeugen`), they can be recalculated. An edited zoom becomes manual and is preserved.
 
-Unter **Gestaltung → Cursor** kannst du den Cursor ein-/ausblenden, die Glättung und Größe verändern und Klickmarkierungen abschalten. 120 ms ist die Vorgabe. Die Glättung wird an Klickzeitpunkten zum aufgezeichneten Trefferpunkt zurückgeführt. Außerhalb der Aufnahmequelle und bei längeren Datenlücken wird der Cursor ausgeblendet. Die eigene App wird nicht als Klickziel aufgezeichnet.
+Under **Appearance → Cursor** (`Gestaltung → Cursor`), show/hide the cursor, change smoothing and size, or disable click indicators. The default smoothing is 120 ms. At click times, smoothing converges to the recorded hit point. Outside the recording source and across longer gaps, the cursor is hidden. The app itself is excluded as a click target.
 
-Alte Projekte und importierte Videos erhalten keine erfundenen Mausdaten: Ein bereits eingebrannter Cursor kann nicht nachträglich entfernt oder geglättet werden. Die neue **Demo ausprobieren**-Funktion enthält eine separate Mausspur zum direkten Testen. `FrameCraft-Cursor-Demo.mp4` und das zugehörige Projekt liegen im Ausgabeordner.
+Older projects and imported videos do not receive invented mouse data: a burned-in cursor cannot be removed or smoothed retroactively. **Try demo** contains a separate cursor track for immediate testing. `FrameCraft-Cursor-Demo.mp4` and its project are available in `examples/`.
 
-## Verifiziert am 23. Oktober 2026
+## Verified on October 23, 2026
 
-- Release-Build mit Apple Swift 6.4, App-Start und strenge Prüfung der lokalen Ad-hoc-Signatur erfolgreich.
-- Ursprüngliche sieben Tests bestanden: Zoomrampen, automatische Zoomauswahl, Projektdaten-Rundlauf, Quer-/Hochformatexport, Schutz von Original und vorhandenen Zieldateien sowie Exportabbruch.
-- Automatisierte Videoexporttests: Schnitt von Sekunde 1 bis 4 ergibt 3 Sekunden; Ausgabegrößen 1920 × 1080 und 1080 × 1920; Videobilder decodierbar.
-- Oberfläche: Demo laden, trimmen, Zoom wählen, Fokus verändern, Hintergrund/Format ändern, speichern, exportieren und Projekt wieder öffnen geprüft.
-- Hochformat-Demo: 4,8 Sekunden, 1080 × 1920, sichtbarer Verlauf und Zoom.
-- Reale Fensteraufnahme: 11,885 Sekunden, manuell gesetzter Zoom, Export 1920 × 1080. Beide Exportbilder zusätzlich decodiert und visuell geprüft; keine Tonspuren wie beabsichtigt.
-- Gespeichertes Demoprojekt erneut geöffnet: Titel, Hochformat, Schnitt 0,6–5,4 Sekunden und zwei Zooms erhalten; Wiedergabe startet.
+- Release build with Apple Swift 6.4, app launch, and strict local ad hoc signature verification succeeded.
+- The original seven tests passed: zoom ramps, automatic zoom selection, project-data round trip, landscape/portrait export, protection of originals/existing targets, and export cancellation.
+- Automated video export tests: trimming seconds 1–4 produces a 3-second output at 1920 × 1080 or 1080 × 1920; frames decode successfully.
+- UI checks covered loading the demo, trimming, choosing a zoom, changing focus/background/format, saving, exporting, and reopening.
+- Portrait demo: 4.8 seconds, 1080 × 1920, with a visible gradient and zoom.
+- Real window recording: 11.885 seconds, manual zoom, 1920 × 1080 export. Frames from both exports were decoded and visually inspected; no audio tracks, as intended.
+- Reopened demo project retained its title, portrait format, 0.6–5.4-second trim, and two zooms; playback started.
 
-Zusätzlich bestehen sechs neue Tests für messbare Glättung, exakte Klickpositionen, ausgeblendete Intervalle/Datenlücken, alte Projekte, Mausspur-Speicherung, Klickgruppierung sowie sichtbare Cursorpixel im Export (insgesamt 13 Tests). Systemton, Mikrofon und vollständige Displayaufnahme sind weiterhin nicht praktisch abgenommen. Im früheren Fenster-Test gab es keine Klickdaten; manuelle Zooms funktionierten. Der abschließende Live-Test mit echter Maus/Trackpad ist bestanden: 10,925 Sekunden Fensteraufnahme, 10 Klicks, 6 automatische Zooms mit 1,8× und 590 Mauspositionen (373 innerhalb des sichtbaren Testfensters). Die sechs Zoomintervalle lassen sich aus den gespeicherten Klicks identisch neu erzeugen. Die geglättete Spur trifft alle zehn gespeicherten Klickpositionen exakt. Export: 1920 × 1080, 30 fps, 10,925 Sekunden, keine Tonspur; Bilder vor dem Zoom und an mehreren Klickstellen decodiert, Cursor und Zoomwirkung visuell geprüft. Das Projekt wurde erneut geöffnet; alle zehn Klicks und sechs Zooms sind erhalten. Die vorherigen fernbedienten Tests ohne globale Mausbewegungen sind damit als Testmethoden-Grenze eingeordnet. Die neue Demo wurde mit Cursor und automatischen Zooms exportiert (6 s, 1920 × 1080); Glättung/Größe wurden über die Oberfläche geändert und nach erneutem Öffnen korrekt wiederhergestellt (145 ms, 1,4×). Webcam, wechselnde Cursorformen, Mehrclip-Schnitt und weitere oben genannte Funktionen sind nicht enthalten. Einige verwendete AVFoundation-Aufrufe erzeugen Deprecation-Warnungen; Build und Tests bestehen auf diesem Mac.
+Six additional tests cover measurable smoothing, exact click positions, hidden intervals/gaps, older projects, cursor-track persistence, click grouping, and visible cursor pixels in exports (13 tests in version 0.2). System audio, microphone input, and full-display recording remain unvalidated in practice. The earlier window test had no click data; manual zooms worked.
 
-## Referenzuntersuchung mit REA
+The final live test with a real mouse/trackpad passed: 10.925 seconds of window recording, 10 clicks, 6 automatic 1.8× zooms, and 590 cursor positions (373 visible within the test window). The six intervals reproduce identically from saved clicks. The smoothed track matches all ten saved click positions exactly. Export: 1920 × 1080, 30 fps, 10.925 seconds, no audio; frames before zooming and at multiple click locations were decoded, with cursor and zoom effects visually checked. Reopening retained all ten clicks and six zooms. Earlier remotely controlled tests produced no global mouse movement, which was a limitation of the test method.
 
-Screen Studio war in den geprüften Programmordnern, Downloads und per Spotlight nicht auffindbar. Stattdessen wurde das auf der offiziellen Downloadseite verlinkte Apple-Silicon-Paket `4.1.0-5005` heruntergeladen und ausschließlich lesend untersucht.
+The new demo was exported with a cursor and automatic zooms (6 seconds, 1920 × 1080). Smoothing/size changes made through the UI persisted after reopening (145 ms, 1.4×). Webcam, changing cursor shapes, multi-clip editing, and the other listed features remain absent. Some AVFoundation calls produce deprecation warnings; build and tests pass on this Mac.
 
-REA inventarisierte das DMG mit 4.260 Inhaltsknoten. Es erkannte neun Widersprüche zwischen internen ASAR-Prüfsummen und den beobachteten Dateien. Die anschließende Paketinventur nutzte ausdrücklich `record-and-continue`; diese Inhalte bleiben als nicht vertrauenswürdig markiert. Auch die lokale strenge macOS-Signaturprüfung meldete eine ungültige Signatur. Die Diskimage-Prüfsumme selbst war gültig; das bestätigt keine gültige App-Signatur. Die Referenz-App wurde nicht ausgeführt oder installiert, das Diskimage wieder ausgeworfen.
+## Reference inspection with REA
 
-Die Paketstruktur zeigt eine Electron-Hülle (`app.asar`, `dist-electron/index.js`) mit nativen Hilfsprogrammen. Daraus lassen sich keine ausgeführten Algorithmen oder exakte Zoomparameter ableiten. Die Funktionsvorgaben stammen zusätzlich aus den offiziellen Guides; FrameCraft verwendet dafür eigene Algorithmen und Apples APIs.
+Screen Studio was not found in the checked application folders, Downloads, or Spotlight results. Instead, the Apple Silicon package `4.1.0-5005` linked from the official download page was downloaded and inspected read-only.
 
-Siehe `docs/REA-Befunde.json`, `docs/Analyse.md` und `docs/Build-Status.txt` für Quellen, Belege und Grenzen.
+REA inventoried 4,260 DMG content nodes and found nine discrepancies between internal ASAR checksums and observed files. The subsequent package inventory explicitly used `record-and-continue`; mismatching content remains marked untrusted. Strict local macOS signature verification also reported an invalid signature. The disk-image checksum was valid, which does not establish a valid app signature. The reference app was neither run nor installed, and the disk image was ejected.
 
-## Entwicklung in Linear
+The package structure indicates an Electron shell (`app.asar`, `dist-electron/index.js`) with native helpers. This does not reveal executed algorithms or exact zoom parameters. Official guides also informed the functional requirements; FrameCraft implements its own algorithms using Apple APIs.
 
-[FrameCraft-Projekt](https://linear.app/mnnsbstn/project/framecraft-00c6db8009c8) · [Entwicklungsjournal und Roadmap](https://linear.app/mnnsbstn/document/framecraft-entwicklungsjournal-prufnachweise-und-roadmap-33f00559e3ba)
+See [REA findings](REA-Befunde.json), [analysis](Analyse.md), and [build status](Build-Status.txt) for sources, evidence, and limitations.
 
-Bisherige Arbeit, offene Abnahmen und Erweiterungsvorschläge sind dort als Tickets dokumentiert. Auch neu hinzukommende Features, Fehlerbehebungen und technische Änderungen werden während weiterer Arbeit nachgeführt. `AGENTS.md` hält diese Nutzeranforderung für spätere Sessions fest; `docs/Linear.md` enthält den initialen Abgleich. Keine automatische Hintergrund-Synchronisation.
+## Development tracking
+
+[FrameCraft project](https://linear.app/mnnsbstn/project/framecraft-00c6db8009c8) · [Development journal and roadmap](https://linear.app/mnnsbstn/document/framecraft-entwicklungsjournal-prufnachweise-und-roadmap-33f00559e3ba)
+
+Previous work, pending acceptance checks, and proposed extensions are tracked as issues. New features, fixes, and technical changes are documented as work continues. `AGENTS.md` preserves this requirement for future sessions; `docs/Linear.md` contains a translated snapshot. There is no automatic background synchronization. GitHub documentation is English; the app, Linear, local German documentation, and user communication remain German.

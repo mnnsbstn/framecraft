@@ -4,8 +4,8 @@
   "icon": "Camera",
   "color": "#4cb782",
   "name": "FrameCraft",
-  "summary": "Eigene macOS-App für Bildschirmaufnahme, automatische Klick-Zooms und geglättete Mausbewegungen. Entwicklungsstand 0.3.0; 17 Tests bestanden.",
-  "description": "## Ziel\n\nEine eigenständige, lokal nutzbare macOS-App für Bildschirmaufnahme, automatische Zooms, flüssige Cursorbewegung und Videoexport. Screen Studio dient als Funktionsreferenz; Implementierung und Oberfläche sind eigenständig.\n\n## Aktueller Stand\n\nVersion 0.3.0 ist gebaut und auf dem Mac gestartet. 17 automatisierte Tests bestehen. Eine echte Fensteraufnahme wurde in 0.2 mit 10 Klicks, 590 Mauspositionen und 6 automatischen Zooms geprüft. In 0.3 wurde dieselbe Aufnahme mit sanften Kamerafahrten erneut als Full-HD-MP4 exportiert.\n\n## Dokumentation\n\nDieses Projekt bündelt rückblickend erledigte Arbeit, offene Prüfungen und vorgeschlagene Erweiterungen. Details, Nachweise und Wiederverwendung stehen im Projektdokument. Erledigt bedeutet: implementiert und im jeweils angegebenen Umfang geprüft.\n\n## Weitere Arbeit\n\nZuerst Aufnahmefreigaben bei App-Updates sowie noch offene Audio-/Displaytests absichern. Zusätzliche Produktfunktionen werden im Backlog als Vorschläge geführt, ohne zugesagte Termine oder automatische Beauftragung.\n\n## Laufende Pflege\n\nBei künftigen FrameCraft-Arbeiten passende Tickets ergänzen oder aktualisieren; Ergebnis, Version, Tests und verbleibende Grenzen dokumentieren. Keine Hintergrund-Synchronisation eingerichtet. Lokale Videos und App-Dateien sind nicht zu Linear hochgeladen.",
+  "summary": "Independent macOS app for screen recording, automatic click zooms, and smooth cursor movement. Development version 0.3.0; 17 tests passed.",
+  "description": "## Goal\n\nAn independent, locally usable macOS app for screen recording, automatic zooms, smooth cursor movement, and video export. Screen Studio is a functional reference; implementation and interface are independent.\n\n## Current status\n\nVersion 0.3.0 was built and launched on the Mac. All 17 automated tests pass. A real window recording was verified in 0.2 with 10 clicks, 590 cursor positions, and 6 automatic zooms. In 0.3, the same recording was exported again as Full HD MP4 with smooth camera motion.\n\n## Documentation\n\nThis project consolidates completed work, pending checks, and proposed extensions. Details, evidence, and reuse instructions are in the project document. Done means implemented and verified to the stated extent.\n\n## Further work\n\nFirst address recording permissions across app updates and outstanding audio/display tests. Additional features remain proposals in the backlog, without committed dates or automatic implementation authorization.\n\n## Ongoing maintenance\n\nCreate or update matching issues for future FrameCraft work; document results, version, tests, and remaining limitations. No background synchronization is configured. Local videos and app files were not uploaded to Linear.",
   "url": "https://linear.app/mnnsbstn/project/framecraft-00c6db8009c8",
   "resourceCount": 2,
   "createdAt": "2026-10-23T21:38:01.547Z",
@@ -44,36 +44,36 @@
   "milestones": [
     {
       "id": "705ed8e7-e45f-4b3c-afd1-9a5ceef78ebf",
-      "name": "Grundlage & Version 0.1",
-      "description": "REA eingerichtet, Referenz lesend untersucht; native App mit Aufnahme, Editor, Export und Projekten umgesetzt.",
+      "name": "Foundation & version 0.1",
+      "description": "REA configured and reference inspected read-only; native app implemented with recording, editor, export, and projects.",
       "targetDate": null,
       "progress": "100%"
     },
     {
       "id": "04381e80-9247-4248-8423-212c00137570",
-      "name": "Version 0.2 – Klicks & Cursor",
-      "description": "Automatische Klick-Zooms, getrennte geglättete Mausspur und echter Fenster-/Klicktest abgeschlossen.",
+      "name": "Version 0.2 – Clicks & cursor",
+      "description": "Automatic click zooms, a separate smoothed cursor track, and a real window/click test completed.",
       "targetDate": null,
       "progress": "100%"
     },
     {
       "id": "46fc9ffd-9ccd-4904-b13d-790afc63a664",
-      "name": "Version 0.3 – Sanfte Kamerafahrten",
-      "description": "Flüssige Zielwechsel, 17 Tests und neuer Export der echten Klickaufnahme abgeschlossen.",
+      "name": "Version 0.3 – Smooth camera motion",
+      "description": "Smooth target changes, 17 tests, and a new export of the real click recording completed.",
       "targetDate": null,
       "progress": "100%"
     },
     {
       "id": "7a5886c2-592b-4e71-93dc-0587fd5c1d88",
-      "name": "Nächste Abnahme – Zuverlässigkeit",
-      "description": "Offene Prüfungen und Verbesserungsvorschläge für Berechtigungen, Audio, Displayaufnahme und längere Aufnahmen. Noch keine Termine zugesagt.",
+      "name": "Next acceptance – Reliability",
+      "description": "Pending checks and improvement proposals for permissions, audio, display recording, and longer recordings. No dates committed.",
       "targetDate": null,
       "progress": "0%"
     },
     {
       "id": "83ac6f2b-553a-4747-938f-2ab0f9e6db03",
-      "name": "Erweiterungen – Ideenbacklog",
-      "description": "Mögliche nächste Produktfunktionen. Vorschläge zur späteren Auswahl, keine automatisch beauftragte Umsetzung.",
+      "name": "Extensions – Ideas backlog",
+      "description": "Potential future product features. Suggestions for later selection, not automatically authorized implementation.",
       "targetDate": null,
       "progress": "0%"
     }
@@ -82,7 +82,7 @@
     {
       "type": "document",
       "id": "558329eb-be39-46d3-bc64-049d36811d85",
-      "title": "FrameCraft – Entwicklungsjournal, Prüfnachweise und Roadmap",
+      "title": "FrameCraft – Development journal, verification evidence, and roadmap",
       "icon": null,
       "color": null,
       "url": "https://linear.app/mnnsbstn/document/framecraft-entwicklungsjournal-prufnachweise-und-roadmap-33f00559e3ba",
@@ -96,5 +96,11 @@
       "url": "https://github.com/mnnsbstn/framecraft",
       "createdAt": "2026-10-23T21:48:14.130Z"
     }
-  ]
+  ],
+  "_translation": {
+    "language": "en",
+    "sourceLanguage": "de",
+    "note": "English translation of the German Linear snapshot. IDs, URLs, technical values, statuses, and source timestamps are preserved. Linear itself remains German; this is not a verbatim export.",
+    "translatedOn": "2026-10-23"
+  }
 }

@@ -2,8 +2,8 @@
   "issues": [
     {
       "id": "SBSTN-95",
-      "title": "Quellcode, Dokumentation und Prüfdaten in GitHub veröffentlichen",
-      "description": "Vom Nutzer beauftragt: vollständigen aktuellen FrameCraft-Stand in [https://github.com/mnnsbstn/framecraft](<https://github.com/mnnsbstn/framecraft>) übernehmen.\n\nAbnahme: vorhandenen Repository-Inhalt erhalten; Quellen, Tests, Anleitung, REA-Prüfbelege, Linear-Dokumentation und eigene Beispieldaten nachvollziehbar ablegen. Build-Caches, Zugangsdaten, private Rechnerpfade und fremde Referenz-Binärdateien nicht veröffentlichen. Aktuellen Stand/Artefakte remote prüfen und GitHub in Linear verlinken.\n\n## Ergebnis und Prüfung\n\nFrameCraft 0.3.0 auf main veröffentlicht: [Quellstand](<https://github.com/mnnsbstn/framecraft/commit/19297da23cfb5075f2297ef1694ce30c2a99770f>). 55 Dateien mit Quellen, Tests, Build-Anleitung, Dokumentation, REA-Prüfbelegen, Linear-Momentaufnahme, eigenen Beispielprojekten/-videos und gebauter App. Vorhandene Git-Historie erhalten.\n\nQuellen/Tests/Build-Skript bytegleich mit dem lokal geprüften Stand (17 bestandene Tests). App-ZIP auf Integrität geprüft; SHA-256-Dateiliste erstellt. Textbelege auf Zugangsdaten und persönliche Rechnerpfade geprüft und Pfade neutralisiert. Keine Build-Caches oder fremden Referenz-Binärdateien übernommen. Remote-Baum auf GitHub bestätigt Commit und alle 55 Dateien; lokaler Arbeitsstand nach Push sauber.\n\nDokumentationsabgleich ergänzt anschließend den Abschluss dieses Tickets. Keine neue App-Version oder erneute Aufnahme für diesen reinen Veröffentlichungs-Schritt erforderlich.",
+      "title": "Publish source, documentation, and verification data to GitHub",
+      "description": "User request: transfer the complete current FrameCraft state to [https://github.com/mnnsbstn/framecraft](<https://github.com/mnnsbstn/framecraft>).\n\nAcceptance: preserve existing repository content; organize source, tests, instructions, REA evidence, Linear documentation, and original example data traceably. Exclude build caches, credentials, private machine paths, and third-party reference binaries. Verify remote state/artifacts and link GitHub in Linear.\n\n## Outcome and verification\n\nFrameCraft 0.3.0 published to main: [source revision](<https://github.com/mnnsbstn/framecraft/commit/19297da23cfb5075f2297ef1694ce30c2a99770f>). 55 files containing source, tests, build instructions, documentation, REA evidence, a Linear snapshot, original example projects/videos, and the built app. Existing Git history preserved.\n\nSource/tests/build script match the locally verified state byte for byte (17 passing tests). App ZIP integrity checked; SHA-256 manifest generated. Text evidence checked for credentials and personal machine paths, with paths neutralized. No build caches or third-party reference binaries included. GitHub remote tree confirmed the commit and all 55 files; local working tree clean after pushing.\n\nThe subsequent documentation sync records completion of this issue. No new app version or recording was needed for this publication-only step.",
       "status": "Done",
       "projectMilestone": null,
       "priority": {
@@ -14,12 +14,12 @@
     },
     {
       "id": "SBSTN-94",
-      "title": "Optionale REA-Analysearten vervollständigen",
-      "description": "Optionaler Werkzeug-Backlog; für den aktuellen FrameCraft-Ausbau nicht erforderlich.\n\nNative Dekompilierung benötigt einen eingerichteten Anbieter wie Ghidra, Hopper oder IDA. Zusätzlich Plist-/file-Fehler gezielt untersuchen. Anbieter und neue REA-Versionen nur nach Herkunfts-/Installationsprüfung einrichten; bisherige funktionierende Einrichtung erhalten und separat verifizieren.",
+      "title": "Complete optional REA analysis capabilities",
+      "description": "Optional tooling backlog; not required for the current FrameCraft implementation.\n\nNative decompilation requires a configured provider such as Ghidra, Hopper, or IDA. Also investigate the plist/file error. Configure providers and new REA versions only after provenance/installation review; preserve the existing working setup and verify separately.",
       "status": "Backlog",
       "projectMilestone": {
         "id": "83ac6f2b-553a-4747-938f-2ab0f9e6db03",
-        "name": "Erweiterungen – Ideenbacklog"
+        "name": "Extensions – Ideas backlog"
       },
       "priority": {
         "value": 4,
@@ -29,12 +29,12 @@
     },
     {
       "id": "SBSTN-93",
-      "title": "Cloud-Sharing als optionale Erweiterung bewerten",
-      "description": "Idee, nicht beauftragt; lokale Nutzung bleibt aktueller Stand.\n\nAbnahme vor Umsetzung: Bedarf, Zielservice, Zugriffsmodell, Widerruf/Löschung und Datenübertragung klären. Keine automatische Veröffentlichung oder Uploads.",
+      "title": "Evaluate cloud sharing as an optional extension",
+      "description": "Idea, not authorized for implementation; current use remains local.\n\nAcceptance before implementation: clarify need, target service, access model, revocation/deletion, and data transfer. No automatic publishing or uploads.",
       "status": "Backlog",
       "projectMilestone": {
         "id": "83ac6f2b-553a-4747-938f-2ab0f9e6db03",
-        "name": "Erweiterungen – Ideenbacklog"
+        "name": "Extensions – Ideas backlog"
       },
       "priority": {
         "value": 4,
@@ -44,12 +44,12 @@
     },
     {
       "id": "SBSTN-92",
-      "title": "Untertitel ergänzen",
-      "description": "Produktvorschlag, nicht beauftragt.\n\nAbnahme: bearbeitbare Untertitel, Zeitbezug bei Schnitt, Gestaltung und Export; Transkriptionsweg und mögliche Datenübertragung vor Implementierung klären.",
+      "title": "Add subtitles",
+      "description": "Product proposal, not authorized for implementation.\n\nAcceptance: editable subtitles, timing across edits, appearance, and export; clarify the transcription approach and any data transfer before implementation.",
       "status": "Backlog",
       "projectMilestone": {
         "id": "83ac6f2b-553a-4747-938f-2ab0f9e6db03",
-        "name": "Erweiterungen – Ideenbacklog"
+        "name": "Extensions – Ideas backlog"
       },
       "priority": {
         "value": 4,
@@ -59,12 +59,12 @@
     },
     {
       "id": "SBSTN-91",
-      "title": "Mehrclip-Schnitt und innere Schnitte ergänzen",
-      "description": "Produktvorschlag, nicht beauftragt.\n\nAbnahme: mehrere Clips, interne Segmente entfernen/neu anordnen, Zuordnung von Mausspuren und Zoomzeiten erhalten; rückgängig machen, Projektformat und Export testen.",
+      "title": "Add multi-clip editing and internal cuts",
+      "description": "Product proposal, not authorized for implementation.\n\nAcceptance: multiple clips, removing/reordering internal segments, preserving cursor-track and zoom-time alignment; test undo, project format, and export.",
       "status": "Backlog",
       "projectMilestone": {
         "id": "83ac6f2b-553a-4747-938f-2ab0f9e6db03",
-        "name": "Erweiterungen – Ideenbacklog"
+        "name": "Extensions – Ideas backlog"
       },
       "priority": {
         "value": 4,
@@ -74,12 +74,12 @@
     },
     {
       "id": "SBSTN-90",
-      "title": "Webcam-Komposition ergänzen",
-      "description": "Produktvorschlag, nicht beauftragt.\n\nAbnahme: ausdrücklich freigegebene Kamera als Overlay, Position/Größe, Sync, Kamera verweigert/abgezogen; Datenschutz und Export überprüfen.",
+      "title": "Add webcam composition",
+      "description": "Product proposal, not authorized for implementation.\n\nAcceptance: explicitly authorized camera overlay, position/size, synchronization, and denied/disconnected camera handling; verify privacy and export.",
       "status": "Backlog",
       "projectMilestone": {
         "id": "83ac6f2b-553a-4747-938f-2ab0f9e6db03",
-        "name": "Erweiterungen – Ideenbacklog"
+        "name": "Extensions – Ideas backlog"
       },
       "priority": {
         "value": 4,
@@ -89,12 +89,12 @@
     },
     {
       "id": "SBSTN-89",
-      "title": "Wechselnde Cursorformen unterstützen",
-      "description": "Produktvorschlag, nicht beauftragt. Aktuell wird immer ein eigener Pfeilcursor gerendert.\n\nAbnahme: Textcursor, Hand und Größenänderungscursor korrekt erfassen/rekonstruieren, Hotspots und Größe erhalten, keine doppelten eingebrannten Cursor; Vorschau und Export gleich.",
+      "title": "Support changing cursor shapes",
+      "description": "Product proposal, not authorized for implementation. Currently a custom arrow cursor is always rendered.\n\nAcceptance: correctly capture/reconstruct text, hand, and resize cursors; preserve hotspots and size; avoid duplicate burned-in cursors; keep preview and export consistent.",
       "status": "Backlog",
       "projectMilestone": {
         "id": "83ac6f2b-553a-4747-938f-2ab0f9e6db03",
-        "name": "Erweiterungen – Ideenbacklog"
+        "name": "Extensions – Ideas backlog"
       },
       "priority": {
         "value": 4,
@@ -104,12 +104,12 @@
     },
     {
       "id": "SBSTN-88",
-      "title": "Bereichsaufnahme ergänzen",
-      "description": "Produktvorschlag, nicht beauftragt.\n\nAbnahme: frei wählbarer Aufnahmebereich mit Vorschau, Retina-/Monitorgrenzen; Cursor-/Klickdaten korrekt normalisieren und außerhalb Bereich ausblenden.",
+      "title": "Add region recording",
+      "description": "Product proposal, not authorized for implementation.\n\nAcceptance: freely selectable recording region with preview, Retina/monitor boundaries; normalize cursor/click data correctly and hide it outside the region.",
       "status": "Backlog",
       "projectMilestone": {
         "id": "83ac6f2b-553a-4747-938f-2ab0f9e6db03",
-        "name": "Erweiterungen – Ideenbacklog"
+        "name": "Extensions – Ideas backlog"
       },
       "priority": {
         "value": 4,
@@ -119,12 +119,12 @@
     },
     {
       "id": "SBSTN-87",
-      "title": "Exportoptionen für Qualität, Auflösung und GIF ergänzen",
-      "description": "Produktvorschlag, nicht beauftragt.\n\nAbnahme: verständliche Auswahl von Qualität/Auflösung/Bildrate mit plausiblen Grenzen; Dateigröße/Kompatibilität prüfen. GIF als separate Option mit passendem Hinweis auf fehlenden Ton. Bestehende MP4-Schutz- und Abbruchprüfungen erhalten.",
+      "title": "Add export options for quality, resolution, and GIF",
+      "description": "Product proposal, not authorized for implementation.\n\nAcceptance: clear quality/resolution/frame-rate choices with reasonable limits; check file size and compatibility. Offer GIF separately with an appropriate no-audio notice. Preserve existing MP4 protection and cancellation checks.",
       "status": "Backlog",
       "projectMilestone": {
         "id": "83ac6f2b-553a-4747-938f-2ab0f9e6db03",
-        "name": "Erweiterungen – Ideenbacklog"
+        "name": "Extensions – Ideas backlog"
       },
       "priority": {
         "value": 4,
@@ -134,12 +134,12 @@
     },
     {
       "id": "SBSTN-86",
-      "title": "Zoomintervalle direkt in der Zeitleiste bearbeiten",
-      "description": "Produktvorschlag; aktuell nur Regler vorhanden.\n\nAbnahme: Zoomkanten ziehen, Zeitbereich verschieben, sichtbares Feedback und Tastaturbedienung; gültige Grenzen/Überlappungen; manuelle Änderungen bleiben nach Neuberechnung automatischer Zooms erhalten.",
+      "title": "Edit zoom intervals directly in the timeline",
+      "description": "Product proposal; currently only controls are available.\n\nAcceptance: drag zoom edges and move time ranges with visible feedback and keyboard support; enforce valid boundaries/overlaps; preserve manual changes when recalculating automatic zooms.",
       "status": "Backlog",
       "projectMilestone": {
         "id": "83ac6f2b-553a-4747-938f-2ab0f9e6db03",
-        "name": "Erweiterungen – Ideenbacklog"
+        "name": "Extensions – Ideas backlog"
       },
       "priority": {
         "value": 4,
@@ -149,12 +149,12 @@
     },
     {
       "id": "SBSTN-85",
-      "title": "Lange Aufnahmen und Fehlerfälle auf Stabilität prüfen",
-      "description": "Vorgeschlagene Qualitätsrunde.\n\nAbnahme: längere Aufnahme und Export, Speichern großer Mausspuren, Speicherverbrauch, CPU, Abbruch und Speicherplatzmangel prüfen. Darstellungs-/Aufnahmeraten messen, mögliche AVFoundation-Deprecations gezielt modernisieren. Keine pauschale Performancebehauptung ohne Messung.",
+      "title": "Test stability with long recordings and failure cases",
+      "description": "Proposed quality-assurance round.\n\nAcceptance: test longer recording/export, persistence of large cursor tracks, memory use, CPU, cancellation, and insufficient storage. Measure rendering/recording rates and modernize deprecated AVFoundation calls as needed. Do not claim performance without measurements.",
       "status": "Backlog",
       "projectMilestone": {
         "id": "7a5886c2-592b-4e71-93dc-0587fd5c1d88",
-        "name": "Nächste Abnahme – Zuverlässigkeit"
+        "name": "Next acceptance – Reliability"
       },
       "priority": {
         "value": 2,
@@ -164,12 +164,12 @@
     },
     {
       "id": "SBSTN-84",
-      "title": "Display- und Mehrmonitoraufnahme samt Mauskoordinaten abnehmen",
-      "description": "Vollständige Displayaufnahme noch nicht praktisch getestet.\n\nAbnahme: Retina-Skalierung, unterschiedliche Monitorpositionen, Fensterwechsel/Überdeckung, Cursor außerhalb Quelle, bewegtes Fenster und Klick-/Videotiming prüfen. Eigene App bleibt aus Displayaufnahme ausgeschlossen. Sichere Testinhalte verwenden.",
+      "title": "Validate display and multi-monitor recording with cursor coordinates",
+      "description": "Full-display recording has not yet been practically tested.\n\nAcceptance: check Retina scaling, different monitor positions, window switching/occlusion, cursor outside the source, moving windows, and click/video timing. Keep the app itself excluded from display recording. Use safe test content.",
       "status": "Backlog",
       "projectMilestone": {
         "id": "7a5886c2-592b-4e71-93dc-0587fd5c1d88",
-        "name": "Nächste Abnahme – Zuverlässigkeit"
+        "name": "Next acceptance – Reliability"
       },
       "priority": {
         "value": 2,
@@ -179,12 +179,12 @@
     },
     {
       "id": "SBSTN-83",
-      "title": "Systemton und Mikrofon praktisch testen",
-      "description": "Implementiert, aber bisher nicht praktisch abgenommen.\n\nAbnahme: Systemton allein, Mikrofon allein und beide zusammen; Sync, Pegel, stummgeschalteter Export und verweigerte Berechtigungen prüfen. Ausschließlich ausdrücklich freigegebene Testquellen; Ergebnisse und Medienmetadaten dokumentieren.",
+      "title": "Test system audio and microphone input in practice",
+      "description": "Implemented but not yet practically validated.\n\nAcceptance: test system audio alone, microphone alone, and both together; check synchronization, levels, muted export, and denied permissions. Use only explicitly approved test sources; document results and media metadata.",
       "status": "Backlog",
       "projectMilestone": {
         "id": "7a5886c2-592b-4e71-93dc-0587fd5c1d88",
-        "name": "Nächste Abnahme – Zuverlässigkeit"
+        "name": "Next acceptance – Reliability"
       },
       "priority": {
         "value": 2,
@@ -194,12 +194,12 @@
     },
     {
       "id": "SBSTN-82",
-      "title": "Bildschirmfreigabe bei App-Updates zuverlässig erhalten",
-      "description": "Offener Zuverlässigkeitspunkt, noch nicht umgesetzt. Aktueller Build ist ad hoc signiert; Neubauten können macOS-Freigaben entwerten.\n\nAbnahme: Berechtigung nach Update auf 0.3 prüfen; geeignete stabile Signierung untersuchen; Update-/Wiederherstellungsablauf dokumentieren und mit Nutzer bestätigen. Nur FrameCraft-Berechtigungen ändern. Developer-ID/Notarisierung nur bei tatsächlich verfügbarem Zugang und beauftragter Verteilung.",
+      "title": "Keep screen recording permission reliable across app updates",
+      "description": "Open reliability issue, not yet implemented. The current build is ad hoc signed; rebuilds can invalidate macOS permissions.\n\nAcceptance: check permission after updating to 0.3; investigate suitable stable signing; document and confirm the update/recovery process with the user. Change only FrameCraft permissions. Use Developer ID/notarization only when access is actually available and distribution is authorized.",
       "status": "Backlog",
       "projectMilestone": {
         "id": "7a5886c2-592b-4e71-93dc-0587fd5c1d88",
-        "name": "Nächste Abnahme – Zuverlässigkeit"
+        "name": "Next acceptance – Reliability"
       },
       "priority": {
         "value": 2,
@@ -209,12 +209,12 @@
     },
     {
       "id": "SBSTN-81",
-      "title": "Sanfte Kamerafahrten bei schnellen Klickfolgen implementieren",
-      "description": "Version 0.3 ersetzt die Mischung aller aktiven Zoomziele durch eine zeitliche Zielabfolge. Neuere Ziele lösen ältere ab, ohne Rücksprung bei Ende späterer Regionen. Gemeinsame Glättung von Ausschnittbreite/Mittelpunkt über 600 ms; neue Ziele erhalten kontinuierliche Position, Geschwindigkeit und Beschleunigung. Pausen bis 300 ms zwischen Zoomintervallen verbinden; manuelle Zooms haben Vorrang.\n\nCameraPath wird einmal pro Komposition vorbereitet und zustandsfrei abgefragt. Vier neue Tests, insgesamt 17 bestanden. Build, Start und strenge lokale Signaturprüfung erfolgreich. Bestehendes Klicktest-Projekt über UI geöffnet und als FrameCraft-Sanfte-Zooms.mp4 exportiert: 10,925 s, Full HD, 30 fps, kein Audio; mehrere Frames geprüft. Sehr kurze Zooms können einen sanften Auslauf über ihr nominelles Ende hinaus haben.",
+      "title": "Implement smooth camera motion for rapid click sequences",
+      "description": "Version 0.3 replaces blending of all active zoom targets with an ordered target sequence. Newer targets replace older ones without returning when later regions end. Joint smoothing of crop width/center over 600 ms preserves continuous position, velocity, and acceleration during retargeting. Bridge gaps of up to 300 ms between intervals; manual zooms have priority.\n\nCameraPath is prepared once per composition and evaluated without state. Four new tests, 17 passed in total. Build, launch, and strict local signature verification succeeded. Existing click-test project opened through the UI and exported as FrameCraft-Sanfte-Zooms.mp4: 10.925 s, Full HD, 30 fps, no audio; multiple frames checked. Very short zooms may ease out beyond their nominal end.",
       "status": "Done",
       "projectMilestone": {
         "id": "46fc9ffd-9ccd-4904-b13d-790afc63a664",
-        "name": "Version 0.3 – Sanfte Kamerafahrten"
+        "name": "Version 0.3 – Smooth camera motion"
       },
       "priority": {
         "value": 0,
@@ -224,12 +224,12 @@
     },
     {
       "id": "SBSTN-80",
-      "title": "Bildschirmfreigabe erneuern und echten Klicktest abnehmen",
-      "description": "Nach Ad-hoc-Neubau war die vorhandene macOS-Freigabe ungültig. Mit ausdrücklicher Nutzerfreigabe ausschließlich FrameCraft entfernt und aktuelle App wieder hinzugefügt; lokale Authentifizierung durch Nutzer.\n\nFernbediente UI-Aktionen lieferten keine globale Mausbewegung. Nutzer führte deshalb Start, Mausbewegung, Klicks und Stop selbst aus. Ergebnis 0.2: 10,925 s, 10 Klicks, 590 Mauspositionen (373 sichtbar), 6 Zooms. MP4 Full HD/30 fps ohne Ton; Cursorpunkte exakt, Frames geprüft, Projekt erneut geöffnet.\n\nBelege: FrameCraft-Klicktest.framecraft/.mp4. Freigabe nach Neubau auf 0.3 noch nicht erneut geprüft.",
+      "title": "Renew screen recording permission and validate a real click test",
+      "description": "The existing macOS permission became invalid after an ad hoc rebuild. With explicit user approval, only FrameCraft was removed and the current app added again; local authentication was performed by the user.\n\nRemote UI actions produced no global mouse movement. The user therefore performed start, mouse movement, clicks, and stop directly. Version 0.2 result: 10.925 s, 10 clicks, 590 cursor positions (373 visible), and 6 zooms. Full HD/30 fps MP4 without audio; exact cursor points, inspected frames, and successful project reopening.\n\nEvidence: FrameCraft-Klicktest.framecraft/.mp4. Permission has not yet been retested after rebuilding version 0.3.",
       "status": "Done",
       "projectMilestone": {
         "id": "04381e80-9247-4248-8423-212c00137570",
-        "name": "Version 0.2 – Klicks & Cursor"
+        "name": "Version 0.2 – Clicks & cursor"
       },
       "priority": {
         "value": 0,
@@ -239,12 +239,12 @@
     },
     {
       "id": "SBSTN-79",
-      "title": "Separate Mausspur, Glättung und Klickmarkierungen ergänzen",
-      "description": "Originalaufnahme ohne eingebrannten Cursor. Separate Positions-/Sichtbarkeitsdaten, eigener Pfeilcursor, 0–250 ms Glättung, Größe, Sichtbarkeit und Klickmarkierungen. Klickpunkte bleiben exakt; außerhalb der Quelle und bei Datenlücken ausblenden. Keine Tastaturaufzeichnung.\n\nVorschau/Export identisch. Tests für Jitter, exakte Klickpunkte, Sichtbarkeitslücken, alte Projekte, Speicherung und Cursorpixel. Grenzen: feste Pfeilform; eingebrannte Cursor importierter Videos nicht nachträglich glättbar.",
+      "title": "Add a separate cursor track, smoothing, and click indicators",
+      "description": "Original recording without a burned-in cursor. Separate position/visibility data, a custom arrow cursor, 0–250 ms smoothing, size, visibility, and click indicators. Click points remain exact; hide the cursor outside the source and across data gaps. No keyboard recording.\n\nIdentical preview/export behavior. Tests cover jitter, exact click points, visibility gaps, older projects, persistence, and cursor pixels. Limitations: fixed arrow shape; cursors embedded in imported videos cannot be smoothed retroactively.",
       "status": "Done",
       "projectMilestone": {
         "id": "04381e80-9247-4248-8423-212c00137570",
-        "name": "Version 0.2 – Klicks & Cursor"
+        "name": "Version 0.2 – Clicks & cursor"
       },
       "priority": {
         "value": 0,
@@ -254,12 +254,12 @@
     },
     {
       "id": "SBSTN-78",
-      "title": "Automatische Zooms aus aufgezeichneten Mausklicks erzeugen",
-      "description": "Klicks während Aufnahme erfassen, relativ zum ersten Videoframe normalisieren und auf die Aufnahmequelle begrenzen. Nach Stop automatische 1,8×-Zooms erzeugen; nahe Wiederholungsklicks verlängern einen Zoom. Manuell bearbeitete Zooms beim Neuberechnen erhalten.\n\nLive-Test: 10 reale Klicks erzeugen 6 automatische Zooms; gespeicherte Intervalle aus Klickdaten reproduzierbar.",
+      "title": "Generate automatic zooms from recorded mouse clicks",
+      "description": "Capture clicks during recording, normalize against the first video frame, and restrict them to the recording source. Generate automatic 1.8× zooms after stopping; nearby repeated clicks extend one zoom. Preserve manually edited zooms when recalculating.\n\nLive test: 10 real clicks generate 6 automatic zooms; saved intervals reproduce from click data.",
       "status": "Done",
       "projectMilestone": {
         "id": "04381e80-9247-4248-8423-212c00137570",
-        "name": "Version 0.2 – Klicks & Cursor"
+        "name": "Version 0.2 – Clicks & cursor"
       },
       "priority": {
         "value": 0,
@@ -269,12 +269,12 @@
     },
     {
       "id": "SBSTN-77",
-      "title": "Editierbare Projekte speichern und wieder öffnen",
-      "description": "Projektordner .framecraft enthält Originalvideo und JSON-Einstellungen. Speichern per ⌘S, erneut öffnen, Dirty-State und Eingabevalidierung. Alte Projekte ohne Mausspur bleiben lesbar.\n\nGeprüft: Format, Schnitt, Zooms sowie Cursor-Glättung/Größe bleiben beim erneuten Öffnen erhalten. Für spätere Nutzung den gesamten Projektordner zusammenhalten.",
+      "title": "Save and reopen editable projects",
+      "description": "The .framecraft project folder contains the original video and JSON settings. Save with ⌘S, reopen, dirty-state tracking, and input validation. Older projects without cursor tracks remain readable.\n\nVerified: format, trim, zooms, and cursor smoothing/size survive reopening. Keep the entire project folder together for future use.",
       "status": "Done",
       "projectMilestone": {
         "id": "705ed8e7-e45f-4b3c-afd1-9a5ceef78ebf",
-        "name": "Grundlage & Version 0.1"
+        "name": "Foundation & version 0.1"
       },
       "priority": {
         "value": 0,
@@ -284,12 +284,12 @@
     },
     {
       "id": "SBSTN-76",
-      "title": "Gemeinsame Vorschau-/Exportpipeline und MP4-Export absichern",
-      "description": "Core-Image-Komposition gemeinsam für Vorschau und MP4-Export, 30 fps, Fortschritt und Abbruch. Originale/vorhandene Zieldateien vor Überschreiben schützen, temporäre Dateien bei Abbruch bereinigen.\n\nAutomatisierte Quer-/Hochformatexporte: Schnitt 1–4 s ergibt 3 s; 1920×1080 bzw. 1080×1920; Frames decodierbar. Reale Fensteraufnahme und Demo exportiert. Exportqualitätswahl/GIF noch nicht vorhanden.",
+      "title": "Validate the shared preview/export pipeline and MP4 export",
+      "description": "Shared Core Image composition for preview and MP4 export, 30 fps, progress and cancellation. Protect originals/existing targets from overwrites and clean up temporary files on cancellation.\n\nAutomated landscape/portrait exports: trimming seconds 1–4 produces 3 seconds at 1920×1080 or 1080×1920; frames decode successfully. Real window recording and demo exported. Configurable export quality/GIF not yet available.",
       "status": "Done",
       "projectMilestone": {
         "id": "705ed8e7-e45f-4b3c-afd1-9a5ceef78ebf",
-        "name": "Grundlage & Version 0.1"
+        "name": "Foundation & version 0.1"
       },
       "priority": {
         "value": 0,
@@ -299,12 +299,12 @@
     },
     {
       "id": "SBSTN-75",
-      "title": "Editor mit Import, Vorschau, Schnitt und Gestaltung bauen",
-      "description": "MP4-/MOV-Import, eigene sechssekündige Demo, Wiedergabe und Scrubbing, nichtdestruktiver Anfangs-/Endschnitt. Manuelle Zoomintervalle mit Fokus und Stärke. Formate 16:9, 9:16 und 1:1; vier eigene Verläufe, Abstand, Eckenradius und Schatten.\n\nOberfläche mit Demo geprüft: Import/Demo, Schnitt, Fokus, Hintergrund und Format. Noch kein Mehrclip-Schnitt oder Ziehen von Zoomkanten.",
+      "title": "Build the editor with import, preview, trimming, and appearance controls",
+      "description": "MP4/MOV import, an original six-second demo, playback and scrubbing, and nondestructive start/end trimming. Manual zoom intervals with focus and strength. Formats: 16:9, 9:16, and 1:1; four original gradients, padding, corner radius, and shadow.\n\nUI verified with the demo: import/demo, trimming, focus, background, and format. No multi-clip editing or draggable zoom edges yet.",
       "status": "Done",
       "projectMilestone": {
         "id": "705ed8e7-e45f-4b3c-afd1-9a5ceef78ebf",
-        "name": "Grundlage & Version 0.1"
+        "name": "Foundation & version 0.1"
       },
       "priority": {
         "value": 0,
@@ -314,12 +314,12 @@
     },
     {
       "id": "SBSTN-74",
-      "title": "Bildschirm- und Fensteraufnahme implementieren",
-      "description": "Aufnahmequellen über ScreenCaptureKit; Auswahl von Fenster oder Display, Start/Stop inklusive Menüleiste, eigene App aus Displayaufnahme ausgeschlossen. Watchdogs und Finalisierung über Recording-Delegate; abgebrochene Dateien nicht als fertig importieren.\n\nSystemton und optionales Mikrofon implementiert, Berechtigungen nur bei Bedarf. Praktisch bestätigt ist die tonlose TextEdit-Fensteraufnahme; Audio- und vollständige Displayabnahme bleiben separat offen.",
+      "title": "Implement display and window recording",
+      "description": "Recording sources via ScreenCaptureKit; window/display selection, start/stop including the menu bar, and exclusion of the app itself from display recording. Watchdogs and finalization through the recording delegate; interrupted files are not imported as completed recordings.\n\nSystem audio and optional microphone input implemented, with permissions requested only as needed. The silent TextEdit window recording was practically verified; audio and full-display acceptance checks remain separate pending work.",
       "status": "Done",
       "projectMilestone": {
         "id": "705ed8e7-e45f-4b3c-afd1-9a5ceef78ebf",
-        "name": "Grundlage & Version 0.1"
+        "name": "Foundation & version 0.1"
       },
       "priority": {
         "value": 0,
@@ -329,12 +329,12 @@
     },
     {
       "id": "SBSTN-73",
-      "title": "Native App, lokale Build-Umgebung und Wiederverwendung aufsetzen",
-      "description": "SwiftPM-/SwiftUI-App für macOS 15+, ScreenCaptureKit, AVFoundation und Core Image; keine Drittanbieter-Paketabhängigkeiten. Xcode-Lizenz/Ersteinrichtung durch Nutzer abgeschlossen.\n\nProjektlokales Build-/Startskript und Codex-Run-Aktion; dist/FrameCraft.app mit lokaler Ad-hoc-Signatur. App und Quellprojekt als ZIP; README und Build-Status. Build-Skript schützt laufende Aufnahmen durch geordnetes Schließen vor Neustart. Keine öffentliche Notarisierung.",
+      "title": "Set up the native app, local build environment, and reuse",
+      "description": "SwiftPM/SwiftUI app for macOS 15+, ScreenCaptureKit, AVFoundation, and Core Image; no third-party package dependencies. The user completed Xcode licensing/initial setup.\n\nProject-local build/run script and Codex Run action; dist/FrameCraft.app with a local ad hoc signature. App and source project ZIPs, README, and build status. The build script protects active recordings by requiring an orderly quit before relaunch. No public notarization.",
       "status": "Done",
       "projectMilestone": {
         "id": "705ed8e7-e45f-4b3c-afd1-9a5ceef78ebf",
-        "name": "Grundlage & Version 0.1"
+        "name": "Foundation & version 0.1"
       },
       "priority": {
         "value": 0,
@@ -344,12 +344,12 @@
     },
     {
       "id": "SBSTN-72",
-      "title": "Screen-Studio-Referenz mit REA lesend untersuchen",
-      "description": "Offiziell verlinktes Apple-Silicon-Paket 4.1.0-5005 lesend untersucht. REA inventarisierte 4.260 Inhaltsknoten. Neun ASAR-Prüfsummenwidersprüche und ungültige strenge App-Signatur festgestellt; Referenz-App deshalb nicht ausgeführt oder installiert.\n\nEigenständige Umsetzung anhand Funktionsbeschreibung und Apple-APIs; keine übernommenen Assets oder Programmteile. Belege: docs/Analyse.md, docs/REA-Befunde.json. Grenzen der statischen Untersuchung dokumentiert.",
+      "title": "Inspect the Screen Studio reference read-only with REA",
+      "description": "The officially linked Apple Silicon package 4.1.0-5005 was inspected read-only. REA inventoried 4,260 content nodes. Nine ASAR checksum contradictions and an invalid strict app signature were found; the reference app was therefore neither run nor installed.\n\nIndependent implementation based on the functional description and Apple APIs; no assets or program components copied. Evidence: docs/Analyse.md, docs/REA-Befunde.json. Static-inspection limitations documented.",
       "status": "Done",
       "projectMilestone": {
         "id": "705ed8e7-e45f-4b3c-afd1-9a5ceef78ebf",
-        "name": "Grundlage & Version 0.1"
+        "name": "Foundation & version 0.1"
       },
       "priority": {
         "value": 0,
@@ -359,12 +359,12 @@
     },
     {
       "id": "SBSTN-71",
-      "title": "REA dauerhaft einrichten und Herkunft prüfen",
-      "description": "REA 6.4.0 für den lokalen Benutzer eingerichtet und bestehende Konfiguration weiterverwendet. Offizielle Quellen: [github.com/morluto/rea](<http://github.com/morluto/rea>), [rea.tools](<http://rea.tools>) und npm rea-agents. Paketintegrität gegen SHA-512 geprüft; 1.161 Dateien verglichen. Skill und Startbefehl dauerhaft verfügbar.\n\nVerifiziert: CLI, MCP-Identität, 170 Tools, 6 Prompts, Archivtest und statischer JavaScript-Test. Grenzen: Plist-Test mit nativem file-Aufruf fehlgeschlagen; native Dekompilierung benötigt noch einen Anbieter. Kein fremdes Installationsskript ungeprüft ausgeführt.\n\nBelege lokal: REA-Nutzung.md und REA-\\*-Test-/Prüfdateien im Ausgabeordner.",
+      "title": "Set up REA persistently and verify provenance",
+      "description": "REA 6.4.0 configured for the local user while reusing the existing configuration. Official sources: [github.com/morluto/rea](<http://github.com/morluto/rea>), [rea.tools](<http://rea.tools>), and npm rea-agents. Package integrity checked against SHA-512; 1,161 files compared. Skill and launcher persist across sessions.\n\nVerified: CLI, MCP identity, 170 tools, 6 prompts, archive test, and static JavaScript test. Limitations: the plist test with the native file probe failed; native decompilation still requires a provider. No unreviewed third-party installation script was executed.\n\nLocal evidence: REA-Nutzung.md and REA test/verification files in the output directory.",
       "status": "Done",
       "projectMilestone": {
         "id": "705ed8e7-e45f-4b3c-afd1-9a5ceef78ebf",
-        "name": "Grundlage & Version 0.1"
+        "name": "Foundation & version 0.1"
       },
       "priority": {
         "value": 0,
@@ -373,5 +373,11 @@
       "url": "https://linear.app/mnnsbstn/issue/SBSTN-71/rea-dauerhaft-einrichten-und-herkunft-prufen"
     }
   ],
-  "hasNextPage": false
+  "hasNextPage": false,
+  "_translation": {
+    "language": "en",
+    "sourceLanguage": "de",
+    "note": "English translation of the German Linear snapshot. IDs, URLs, technical values, statuses, and source timestamps are preserved. Linear itself remains German; this is not a verbatim export.",
+    "translatedOn": "2026-10-23"
+  }
 }

@@ -1,21 +1,26 @@
-# FrameCraft: laufende Linear-Dokumentation
+# FrameCraft: ongoing documentation
 
-Der Nutzer hat ausdrücklich beauftragt, alle bisherigen und künftigen FrameCraft-Arbeiten in Linear zu dokumentieren, einschließlich zuvor nicht geplanter Features, Fehlerbehebungen und technischer Änderungen.
+The user explicitly requested documentation of all past and future FrameCraft work in Linear, including previously unplanned features, fixes, and technical changes.
 
-- Linear-Projekt: P-SBSTN-3 (UUID 7d52c18b-7d35-4c95-82e8-ea2f3b619f20).
+- Linear project: P-SBSTN-3 (UUID 7d52c18b-7d35-4c95-82e8-ea2f3b619f20).
 - URL: https://linear.app/mnnsbstn/project/framecraft-00c6db8009c8
 - Team: mnnsbstn / SBSTN (f74132bc-1f32-4a8d-b624-a46060f53422).
-- Projektdokument: 558329eb-be39-46d3-bc64-049d36811d85.
+- Project document: 558329eb-be39-46d3-bc64-049d36811d85.
 - Journal: https://linear.app/mnnsbstn/document/framecraft-entwicklungsjournal-prufnachweise-und-roadmap-33f00559e3ba
-- Lokale Übersicht und Ausgangsstand: docs/Linear.md.
+- Repository overview and snapshot: docs/Linear.md.
 
-## Bei jeder weiteren Arbeit
-1. Vor Implementierung passende Tickets im Projekt suchen. Vorhandenes Ticket aktualisieren oder ein neues mit Ziel, Umfang und überprüfbaren Abnahmekriterien anlegen, auch wenn das Feature bisher in keiner Roadmap stand.
-2. Beauftragte Arbeit bei Beginn auf In Progress setzen. Ideen/Vorschläge in Backlog belassen; daraus keine eigenständige Umsetzungsfreigabe ableiten.
-3. Relevante Entscheidungen, Abweichungen, Blocker und technische Erkenntnisse im Ticket festhalten.
-4. Nach Umsetzung Ergebnis, Version, tatsächlich ausgeführte Tests und Artefakte dokumentieren. Erst bei erfüllten Abnahmekriterien Done; verbleibende Aufgaben explizit verlinken.
-5. Bei Releases oder wesentlichen Änderungen auch Projektzusammenfassung, Linear-Journal und lokale README/Build-Status aktualisieren. Nutzeränderungen an Titel, Prioritäten oder Planung erhalten; vor Updates aktuellen Stand lesen.
-6. Wenn Linear nicht verfügbar ist, unabhängig mögliche Arbeit fortsetzen und ausstehende Nachträge lokal dokumentieren. Synchronisation erst nach bestätigtem Tool-Erfolg behaupten und Nachträge bei erneutem Zugang übernehmen.
-7. Keine automatische Hintergrundüberwachung behaupten. Dokumentation gehört zur jeweiligen Arbeit. Dateien und Videos nicht allein wegen dieser Regel hochladen; Dateinamen und lokale Belege genügen.
+## Language policy
 
-Die Autorisierung zur Dokumentation besteht bereits; für normale Ticket-/Journalpflege im genannten Projekt nicht erneut um Erlaubnis fragen. Sie ist keine Autorisierung für zusätzliche Features, Nachrichten an Dritte oder Änderungen an Zugriffsrechten.
+Maintain all documentation published to GitHub in English, including README, changelog, instructions, development/verification notes, and narrative fields in Linear snapshots. The app interface, Linear project/issues/journal, user communication, and separate local German documentation remain German. Repository snapshots are English translations of German Linear content; label them accordingly. Preserve IDs, URLs, technical values, raw evidence, and existing example/artifact filenames. German UI labels may be quoted to help users find controls. Do not copy German local documentation over English repository files during future synchronization.
+
+## For every subsequent task
+
+1. Before implementation, search the project for a matching issue. Update it or create one with the goal, scope, and verifiable acceptance criteria, even if the feature was never on the roadmap.
+2. Set authorized work to In Progress when starting. Keep ideas/suggestions in Backlog; their presence does not authorize implementation.
+3. Record relevant decisions, deviations, blockers, and technical findings in the issue.
+4. After implementation, record the outcome, version, tests actually performed, and artifacts. Mark Done only after meeting the acceptance criteria; explicitly link remaining work.
+5. For releases or substantial changes, update the project summary, Linear journal, and applicable README/build status. Preserve user edits to titles, priorities, and planning; read the current state before updating. Respect the language policy for each destination.
+6. If Linear is unavailable, continue independent work and record pending updates locally. Claim synchronization only after confirmed tool success, and submit pending updates when access returns.
+7. Do not imply automatic background monitoring. Documentation is part of each task. This rule alone does not authorize uploading files or videos; filenames and local evidence are sufficient.
+
+Routine issue/journal maintenance in this project is already authorized; do not ask again. This does not authorize additional features, messages to third parties, or access-control changes.
