@@ -23,6 +23,9 @@ final class CaptureService: NSObject, ObservableObject {
     @Published private(set) var isPreparing = false
     @Published private(set) var elapsed: Double = 0
     @Published var errorMessage: String?
+    @Published private(set) var isRefreshingSources = false
+    @Published private(set) var needsScreenPermission = false
+    private let loadShareableContent: () async throws -> SCShareableContent
     var captureSystemAudio = true
     var captureMicrophone = false
     var onFinished: ((URL, [ClickSample], CursorTrack) -> Void)?
@@ -50,11 +53,22 @@ final class CaptureService: NSObject, ObservableObject {
     private var startWaiter: CheckedContinuation<Void, Never>?
     private var stopWaiters: [CheckedContinuation<Void, Never>] = []
 
+    init(loadShareableContent: @escaping () async throws -> SCShareableContent = {
+        try await SCShareableContent.excludingDesktopWindows(true, onScreenWindowsOnly: true)
+    }) {
+        self.loadShareableContent = loadShareableContent
+        super.init()
+    }
+
     func refreshSources() async {
-        guard sessionID == nil else { return }
+        guard sessionID == nil, !isRefreshingSources else { return }
+        isRefreshingSources = true
+        errorMessage = nil
+        defer { isRefreshingSources = false }
         do {
-            let available = try await SCShareableContent.excludingDesktopWindows(true, onScreenWindowsOnly: true)
+            let available = try await loadShareableContent()
             guard sessionID == nil else { return }
+            needsScreenPermission = false
             content = available
             let displays = available.displays.enumerated().map { index, display in
                 CaptureSource(id: "display-\(display.displayID)", title: "Bildschirm \(index + 1) · \(display.width) × \(display.height)", kind: .display, display: display, window: nil)
@@ -70,12 +84,30 @@ final class CaptureService: NSObject, ObservableObject {
             if !sources.contains(where: { $0.id == selectedID }) { selectedID = sources.first?.id }
             errorMessage = sources.isEmpty ? "Keine Aufnahmequelle gefunden." : nil
         } catch {
-            errorMessage = "Aufnahmequellen konnten nicht geladen werden. Erlaube FrameCraft unter Systemeinstellungen → Datenschutz & Sicherheit → Bildschirm- & Systemaudioaufnahme und starte die App gegebenenfalls neu. \(error.localizedDescription)"
+            // Never retain a selectable source after permission was revoked or
+            // enumeration failed. A stale selection must not start a recording.
+            sources = []
+            selectedID = nil
+            content = nil
+            let failure = error as NSError
+            needsScreenPermission = failure.domain == SCStreamErrorDomain &&
+                failure.code == SCStreamError.Code.userDeclined.rawValue
+            errorMessage = needsScreenPermission
+                ? "FrameCraft hat noch keinen Zugriff auf deinen Bildschirm. Aktiviere FrameCraft in den Systemeinstellungen und klicke danach auf „Erneut prüfen“. Falls macOS es verlangt, speichere dein Projekt und öffne die App erneut."
+                : "Aufnahmequellen konnten nicht geladen werden. Versuche es erneut. \(error.localizedDescription)"
+        }
+    }
+
+    func openScreenRecordingSettings() {
+        guard let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture"),
+              NSWorkspace.shared.open(url) else {
+            errorMessage = "Öffne Systemeinstellungen → Datenschutz & Sicherheit → Bildschirm- & Systemaudioaufnahme und aktiviere FrameCraft."
+            return
         }
     }
 
     func start(to url: URL) async {
-        guard sessionID == nil, !isPreparing, !isRecording else { return }
+        guard sessionID == nil, !isPreparing, !isRecording, !isRefreshingSources else { return }
         guard let source = sources.first(where: { $0.id == selectedID }), let content else {
             errorMessage = "Wähle zuerst eine Aufnahmequelle."; return
         }

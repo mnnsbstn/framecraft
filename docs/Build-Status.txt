@@ -25,3 +25,6 @@ Not practically tested: system audio, microphone, full-display recording.
 macOS >=15, no public notarization.
 
 Documentation language update: GitHub documentation is English; app behavior and binaries are unchanged. The test results above belong to the recorded app versions, not a new test run for the translation.
+
+0.3.1 source verification — October 24, 2026
+20 tests passed; release compilation succeeded. Launch-only mode preserves the installed bundle byte for byte; build while running is rejected without changes. New app packaging/UI verification is pending until the user closes the running app. No valid signing identity is available; durable permission retention across updates remains open. The downloadable 0.3.0 archive is unchanged.

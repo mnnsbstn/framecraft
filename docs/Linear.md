@@ -110,3 +110,7 @@ The rule is also recorded in the local project. No automatic background monitori
 [First complete project revision](https://github.com/mnnsbstn/framecraft/commit/19297da23cfb5075f2297ef1694ce30c2a99770f): source, tests, build instructions, development documentation, REA evidence, original example projects/videos, and the 0.3.0 app archive. The remote tree of 55 files was checked after pushing. Sources and tests match the tested local state; app archive integrity checked, SHA-256 manifest included. No build caches, credentials, or third-party reference binaries; personal machine paths in text evidence were neutralized.
 
 GitHub contains a snapshot of the project, issues, and journal under docs/linear. Linear remains the current planning source. Further features, fixes, tests, and decisions are documented during the relevant work; no automatic background synchronization. The original example media referred to above as local files are also in GitHub under examples, and the app under artifacts. They were not uploaded as Linear attachments.
+
+## Current development follow-up — October 24, 2026
+
+[SBSTN-82](https://linear.app/mnnsbstn/issue/SBSTN-82) is now In Progress. Version 0.3.1 source adds permission recovery and safer local updates; 20 tests and release compilation pass. Installing the new bundle and live UI checks await closure of the running app. Stable signing remains unavailable. See [implementation and verification](Recording-Permissions.md). The older translated snapshot above is retained as historical context.

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.1 — October 24, 2026
+
+- Add specific screen permission recovery, a settings link, and source refresh on return.
+- Clear stale sources after failed refresh; reject duplicate refreshes and recording starts during refresh.
+- Add launch-only and signing-diagnostic modes, optional explicit signing identity, verified staging, recoverable backups, and protection against replacing a running app.
+- Pass 20 tests; stable signing and permission retention across changed builds remain open.
+
 ## Documentation — October 23, 2026
 
 - Translate all GitHub documentation and narrative fields in Linear snapshots into English.

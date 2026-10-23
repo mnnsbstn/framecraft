@@ -66,3 +66,7 @@ System audio, microphone input, and full-display recording have not yet been pra
 ## Repository contents
 
 Source, tests, local build instructions, documentation, REA evidence, a Linear snapshot, original example projects/videos, and an app archive. Machine-specific paths in published text evidence have been neutralized. Build caches, credentials, and third-party reference binaries are excluded. The [SHA-256 manifest](docs/verification/SHA256SUMS.txt) covers the published files except itself.
+
+## Recording permissions and updates
+
+See [recording permission and update guidance](docs/Recording-Permissions.md) for launch-only mode, safe bundle replacement, and recovery. Version 0.3.1 source passes 20 tests; stable signing remains open.

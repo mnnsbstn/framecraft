@@ -1,0 +1,61 @@
+Test Suite 'All tests' started at 2026-10-23 23:59:56.986.
+Test Suite 'FrameCraftTests.xctest' started at 2026-10-23 23:59:56.987.
+Test Suite 'CameraPathTests' started at 2026-10-23 23:59:56.987.
+Test Case '-[FrameCraftTests.CameraPathTests testLaterTargetDoesNotReboundToOlderOverlappingRegion]' started.
+Test Case '-[FrameCraftTests.CameraPathTests testLaterTargetDoesNotReboundToOlderOverlappingRegion]' passed (0.002 seconds).
+Test Case '-[FrameCraftTests.CameraPathTests testRapidRetargetingKeepsPositionAndVelocityContinuousAndCropInBounds]' started.
+Test Case '-[FrameCraftTests.CameraPathTests testRapidRetargetingKeepsPositionAndVelocityContinuousAndCropInBounds]' passed (0.001 seconds).
+Test Case '-[FrameCraftTests.CameraPathTests testShortPauseStaysZoomedAndManualOverrideResumesLatestAutomaticTarget]' started.
+Test Case '-[FrameCraftTests.CameraPathTests testShortPauseStaysZoomedAndManualOverrideResumesLatestAutomaticTarget]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.CameraPathTests testShortZoomIsNotDropped]' started.
+Test Case '-[FrameCraftTests.CameraPathTests testShortZoomIsNotDropped]' passed (0.000 seconds).
+Test Suite 'CameraPathTests' passed at 2026-10-23 23:59:56.991.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.004 (0.004) seconds
+Test Suite 'CaptureAccessTests' started at 2026-10-23 23:59:56.991.
+Test Case '-[FrameCraftTests.CaptureAccessTests testConcurrentRefreshDoesNotStartASecondRequestOrRecording]' started.
+Test Case '-[FrameCraftTests.CaptureAccessTests testConcurrentRefreshDoesNotStartASecondRequestOrRecording]' passed (0.001 seconds).
+Test Case '-[FrameCraftTests.CaptureAccessTests testDeniedAccessClearsStaleSourcesAndSelection]' started.
+Test Case '-[FrameCraftTests.CaptureAccessTests testDeniedAccessClearsStaleSourcesAndSelection]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.CaptureAccessTests testOtherFailuresAreNotMisreportedAsPermissionDenials]' started.
+Test Case '-[FrameCraftTests.CaptureAccessTests testOtherFailuresAreNotMisreportedAsPermissionDenials]' passed (0.002 seconds).
+Test Suite 'CaptureAccessTests' passed at 2026-10-23 23:59:56.995.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.003 (0.003) seconds
+Test Suite 'CursorTests' started at 2026-10-23 23:59:56.995.
+Test Case '-[FrameCraftTests.CursorTests testCursorDoesNotBridgeHiddenIntervalsOrLongGaps]' started.
+Test Case '-[FrameCraftTests.CursorTests testCursorDoesNotBridgeHiddenIntervalsOrLongGaps]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.CursorTests testCursorSettingsAndPositionsRoundTrip]' started.
+Test Case '-[FrameCraftTests.CursorTests testCursorSettingsAndPositionsRoundTrip]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.CursorTests testLegacyProjectLoadsWithoutInventingCursor]' started.
+Test Case '-[FrameCraftTests.CursorTests testLegacyProjectLoadsWithoutInventingCursor]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.CursorTests testNearbyClicksExtendZoomAndDistantClicksRemain]' started.
+Test Case '-[FrameCraftTests.CursorTests testNearbyClicksExtendZoomAndDistantClicksRemain]' passed (0.005 seconds).
+Test Case '-[FrameCraftTests.CursorTests testSmoothingReducesJitterAndPinsClicks]' started.
+Test Case '-[FrameCraftTests.CursorTests testSmoothingReducesJitterAndPinsClicks]' passed (0.000 seconds).
+Test Suite 'CursorTests' passed at 2026-10-23 23:59:57.001.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.006 (0.007) seconds
+Test Suite 'ProjectTests' started at 2026-10-23 23:59:57.001.
+Test Case '-[FrameCraftTests.ProjectTests testAutoZoomsRespectTrimAndKeepManualEdits]' started.
+Test Case '-[FrameCraftTests.ProjectTests testAutoZoomsRespectTrimAndKeepManualEdits]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.ProjectTests testProjectSerializationRetainsEditingData]' started.
+Test Case '-[FrameCraftTests.ProjectTests testProjectSerializationRetainsEditingData]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.ProjectTests testZoomEntersAndLeavesSmoothly]' started.
+Test Case '-[FrameCraftTests.ProjectTests testZoomEntersAndLeavesSmoothly]' passed (0.000 seconds).
+Test Suite 'ProjectTests' passed at 2026-10-23 23:59:57.002.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'VideoExportTests' started at 2026-10-23 23:59:57.002.
+Test Case '-[FrameCraftTests.VideoExportTests testCancellationLeavesNoOutputOrTemporaryFile]' started.
+Test Case '-[FrameCraftTests.VideoExportTests testCancellationLeavesNoOutputOrTemporaryFile]' passed (0.536 seconds).
+Test Case '-[FrameCraftTests.VideoExportTests testCursorIsRenderedInExportAndCanBeHidden]' started.
+Test Case '-[FrameCraftTests.VideoExportTests testCursorIsRenderedInExportAndCanBeHidden]' passed (0.888 seconds).
+Test Case '-[FrameCraftTests.VideoExportTests testLandscapeExportUsesTrimAndCanvas]' started.
+Test Case '-[FrameCraftTests.VideoExportTests testLandscapeExportUsesTrimAndCanvas]' passed (1.043 seconds).
+Test Case '-[FrameCraftTests.VideoExportTests testOriginalAndExistingDestinationCannotBeOverwritten]' started.
+Test Case '-[FrameCraftTests.VideoExportTests testOriginalAndExistingDestinationCannotBeOverwritten]' passed (0.280 seconds).
+Test Case '-[FrameCraftTests.VideoExportTests testPortraitExportUsesTrimAndCanvas]' started.
+Test Case '-[FrameCraftTests.VideoExportTests testPortraitExportUsesTrimAndCanvas]' passed (0.867 seconds).
+Test Suite 'VideoExportTests' passed at 2026-10-24 00:00:00.617.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 3.614 (3.615) seconds
+Test Suite 'FrameCraftTests.xctest' passed at 2026-10-24 00:00:00.617.
+	 Executed 20 tests, with 0 failures (0 unexpected) in 3.628 (3.629) seconds
+Test Suite 'All tests' passed at 2026-10-24 00:00:00.617.
+	 Executed 20 tests, with 0 failures (0 unexpected) in 3.628 (3.631) seconds

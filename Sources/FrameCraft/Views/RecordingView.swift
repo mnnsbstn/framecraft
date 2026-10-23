@@ -6,7 +6,6 @@ struct RecordingView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var systemAudio = true
     @State private var microphone = false
-    @State private var loading = true
 
     var body: some View {
         VStack(alignment: .leading, spacing: 22) {
@@ -30,11 +29,17 @@ struct RecordingView: View {
                 Text("Bitte kurz warten. Die Videodatei wird erst nach vollständigem Abschluss geöffnet.")
                     .font(.caption).foregroundStyle(.secondary)
             } else {
-                if loading { ProgressView("Aufnahmequellen werden geladen …") }
+                if capture.isRefreshingSources { ProgressView("Aufnahmequellen werden geladen …") }
+                if capture.needsScreenPermission {
+                    Label("Bildschirmzugriff erforderlich", systemImage: "lock.rectangle")
+                        .font(.headline)
+                    Button("Systemeinstellungen öffnen") { capture.openScreenRecordingSettings() }
+                }
                 Picker("Quelle", selection: $capture.selectedID) {
                     Text("Bitte auswählen").tag(String?.none)
                     ForEach(capture.sources) { source in Text(source.title).tag(Optional(source.id)) }
                 }
+                .disabled(capture.isRefreshingSources || capture.needsScreenPermission)
                 Toggle("Systemton aufnehmen", isOn: $systemAudio)
                 Toggle("Mikrofon aufnehmen", isOn: $microphone)
                 Text("Mausbewegungen und Klicks werden während der Aufnahme separat erfasst. Danach entstehen automatische Zooms und ein geglätteter Cursor. Es werden keine Tastatureingaben erfasst.")
@@ -42,17 +47,22 @@ struct RecordingView: View {
                 if let message = capture.errorMessage { Text(message).font(.caption).foregroundStyle(.red).textSelection(.enabled) }
                 HStack {
                     Button("Abbrechen") { dismiss() }.disabled(capture.isPreparing)
-                    Button("Aktualisieren") { Task { loading = true; await capture.refreshSources(); loading = false } }.disabled(capture.isPreparing)
+                    Button(capture.needsScreenPermission ? "Erneut prüfen" : "Aktualisieren") {
+                        Task { await capture.refreshSources() }
+                    }.disabled(capture.isRefreshingSources)
                     Spacer()
                     Button(capture.isPreparing ? "Wird gestartet …" : "Aufnahme starten") { start() }
                         .buttonStyle(.borderedProminent)
-                        .disabled(capture.selectedID == nil || capture.isPreparing || loading)
+                        .disabled(capture.selectedID == nil || capture.isPreparing || capture.isRefreshingSources || capture.needsScreenPermission)
                 }
             }
         }
         .padding(30).frame(width: 510)
         .interactiveDismissDisabled(capture.isPreparing)
-        .task { await capture.refreshSources(); loading = false }
+        .task { await capture.refreshSources() }
+        .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
+            Task { await capture.refreshSources() }
+        }
     }
 
     private func start() {
