@@ -28,3 +28,6 @@ Documentation language update: GitHub documentation is English; app behavior and
 
 0.3.1 source verification — October 24, 2026
 20 tests passed; release compilation succeeded. Launch-only mode preserves the installed bundle byte for byte; build while running is rejected without changes. New app packaging/UI verification is pending until the user closes the running app. No valid signing identity is available; durable permission retention across updates remains open. The downloadable 0.3.0 archive is unchanged.
+
+Installation follow-up — October 24, 2026
+Version 0.3.1 packaged, strictly signature-verified, installed at the existing path and launched. Previous bundle backed up. Denied-access notice, disabled source/start controls and settings navigation verified in the UI. ScreenCaptureKit still denies access after launch-only restart while the macOS toggle appears enabled. User renewal and stable identity signing remain open; no new recording was made. App archive 0.3.1 created and ZIP integrity/executable permissions checked; 0.3.0 archive retained.

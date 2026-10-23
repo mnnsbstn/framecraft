@@ -2,11 +2,11 @@
 
 An independent native macOS app for screen recording, automatic click zooms, smooth cursor movement, and MP4 export. Inspired by the Screen Studio workflow, with its own interface, implementation, and test media.
 
-**Status: 0.3.0 · macOS 15+ · 17 tests passed.** Developed on Apple Silicon with Swift 6.4. Recording was tested on this Mac in version 0.2; version 0.3 exported the same recording. This is not a complete Screen Studio replica.
+**Status: 0.3.1 · macOS 15+ · 20 tests passed.** Developed on Apple Silicon with Swift 6.4. Recording was tested on this Mac in version 0.2; version 0.3 exported the same recording. This is not a complete Screen Studio replica.
 
 ## Getting started
 
-- [Download the local Apple Silicon build 0.3.0](artifacts/FrameCraft-0.3.0-macos-arm64.zip), extract it, and open FrameCraft.app. The build is locally ad hoc signed, without Developer ID signing or public notarization.
+- [Download the local Apple Silicon build 0.3.1](artifacts/FrameCraft-0.3.1-macos-arm64.zip), extract it, and open FrameCraft.app. The build is locally ad hoc signed, without Developer ID signing or public notarization.
 - Alternatively, build from source with a configured Xcode installation:
 
 ```sh
@@ -69,4 +69,4 @@ Source, tests, local build instructions, documentation, REA evidence, a Linear s
 
 ## Recording permissions and updates
 
-See [recording permission and update guidance](docs/Recording-Permissions.md) for launch-only mode, safe bundle replacement, and recovery. Version 0.3.1 source passes 20 tests; stable signing remains open.
+See [recording permission and update guidance](docs/Recording-Permissions.md) for launch-only mode, safe bundle replacement, and recovery. Version 0.3.1 is installed and its permission-recovery UI is verified. All 20 tests pass. macOS still denies recording after a launch-only restart despite showing the permission enabled; user renewal and stable signing remain open.

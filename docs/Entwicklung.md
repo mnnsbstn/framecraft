@@ -96,3 +96,6 @@ See [REA findings](REA-Befunde.json), [analysis](Analyse.md), and [build status]
 [FrameCraft project](https://linear.app/mnnsbstn/project/framecraft-00c6db8009c8) · [Development journal and roadmap](https://linear.app/mnnsbstn/document/framecraft-entwicklungsjournal-prufnachweise-und-roadmap-33f00559e3ba)
 
 Previous work, pending acceptance checks, and proposed extensions are tracked as issues. New features, fixes, and technical changes are documented as work continues. `AGENTS.md` preserves this requirement for future sessions; `docs/Linear.md` contains a translated snapshot. There is no automatic background synchronization. GitHub documentation is English; the app, Linear, local German documentation, and user communication remain German.
+
+Installation follow-up — October 24, 2026
+Version 0.3.1 packaged, strictly signature-verified, installed at the existing path and launched. Previous bundle backed up. Denied-access notice, disabled source/start controls and settings navigation verified in the UI. ScreenCaptureKit still denies access after launch-only restart while the macOS toggle appears enabled. User renewal and stable identity signing remain open; no new recording was made. App archive 0.3.1 created and ZIP integrity/executable permissions checked; 0.3.0 archive retained.

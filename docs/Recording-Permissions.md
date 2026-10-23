@@ -54,4 +54,6 @@ Source enumeration uses Apple's [SCShareableContent API](https://developer.apple
 - Launch-only mode preserved every existing app bundle file byte for byte.
 - `--build` refused a running app and preserved every existing bundle file.
 - Stable identity signing and permission retention across changed builds remain unverified because no valid identity is available.
-- Release compilation succeeded. Installation of the newly built bundle and live UI checks are pending until the user closes the running app. The existing 0.3.0 app archive remains unchanged.
+- Version 0.3.1 was packaged, strictly signature-verified, installed at the existing path, and launched after the user closed the old app. The previous bundle was preserved in a local backup.
+- Live UI verification confirmed the permission-denied notice, disabled source/start controls, and settings button opening the correct macOS pane. The toggle appeared enabled, but ScreenCaptureKit still denied access after a normal launch-only restart. User renewal is pending; no new recording is claimed.
+- The 0.3.1 app archive is available under artifacts; the previous 0.3.0 archive is retained.

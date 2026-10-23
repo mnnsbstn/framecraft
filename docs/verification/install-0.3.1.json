@@ -1,0 +1,16 @@
+{
+  "version": "0.3.1",
+  "date": "2026-10-24",
+  "automated_tests": 20,
+  "test_failures": 0,
+  "test_note": "Tests passed on the unchanged source in the preceding development step. No redundant test rerun for packaging.",
+  "strict_signature_verification": true,
+  "installed_at_existing_path": true,
+  "previous_app_backup_preserved": true,
+  "ui_permission_denial_verified": true,
+  "settings_navigation_verified": true,
+  "screen_access_after_restart": "denied; user renewal pending",
+  "valid_signing_identities": 0,
+  "new_recording_tested": false,
+  "artifact_sha256": "19c7b2926a12a2fcaafc923b0358564f45fa28d270997926b5140b213cb66fbe"
+}

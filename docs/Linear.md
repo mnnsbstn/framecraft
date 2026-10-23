@@ -113,4 +113,4 @@ GitHub contains a snapshot of the project, issues, and journal under docs/linear
 
 ## Current development follow-up — October 24, 2026
 
-[SBSTN-82](https://linear.app/mnnsbstn/issue/SBSTN-82) is now In Progress. Version 0.3.1 source adds permission recovery and safer local updates; 20 tests and release compilation pass. Installing the new bundle and live UI checks await closure of the running app. Stable signing remains unavailable. See [implementation and verification](Recording-Permissions.md). The older translated snapshot above is retained as historical context.
+[SBSTN-82](https://linear.app/mnnsbstn/issue/SBSTN-82) is now In Progress. Version 0.3.1 source adds permission recovery and safer local updates; 20 tests and release compilation pass. The new bundle is installed and live permission-denial UI checks passed. Access remains denied after a launch-only restart; user permission renewal is pending. Stable signing remains unavailable. See [implementation and verification](Recording-Permissions.md). The older translated snapshot above is retained as historical context.
