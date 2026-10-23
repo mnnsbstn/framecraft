@@ -7,7 +7,7 @@
   "summary": "Eigene macOS-App für Bildschirmaufnahme, automatische Klick-Zooms und geglättete Mausbewegungen. Entwicklungsstand 0.3.0; 17 Tests bestanden.",
   "description": "## Ziel\n\nEine eigenständige, lokal nutzbare macOS-App für Bildschirmaufnahme, automatische Zooms, flüssige Cursorbewegung und Videoexport. Screen Studio dient als Funktionsreferenz; Implementierung und Oberfläche sind eigenständig.\n\n## Aktueller Stand\n\nVersion 0.3.0 ist gebaut und auf dem Mac gestartet. 17 automatisierte Tests bestehen. Eine echte Fensteraufnahme wurde in 0.2 mit 10 Klicks, 590 Mauspositionen und 6 automatischen Zooms geprüft. In 0.3 wurde dieselbe Aufnahme mit sanften Kamerafahrten erneut als Full-HD-MP4 exportiert.\n\n## Dokumentation\n\nDieses Projekt bündelt rückblickend erledigte Arbeit, offene Prüfungen und vorgeschlagene Erweiterungen. Details, Nachweise und Wiederverwendung stehen im Projektdokument. Erledigt bedeutet: implementiert und im jeweils angegebenen Umfang geprüft.\n\n## Weitere Arbeit\n\nZuerst Aufnahmefreigaben bei App-Updates sowie noch offene Audio-/Displaytests absichern. Zusätzliche Produktfunktionen werden im Backlog als Vorschläge geführt, ohne zugesagte Termine oder automatische Beauftragung.\n\n## Laufende Pflege\n\nBei künftigen FrameCraft-Arbeiten passende Tickets ergänzen oder aktualisieren; Ergebnis, Version, Tests und verbleibende Grenzen dokumentieren. Keine Hintergrund-Synchronisation eingerichtet. Lokale Videos und App-Dateien sind nicht zu Linear hochgeladen.",
   "url": "https://linear.app/mnnsbstn/project/framecraft-00c6db8009c8",
-  "resourceCount": 1,
+  "resourceCount": 2,
   "createdAt": "2026-10-23T21:38:01.547Z",
   "updatedAt": "2026-10-23T21:39:41.142Z",
   "startedAt": "2026-10-23T21:38:15.637Z",
@@ -87,7 +87,14 @@
       "color": null,
       "url": "https://linear.app/mnnsbstn/document/framecraft-entwicklungsjournal-prufnachweise-und-roadmap-33f00559e3ba",
       "createdAt": "2026-10-23T21:41:45.636Z",
-      "updatedAt": "2026-10-23T21:41:45.636Z"
+      "updatedAt": "2026-10-23T21:48:16.715Z"
+    },
+    {
+      "type": "link",
+      "id": "73407bd4-06cc-4885-b1df-5ae9a5608375",
+      "label": "GitHub – FrameCraft",
+      "url": "https://github.com/mnnsbstn/framecraft",
+      "createdAt": "2026-10-23T21:48:14.130Z"
     }
   ]
 }

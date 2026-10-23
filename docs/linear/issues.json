@@ -3,8 +3,8 @@
     {
       "id": "SBSTN-95",
       "title": "Quellcode, Dokumentation und Prüfdaten in GitHub veröffentlichen",
-      "description": "Vom Nutzer beauftragt: vollständigen aktuellen FrameCraft-Stand in [https://github.com/mnnsbstn/framecraft](<https://github.com/mnnsbstn/framecraft>) übernehmen.\n\nAbnahme: vorhandenen Repository-Inhalt erhalten; Quellen, Tests, Anleitung, REA-Prüfbelege, Linear-Dokumentation und eigene Beispieldaten nachvollziehbar ablegen. Build-Caches, Zugangsdaten, private Rechnerpfade und fremde Referenz-Binärdateien nicht veröffentlichen. Aktuellen Stand/Ar… (truncated, use `get_issue` for full description)",
-      "status": "In Progress",
+      "description": "Vom Nutzer beauftragt: vollständigen aktuellen FrameCraft-Stand in [https://github.com/mnnsbstn/framecraft](<https://github.com/mnnsbstn/framecraft>) übernehmen.\n\nAbnahme: vorhandenen Repository-Inhalt erhalten; Quellen, Tests, Anleitung, REA-Prüfbelege, Linear-Dokumentation und eigene Beispieldaten nachvollziehbar ablegen. Build-Caches, Zugangsdaten, private Rechnerpfade und fremde Referenz-Binärdateien nicht veröffentlichen. Aktuellen Stand/Artefakte remote prüfen und GitHub in Linear verlinken.\n\n## Ergebnis und Prüfung\n\nFrameCraft 0.3.0 auf main veröffentlicht: [Quellstand](<https://github.com/mnnsbstn/framecraft/commit/19297da23cfb5075f2297ef1694ce30c2a99770f>). 55 Dateien mit Quellen, Tests, Build-Anleitung, Dokumentation, REA-Prüfbelegen, Linear-Momentaufnahme, eigenen Beispielprojekten/-videos und gebauter App. Vorhandene Git-Historie erhalten.\n\nQuellen/Tests/Build-Skript bytegleich mit dem lokal geprüften Stand (17 bestandene Tests). App-ZIP auf Integrität geprüft; SHA-256-Dateiliste erstellt. Textbelege auf Zugangsdaten und persönliche Rechnerpfade geprüft und Pfade neutralisiert. Keine Build-Caches oder fremden Referenz-Binärdateien übernommen. Remote-Baum auf GitHub bestätigt Commit und alle 55 Dateien; lokaler Arbeitsstand nach Push sauber.\n\nDokumentationsabgleich ergänzt anschließend den Abschluss dieses Tickets. Keine neue App-Version oder erneute Aufnahme für diesen reinen Veröffentlichungs-Schritt erforderlich.",
+      "status": "Done",
       "projectMilestone": null,
       "priority": {
         "value": 0,
@@ -210,7 +210,7 @@
     {
       "id": "SBSTN-81",
       "title": "Sanfte Kamerafahrten bei schnellen Klickfolgen implementieren",
-      "description": "Version 0.3 ersetzt die Mischung aller aktiven Zoomziele durch eine zeitliche Zielabfolge. Neuere Ziele lösen ältere ab, ohne Rücksprung bei Ende späterer Regionen. Gemeinsame Glättung von Ausschnittbreite/Mittelpunkt über 600 ms; neue Ziele erhalten kontinuierliche Position, Geschwindigkeit und Beschleunigung. Pausen bis 300 ms zwischen Zoomintervallen verbinden; manuelle Zooms haben Vorrang.\n\nCameraPath wird einmal pro Komposition vorbereitet … (truncated, use `get_issue` for full description)",
+      "description": "Version 0.3 ersetzt die Mischung aller aktiven Zoomziele durch eine zeitliche Zielabfolge. Neuere Ziele lösen ältere ab, ohne Rücksprung bei Ende späterer Regionen. Gemeinsame Glättung von Ausschnittbreite/Mittelpunkt über 600 ms; neue Ziele erhalten kontinuierliche Position, Geschwindigkeit und Beschleunigung. Pausen bis 300 ms zwischen Zoomintervallen verbinden; manuelle Zooms haben Vorrang.\n\nCameraPath wird einmal pro Komposition vorbereitet und zustandsfrei abgefragt. Vier neue Tests, insgesamt 17 bestanden. Build, Start und strenge lokale Signaturprüfung erfolgreich. Bestehendes Klicktest-Projekt über UI geöffnet und als FrameCraft-Sanfte-Zooms.mp4 exportiert: 10,925 s, Full HD, 30 fps, kein Audio; mehrere Frames geprüft. Sehr kurze Zooms können einen sanften Auslauf über ihr nominelles Ende hinaus haben.",
       "status": "Done",
       "projectMilestone": {
         "id": "46fc9ffd-9ccd-4904-b13d-790afc63a664",
@@ -225,7 +225,7 @@
     {
       "id": "SBSTN-80",
       "title": "Bildschirmfreigabe erneuern und echten Klicktest abnehmen",
-      "description": "Nach Ad-hoc-Neubau war die vorhandene macOS-Freigabe ungültig. Mit ausdrücklicher Nutzerfreigabe ausschließlich FrameCraft entfernt und aktuelle App wieder hinzugefügt; lokale Authentifizierung durch Nutzer.\n\nFernbediente UI-Aktionen lieferten keine globale Mausbewegung. Nutzer führte deshalb Start, Mausbewegung, Klicks und Stop selbst aus. Ergebnis 0.2: 10,925 s, 10 Klicks, 590 Mauspositionen (373 sichtbar), 6 Zooms. MP4 Full HD/30 fps ohne Ton… (truncated, use `get_issue` for full description)",
+      "description": "Nach Ad-hoc-Neubau war die vorhandene macOS-Freigabe ungültig. Mit ausdrücklicher Nutzerfreigabe ausschließlich FrameCraft entfernt und aktuelle App wieder hinzugefügt; lokale Authentifizierung durch Nutzer.\n\nFernbediente UI-Aktionen lieferten keine globale Mausbewegung. Nutzer führte deshalb Start, Mausbewegung, Klicks und Stop selbst aus. Ergebnis 0.2: 10,925 s, 10 Klicks, 590 Mauspositionen (373 sichtbar), 6 Zooms. MP4 Full HD/30 fps ohne Ton; Cursorpunkte exakt, Frames geprüft, Projekt erneut geöffnet.\n\nBelege: FrameCraft-Klicktest.framecraft/.mp4. Freigabe nach Neubau auf 0.3 noch nicht erneut geprüft.",
       "status": "Done",
       "projectMilestone": {
         "id": "04381e80-9247-4248-8423-212c00137570",
@@ -360,7 +360,7 @@
     {
       "id": "SBSTN-71",
       "title": "REA dauerhaft einrichten und Herkunft prüfen",
-      "description": "REA 6.4.0 für den lokalen Benutzer eingerichtet und bestehende Konfiguration weiterverwendet. Offizielle Quellen: [github.com/morluto/rea](<http://github.com/morluto/rea>), [rea.tools](<http://rea.tools>) und npm rea-agents. Paketintegrität gegen SHA-512 geprüft; 1.161 Dateien verglichen. Skill und Startbefehl dauerhaft verfügbar.\n\nVerifiziert: CLI, MCP-Identität, 170 Tools, 6 Prompts, Archivtest und statischer JavaScript-Test. Grenzen: Plist-Te… (truncated, use `get_issue` for full description)",
+      "description": "REA 6.4.0 für den lokalen Benutzer eingerichtet und bestehende Konfiguration weiterverwendet. Offizielle Quellen: [github.com/morluto/rea](<http://github.com/morluto/rea>), [rea.tools](<http://rea.tools>) und npm rea-agents. Paketintegrität gegen SHA-512 geprüft; 1.161 Dateien verglichen. Skill und Startbefehl dauerhaft verfügbar.\n\nVerifiziert: CLI, MCP-Identität, 170 Tools, 6 Prompts, Archivtest und statischer JavaScript-Test. Grenzen: Plist-Test mit nativem file-Aufruf fehlgeschlagen; native Dekompilierung benötigt noch einen Anbieter. Kein fremdes Installationsskript ungeprüft ausgeführt.\n\nBelege lokal: REA-Nutzung.md und REA-\\*-Test-/Prüfdateien im Ausgabeordner.",
       "status": "Done",
       "projectMilestone": {
         "id": "705ed8e7-e45f-4b3c-afd1-9a5ceef78ebf",
