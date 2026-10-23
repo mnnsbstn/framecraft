@@ -57,3 +57,9 @@ Source enumeration uses Apple's [SCShareableContent API](https://developer.apple
 - Version 0.3.1 was packaged, strictly signature-verified, installed at the existing path, and launched after the user closed the old app. The previous bundle was preserved in a local backup.
 - Live UI verification confirmed the permission-denied notice, disabled source/start controls, and settings button opening the correct macOS pane. The toggle appeared enabled, but ScreenCaptureKit still denied access after a normal launch-only restart. User renewal is pending; no new recording is claimed.
 - The 0.3.1 app archive is available under artifacts; the previous 0.3.0 archive is retained.
+
+## Follow-up diagnosis after user renewal — October 24, 2026
+
+Source enumeration remained denied after normal launch-only restarts. The macOS privacy log explicitly reported a screen-capture code requirement mismatch: stored hash `641a69363d57c5da509cd6d6f6b68b8ccacf6c60`, installed hash `8f556a977cb9bc1f21f737963e0f756f9d368357`. The running process uses the expected app path.
+
+The previously authorized renewal was limited to `tccutil reset ScreenCapture local.sebastian.FrameCraft`; it reported success. No other privacy service or app was reset. The unchanged app was reopened; working access has not yet been confirmed. Further UI work stopped because the Mac became locked. After manual unlock, renew only the FrameCraft registration with the user's authentication if required, then verify source loading and an original silent test window. No new recording/export is claimed.

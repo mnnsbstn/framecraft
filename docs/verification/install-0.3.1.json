@@ -12,5 +12,14 @@
   "screen_access_after_restart": "denied; user renewal pending",
   "valid_signing_identities": 0,
   "new_recording_tested": false,
-  "artifact_sha256": "19c7b2926a12a2fcaafc923b0358564f45fa28d270997926b5140b213cb66fbe"
+  "artifact_sha256": "19c7b2926a12a2fcaafc923b0358564f45fa28d270997926b5140b213cb66fbe",
+  "follow_up": {
+    "stored_requirement_cdhash": "641a69363d57c5da509cd6d6f6b68b8ccacf6c60",
+    "installed_cdhash": "8f556a977cb9bc1f21f737963e0f756f9d368357",
+    "tcc_mismatch_confirmed": true,
+    "scoped_reset": "tccutil reset ScreenCapture local.sebastian.FrameCraft",
+    "scoped_reset_reported_success": true,
+    "access_confirmed": false,
+    "current_blocker": "Mac locked; manual unlock required before further UI work"
+  }
 }
