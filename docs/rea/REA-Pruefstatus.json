@@ -1,0 +1,81 @@
+{
+  "healthy": true,
+  "environment_healthy": false,
+  "scope": {
+    "mode": "explicit",
+    "clients": [
+      "codex"
+    ],
+    "providers": [],
+    "skill": true,
+    "target": null
+  },
+  "scope_checks": [
+    {
+      "name": "node",
+      "ok": true,
+      "classification": "healthy",
+      "detail": "24.19.0"
+    },
+    {
+      "name": "registration:codex",
+      "ok": true,
+      "classification": "healthy",
+      "detail": "~/.codex/config.toml"
+    },
+    {
+      "name": "skill:identity",
+      "ok": true,
+      "classification": "healthy",
+      "detail": "Installed REA skill identity is aligned."
+    }
+  ],
+  "providerInspections": [
+    {
+      "id": "ghidra",
+      "configured": false,
+      "available": false,
+      "providerVersion": null,
+      "registrationEnvironment": {},
+      "checks": [
+        {
+          "name": "configuration",
+          "ok": false,
+          "code": "not_configured",
+          "detail": "GHIDRA_INSTALL_DIR is not set",
+          "remediation": "Set GHIDRA_INSTALL_DIR to an extracted Ghidra 12.1.x release directory.",
+          "classification": "missing_analysis_engine"
+        }
+      ]
+    },
+    {
+      "id": "ida",
+      "configured": false,
+      "available": false,
+      "providerVersion": null,
+      "registrationEnvironment": {},
+      "checks": [
+        {
+          "name": "registration",
+          "ok": false,
+          "code": "not_configured",
+          "detail": "IDA MCP registration is not configured.",
+          "remediation": "Set REA_IDA_MCP_CONFIG to your upstream IDA MCP registration JSON; see docs/ida-provider.md.",
+          "classification": "missing_analysis_engine"
+        }
+      ]
+    }
+  ],
+  "skill": {
+    "installed_version": "37",
+    "installed_tool_count": 170,
+    "state": "aligned",
+    "remediation": null
+  },
+  "test_limits": {
+    "javascript": "Passed after user completed Xcode setup: own fixture, 1 JavaScript file parsed, 0 parse failures; semantic coverage remains unknown with 2 unknowns. See REA-JavaScript-Test.json.",
+    "plist": "Did not pass: native-macos file probe reports reason io.",
+    "archive": "Passed: four known files, five graph nodes including ZIP root, four edges, no omitted observations.",
+    "review_scope": "REA package archive integrity and all 1161 package files checked. This is not a full security audit of REA or its dependencies."
+  }
+}

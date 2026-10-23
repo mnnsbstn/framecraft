@@ -1,0 +1,25 @@
+FrameCraft 0.3.0 — sanfte Kamerafahrten
+Release-Build, App-Start und strenge Ad-hoc-Signaturprüfung erfolgreich.
+17 automatisierte Tests, 0 Fehler; vier neue Kameratests.
+Bestehendes Klicktest-Projekt in neuer App geöffnet (10 Klicks, 6 Zooms).
+UI-Export FrameCraft-Sanfte-Zooms.mp4: 10,925 s, 1920x1080, 30 fps, kein Audio.
+Mehrere Frames erfolgreich decodiert; Cursor und neue Zielausschnitte visuell geprüft.
+Für diese Änderung keine neue Aufnahme nötig; Aufnahmefreigabe nach Neubau nicht erneut geprüft.
+
+Historische Abnahme der Aufnahmefunktion:
+FrameCraft 0.2.0 — 23. Oktober 2026
+Apple Swift 6.4, arm64-apple-macosx27.0.0
+Release-Build erfolgreich; App gestartet; lokale Ad-hoc-Signaturprüfung erfolgreich.
+13 Tests ausgeführt, 0 Fehler.
+Neue Tests: Glättung reduziert Jitter und hält Klickpunkte, Sichtbarkeit/Lücken, alte Projekte, Mausspur-Rundlauf, Klick-Zoomgruppierung, Cursorpixel im MP4 mit Zoom.
+Demo-MP4: 6 Sekunden, 1920x1080, decodiert und visuell geprüft.
+UI: Cursor ein/aus, Glättung/Größe ändern, speichern und wieder öffnen erfolgreich (145 ms, 1.4x, 2 Klicks erhalten).
+Bildschirmfreigabe für 0.2 erfolgreich erneuert; nur FrameCraft entfernt und aktuelle App erneut hinzugefügt. Aufnahmequellen werden wieder geladen.
+Live-Klicktest bestanden: 10,925 Sekunden, 10 Klicks, 6 automatische 1,8x-Zooms, 590 Cursor-Samples (373 sichtbar).
+Zoomintervalle aus gespeicherten Klicks identisch reproduzierbar. Geglätteter Cursor trifft alle zehn Klickpositionen exakt (0 px Abweichung in den gespeicherten Daten).
+MP4-Export: 1920x1080, 30 fps, 10,925 Sekunden, keine Tonspur. Bilder bei 1,2 / 3,94 / 6,96 / 9,40 Sekunden decodiert; Cursor und Zoomwirkung an mehreren Klickstellen visuell geprüft.
+Projekt über UI erneut geöffnet: 10 Klicks und 6 Zooms erhalten. Keine Aufnahme läuft mehr.
+Vorherige automatisierte UI-Tests erzeugten keine globalen Mausbewegungen; der Test mit echter Maus/Trackpad bestätigt die Erfassung.
+Vorversion 0.1: Fensteraufnahme 11,885 Sekunden und MP4-Export erfolgreich getestet.
+Nicht praktisch getestet: Systemton, Mikrofon, vollständige Displayaufnahme.
+macOS >=15, keine öffentliche Notarisierung.

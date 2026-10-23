@@ -1,0 +1,29 @@
+{
+  "mediaFilename" : "source.mp4",
+  "project" : {
+    "backdrop" : "aurora",
+    "clicks" : [
+
+    ],
+    "cornerRadius" : 20,
+    "duration" : 11.885,
+    "format" : "landscape",
+    "muted" : false,
+    "padding" : 0.075,
+    "title" : "FrameCraft – Aufnahmetest",
+    "trimEnd" : 11.885,
+    "trimStart" : 0,
+    "version" : 1,
+    "zooms" : [
+      {
+        "automatic" : false,
+        "end" : 2.5,
+        "id" : "AAE60500-5D41-4683-BA7C-6F04D6E4603F",
+        "scale" : 1.8,
+        "start" : 0,
+        "x" : 0.20000000000000004,
+        "y" : 0.20000000000000004
+      }
+    ]
+  }
+}

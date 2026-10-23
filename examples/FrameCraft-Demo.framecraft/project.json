@@ -1,0 +1,47 @@
+{
+  "mediaFilename" : "source.mp4",
+  "project" : {
+    "backdrop" : "ocean",
+    "clicks" : [
+      {
+        "time" : 1.2,
+        "x" : 0.7,
+        "y" : 0.45
+      },
+      {
+        "time" : 4.1,
+        "x" : 0.3,
+        "y" : 0.6
+      }
+    ],
+    "cornerRadius" : 20,
+    "duration" : 6,
+    "format" : "portrait",
+    "muted" : false,
+    "padding" : 0.075,
+    "title" : "FrameCraft – Funktionstest",
+    "trimEnd" : 5.4,
+    "trimStart" : 0.6000000000000001,
+    "version" : 1,
+    "zooms" : [
+      {
+        "automatic" : true,
+        "end" : 3.2,
+        "id" : "6193AB7B-BA76-4B90-9CC6-68A133D507A5",
+        "scale" : 1.8,
+        "start" : 0.85,
+        "x" : 0.7,
+        "y" : 0.45
+      },
+      {
+        "automatic" : true,
+        "end" : 6,
+        "id" : "DBBF020F-89C1-4A43-A91D-A9913777271E",
+        "scale" : 1.8,
+        "start" : 3.7499999999999996,
+        "x" : 0.3,
+        "y" : 0.6
+      }
+    ]
+  }
+}

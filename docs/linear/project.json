@@ -1,0 +1,93 @@
+{
+  "id": "P-SBSTN-3",
+  "uuid": "7d52c18b-7d35-4c95-82e8-ea2f3b619f20",
+  "icon": "Camera",
+  "color": "#4cb782",
+  "name": "FrameCraft",
+  "summary": "Eigene macOS-App für Bildschirmaufnahme, automatische Klick-Zooms und geglättete Mausbewegungen. Entwicklungsstand 0.3.0; 17 Tests bestanden.",
+  "description": "## Ziel\n\nEine eigenständige, lokal nutzbare macOS-App für Bildschirmaufnahme, automatische Zooms, flüssige Cursorbewegung und Videoexport. Screen Studio dient als Funktionsreferenz; Implementierung und Oberfläche sind eigenständig.\n\n## Aktueller Stand\n\nVersion 0.3.0 ist gebaut und auf dem Mac gestartet. 17 automatisierte Tests bestehen. Eine echte Fensteraufnahme wurde in 0.2 mit 10 Klicks, 590 Mauspositionen und 6 automatischen Zooms geprüft. In 0.3 wurde dieselbe Aufnahme mit sanften Kamerafahrten erneut als Full-HD-MP4 exportiert.\n\n## Dokumentation\n\nDieses Projekt bündelt rückblickend erledigte Arbeit, offene Prüfungen und vorgeschlagene Erweiterungen. Details, Nachweise und Wiederverwendung stehen im Projektdokument. Erledigt bedeutet: implementiert und im jeweils angegebenen Umfang geprüft.\n\n## Weitere Arbeit\n\nZuerst Aufnahmefreigaben bei App-Updates sowie noch offene Audio-/Displaytests absichern. Zusätzliche Produktfunktionen werden im Backlog als Vorschläge geführt, ohne zugesagte Termine oder automatische Beauftragung.\n\n## Laufende Pflege\n\nBei künftigen FrameCraft-Arbeiten passende Tickets ergänzen oder aktualisieren; Ergebnis, Version, Tests und verbleibende Grenzen dokumentieren. Keine Hintergrund-Synchronisation eingerichtet. Lokale Videos und App-Dateien sind nicht zu Linear hochgeladen.",
+  "url": "https://linear.app/mnnsbstn/project/framecraft-00c6db8009c8",
+  "resourceCount": 1,
+  "createdAt": "2026-10-23T21:38:01.547Z",
+  "updatedAt": "2026-10-23T21:39:41.142Z",
+  "startedAt": "2026-10-23T21:38:15.637Z",
+  "completedAt": null,
+  "canceledAt": null,
+  "startDate": "2026-10-23",
+  "startDateResolution": null,
+  "targetDate": null,
+  "targetDateResolution": null,
+  "priority": {
+    "value": 0,
+    "name": "No priority"
+  },
+  "labels": [],
+  "initiatives": [],
+  "lead": {},
+  "leadTeam": {
+    "id": "f74132bc-1f32-4a8d-b624-a46060f53422",
+    "name": "mnnsbstn",
+    "key": "SBSTN"
+  },
+  "status": {
+    "id": "be11a1b7-12d0-4bda-a819-74a5c7ea81b7",
+    "name": "In Progress",
+    "type": "started"
+  },
+  "teams": [
+    {
+      "id": "f74132bc-1f32-4a8d-b624-a46060f53422",
+      "name": "mnnsbstn",
+      "key": "SBSTN"
+    }
+  ],
+  "milestones": [
+    {
+      "id": "705ed8e7-e45f-4b3c-afd1-9a5ceef78ebf",
+      "name": "Grundlage & Version 0.1",
+      "description": "REA eingerichtet, Referenz lesend untersucht; native App mit Aufnahme, Editor, Export und Projekten umgesetzt.",
+      "targetDate": null,
+      "progress": "100%"
+    },
+    {
+      "id": "04381e80-9247-4248-8423-212c00137570",
+      "name": "Version 0.2 – Klicks & Cursor",
+      "description": "Automatische Klick-Zooms, getrennte geglättete Mausspur und echter Fenster-/Klicktest abgeschlossen.",
+      "targetDate": null,
+      "progress": "100%"
+    },
+    {
+      "id": "46fc9ffd-9ccd-4904-b13d-790afc63a664",
+      "name": "Version 0.3 – Sanfte Kamerafahrten",
+      "description": "Flüssige Zielwechsel, 17 Tests und neuer Export der echten Klickaufnahme abgeschlossen.",
+      "targetDate": null,
+      "progress": "100%"
+    },
+    {
+      "id": "7a5886c2-592b-4e71-93dc-0587fd5c1d88",
+      "name": "Nächste Abnahme – Zuverlässigkeit",
+      "description": "Offene Prüfungen und Verbesserungsvorschläge für Berechtigungen, Audio, Displayaufnahme und längere Aufnahmen. Noch keine Termine zugesagt.",
+      "targetDate": null,
+      "progress": "0%"
+    },
+    {
+      "id": "83ac6f2b-553a-4747-938f-2ab0f9e6db03",
+      "name": "Erweiterungen – Ideenbacklog",
+      "description": "Mögliche nächste Produktfunktionen. Vorschläge zur späteren Auswahl, keine automatisch beauftragte Umsetzung.",
+      "targetDate": null,
+      "progress": "0%"
+    }
+  ],
+  "resources": [
+    {
+      "type": "document",
+      "id": "558329eb-be39-46d3-bc64-049d36811d85",
+      "title": "FrameCraft – Entwicklungsjournal, Prüfnachweise und Roadmap",
+      "icon": null,
+      "color": null,
+      "url": "https://linear.app/mnnsbstn/document/framecraft-entwicklungsjournal-prufnachweise-und-roadmap-33f00559e3ba",
+      "createdAt": "2026-10-23T21:41:45.636Z",
+      "updatedAt": "2026-10-23T21:41:45.636Z"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "version": "6.4.0",
+  "repository": {
+    "url": "git+https://github.com/morluto/rea.git",
+    "type": "git"
+  },
+  "tarball": "https://registry.npmjs.org/rea-agents/-/rea-agents-6.4.0.tgz",
+  "integrity_verified": true,
+  "integrity": "sha512-Vj1zWfSlna5bphGoaoI/TcVBuYvze9u+OyPC3Shz8YkBqaCTqB4COnnRoX7XDwMpwI24ZlFEel2yEj0k8LTWEQ==",
+  "archive_sha256": "59eb1604b8db75f522d4a975c36ce6b4a2ad465e43bad165f9a8f728391db9b8",
+  "matching_files": 1161,
+  "mismatches": [],
+  "missing": [],
+  "gitHead": "a56f7bb668ab23fec8d33f7af353ac7ed2fe1895",
+  "install_hooks": {
+    "prepare": "node scripts/prepare.mjs"
+  }
+}

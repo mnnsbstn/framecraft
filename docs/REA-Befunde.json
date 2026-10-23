@@ -1,0 +1,113 @@
+{
+  "source_url": "https://screen.studio/download",
+  "download_url": "https://screenstudioassets.com/releases/4.1.0-5005/Screen%20Studio%204.1.0-5005%20Apple%20Silicon.dmg",
+  "version": "4.1.0-5005",
+  "sha256": "65cd607bbf598767faf3f9498819f423b0efbb9195ec5476b7fa9d05ddbd8b71",
+  "evidence_ids": [
+    "ev_500e3a7f3f22305bf542ebaea5071d2dc4904883f23c951792063cfe7e15c4a7",
+    "ev_867e753db43741578063dfaeaef46ae6c42eeff0320efb758ffc21152d0767cd"
+  ],
+  "inventory_node_count": 4260,
+  "occurrence_count": 4922,
+  "selected_observed_paths": [
+    "ScreenStudio-4.1.0.dmg/Screen Studio/Screen Studio.app/Contents/Resources/app.asar.unpacked/bin/arm64/screen-studio-speech",
+    "ScreenStudio-4.1.0.dmg/Screen Studio/Screen Studio.app/Contents/Resources/app.asar.unpacked/bin/ffmpeg-darwin-arm64",
+    "ScreenStudio-4.1.0.dmg/Screen Studio/Screen Studio.app/Contents/Resources/app.asar/bin/arm64/screen-studio-speech",
+    "ScreenStudio-4.1.0.dmg/Screen Studio/Screen Studio.app/Contents/Resources/app.asar/bin/ffmpeg-darwin-arm64",
+    "ScreenStudio-4.1.0.dmg/Screen Studio/Screen Studio.app/Contents/Resources/app.asar/dist-electron/index.js",
+    "ScreenStudio-4.1.0.dmg/Screen Studio/Screen Studio.app/Contents/Resources/app.asar/package.json"
+  ],
+  "integrity_contradictions": [
+    {
+      "contradiction_id": "aic_d66724bd0342e52d50ea556da15db6502c85514489184307c5cb9d2dda92b343",
+      "declared_sha256": "9c303875edff71850b9e577f5fc2c8d8d81eb72d55fd332763d3ce2d74c9a2bc",
+      "evidence_id": "ev_500e3a7f3f22305bf542ebaea5071d2dc4904883f23c951792063cfe7e15c4a7",
+      "observed_sha256": "723a78e9d6253f8f01b8124b1898f19ee4a4fb042a60a1268223b0f54426bb68",
+      "occurrence_id": "occ_9327d74982b4ef5193c348af77e28efc7158617bbd28ddf23247e947bf4a8702",
+      "statement": "Declared integrity for ScreenStudio-4.1.0.dmg/Screen Studio/Screen Studio.app/Contents/Resources/app.asar/bin/arm64/screen-studio-speech contradicts observed bytes."
+    },
+    {
+      "contradiction_id": "aic_8e029dc7cd5195cf2832415b7e8da5ec47ec3fbea5b9b286e59f4270d72aa351",
+      "declared_sha256": "2b2c0f571f644f031fddeb60f21d35629b69f5c02cccbe88a8e6394fc7435ace",
+      "evidence_id": "ev_500e3a7f3f22305bf542ebaea5071d2dc4904883f23c951792063cfe7e15c4a7",
+      "observed_sha256": "0accaa6f5e2aa9734027c85d5e70c68f86c34c9fd198643caa8e52bbcddaab17",
+      "occurrence_id": "occ_5f31ef819b010b6da0a94c734a53b3f99f22aa284905ad358d6bfbe441762e2d",
+      "statement": "Declared integrity for ScreenStudio-4.1.0.dmg/Screen Studio/Screen Studio.app/Contents/Resources/app.asar/bin/ffmpeg-darwin-arm64 contradicts observed bytes."
+    },
+    {
+      "contradiction_id": "aic_8093f663e5dab965d60c9b88c824e213932ae5a59cff26ee2016853825677c74",
+      "declared_sha256": "48fea7d6ee5ce2cdf7a5d5da17020dd255a99a0122c1148d8a8f68a3a03429d3",
+      "evidence_id": "ev_500e3a7f3f22305bf542ebaea5071d2dc4904883f23c951792063cfe7e15c4a7",
+      "observed_sha256": "14f5c65b2c7d1e1e456fe5ccc35661b5d30477da769e6c4407e0d29d25ff59ee",
+      "occurrence_id": "occ_563355509978eb30642f96c9f8d2e8c637970e839edb3c8681d0ab2ab33ed14b",
+      "statement": "Declared integrity for ScreenStudio-4.1.0.dmg/Screen Studio/Screen Studio.app/Contents/Resources/app.asar/bin/native-node.node contradicts observed bytes."
+    },
+    {
+      "contradiction_id": "aic_bdd565b8c63302c1e341acf9e4c995e45a671897f2aa9db0c460b2d7e47b861d",
+      "declared_sha256": "33748193b8520d7484ada194be1d0a6f75f15301f4c65524e91e247a86d5af30",
+      "evidence_id": "ev_500e3a7f3f22305bf542ebaea5071d2dc4904883f23c951792063cfe7e15c4a7",
+      "observed_sha256": "ac161fec59d2e76da7f290d180481d425bdd0c33053b780a15770880951727bb",
+      "occurrence_id": "occ_af59a48baf28c87f641003a480b14404be1117f918c078085c1c38ec1916e640",
+      "statement": "Declared integrity for ScreenStudio-4.1.0.dmg/Screen Studio/Screen Studio.app/Contents/Resources/app.asar/bin/screen-studio-native contradicts observed bytes."
+    },
+    {
+      "contradiction_id": "aic_2defaee2e085c27dbfd1d321d84e949d1577c40577ec2faf49a9e72dfa452cff",
+      "declared_sha256": "e5a2e124c4a42b77c6fed61f651a23da902a7df3e408b7b0291da9c67103ca2e",
+      "evidence_id": "ev_500e3a7f3f22305bf542ebaea5071d2dc4904883f23c951792063cfe7e15c4a7",
+      "observed_sha256": "bcc515c355f99dc869fe0273b6d7b27e5071fe2ca5244d216a63ee57ee57ea73",
+      "occurrence_id": "occ_97f318bc77e11dbf59f9000a9198d344a50ff881d9de78382d0609674a14ecd6",
+      "statement": "Declared integrity for ScreenStudio-4.1.0.dmg/Screen Studio/Screen Studio.app/Contents/Resources/app.asar/bin/shared-surfaces.node contradicts observed bytes."
+    },
+    {
+      "contradiction_id": "aic_98dfed808490da6485b3c767bfd5465e8321a7323aa3c06c33c92c9d6df5b614",
+      "declared_sha256": "89197ec0351204a6bea097d5f4eeb56eb8157c7c94653b7807368e886a78c727",
+      "evidence_id": "ev_500e3a7f3f22305bf542ebaea5071d2dc4904883f23c951792063cfe7e15c4a7",
+      "observed_sha256": "611f04777740fa898c08c3c4fcc4d7657626f23909669996a4f85dac49e55077",
+      "occurrence_id": "occ_16e2f9a85455a507e2a33fa88a50511d528edab737bbc228aa48d2cbf66e53e6",
+      "statement": "Declared integrity for ScreenStudio-4.1.0.dmg/Screen Studio/Screen Studio.app/Contents/Resources/app.asar/bin/whisper-darwin-arm64 contradicts observed bytes."
+    },
+    {
+      "contradiction_id": "aic_047e08725b414ab6b750e7afbfad45acce76828610e5e475f2444e4a19d85559",
+      "declared_sha256": "6c32c41c0e5a9e546616607b0383eada5bb646d0164324f20baab59d5b7963fa",
+      "evidence_id": "ev_500e3a7f3f22305bf542ebaea5071d2dc4904883f23c951792063cfe7e15c4a7",
+      "observed_sha256": "ef54cb875c1a210c50aacf9d820556ab6527d64ac2afeb2412827c88af058b8d",
+      "occurrence_id": "occ_e07f5d9f758e5310e99fd26d9c005edfb325a8dc2b93f62d128e5e665c9923d2",
+      "statement": "Declared integrity for ScreenStudio-4.1.0.dmg/Screen Studio/Screen Studio.app/Contents/Resources/app.asar/node_modules/keytar/build/Release/keytar.node contradicts observed bytes."
+    },
+    {
+      "contradiction_id": "aic_42de2f6f4bb53f45990d9519d0e77ff14067ef594c7ea2917e7bc72afe729fb5",
+      "declared_sha256": "ba008418c61572ef2474fb5ac282b11c0ac7f94f81c7ff20b62d0d9fe077d70f",
+      "evidence_id": "ev_500e3a7f3f22305bf542ebaea5071d2dc4904883f23c951792063cfe7e15c4a7",
+      "observed_sha256": "725284dbfb1a8d78ba023b7cb3ff211a63d261af85a287f475b2311fc7a3dc6d",
+      "occurrence_id": "occ_2fbe521fa5d31359222ae35b9b42d06cde7b0852f95555f41c9c759039007582",
+      "statement": "Declared integrity for ScreenStudio-4.1.0.dmg/Screen Studio/Screen Studio.app/Contents/Resources/app.asar/node_modules/node-mac-permissions/build/Release/permissions.node contradicts observed bytes."
+    },
+    {
+      "contradiction_id": "aic_4aec1ce2aef2e032632089f63658cc4960bb9da158ad26c05cf1e123bf17529a",
+      "declared_sha256": "25938be370e384f85fe84437f1082dd5fad2600f7bb11cacd38a5dc6aada0a87",
+      "evidence_id": "ev_500e3a7f3f22305bf542ebaea5071d2dc4904883f23c951792063cfe7e15c4a7",
+      "observed_sha256": "04f683773ce0e21fdff7323acd657beb1485ae0e76df3aacd4d58ba2be8dd3ff",
+      "occurrence_id": "occ_9268c9d2e5b9fa4ad2806f992e63301ce536d7d09b659febec69381152bae1db",
+      "statement": "Declared integrity for ScreenStudio-4.1.0.dmg/Screen Studio/Screen Studio.app/Contents/Resources/app.asar/node_modules/wallpaper/source/macos-wallpaper contradicts observed bytes."
+    }
+  ],
+  "limitations": [
+    "9 integrity contradiction(s) were recorded; mismatched content is observed-untrusted."
+  ],
+  "coverage": {
+    "hypotheses_omitted": 0,
+    "hypotheses_retained": 0,
+    "next_probes_omitted": 0,
+    "next_probes_retained": 0,
+    "observations_omitted": 0,
+    "observations_retained": 10,
+    "status": "complete-within-substeps",
+    "substeps_completed": 1,
+    "unexplored_branches_omitted": 0,
+    "unexplored_branches_retained": 0
+  },
+  "runtime_executed": false,
+  "codesign_verify": "Failed: invalid signature (code or signature have been modified), arm64",
+  "dmg_checksum": "hdiutil verify: VALID",
+  "interpretation": "Package inventory only. No claim about runtime reachability or original zoom algorithm. Mismatching content remains observed-untrusted."
+}
