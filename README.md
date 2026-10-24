@@ -2,11 +2,11 @@
 
 An independent native macOS app for screen recording, automatic click zooms, smooth cursor movement, and MP4 export. Inspired by the Screen Studio workflow, with its own interface, implementation, and test media.
 
-**Status: 0.3.2 · macOS 15+ · 20 tests passed.** Developed on Apple Silicon with Swift 6.4. A new silent window recording, project save/reopen, and Full HD export were verified in version 0.3.1; source access also survived a normal launch-only restart. This is not a complete Screen Studio replica.
+**Status: 0.3.3 · macOS 15+ · 29 tests passed.** Developed on Apple Silicon with Swift 6.4. Version 0.3.3 adds background project storage and more reliable export cancellation. A three-minute silent recording, project save/reopen and Full HD export passed; the cause of its end before the planned five minutes remains under investigation. See the [reliability report](docs/Reliability.md). This is not a complete Screen Studio replica.
 
 ## Getting started
 
-- [Download the local Apple Silicon build 0.3.2](artifacts/FrameCraft-0.3.2-macos-arm64.zip), extract it, and open FrameCraft.app. The build uses a persistent self-signed local identity, without Developer ID signing or public notarization.
+- [Download the local Apple Silicon build 0.3.3](artifacts/FrameCraft-0.3.3-macos-arm64.zip), extract it, and open FrameCraft.app. The build uses a persistent self-signed local identity, without Developer ID signing or public notarization.
 - Alternatively, build from source with a configured Xcode installation:
 
 ```sh
@@ -38,9 +38,11 @@ The app interface remains German. The English instructions below refer to these 
 - Separate cursor track: 0–250 ms smoothing, size, visibility, and click indicators. No keyboard input recording.
 - Nondestructive trimming, manual zooms, playback/scrubbing, three aspect ratios, four gradients, frames, and shadows.
 - Shared preview/export pipeline, 30 fps MP4 output, progress/cancellation, and overwrite protection.
-- Editable projects, including compatibility with older projects without cursor tracks.
+- Editable projects with background save/load, staged creation, atomic metadata updates, and compatibility with older projects without cursor tracks.
 
 ## Examples and verification
+
+- [Reliability — 0.3.3 measurements and failure tests](docs/Reliability.md), [three-minute recording project](examples/FrameCraft-Langzeittest-0.3.3.framecraft), and [Full HD export](examples/FrameCraft-Langzeittest-0.3.3.mp4).
 
 - [Stable signing update test — 0.3.2 export](examples/FrameCraft-Signaturtest-B.mp4) and [editable project](examples/FrameCraft-Signaturtest-B.framecraft).
 
@@ -74,7 +76,7 @@ Source, tests, local build instructions, documentation, REA evidence, a Linear s
 
 ## Recording permissions and updates
 
-See [recording permission and update guidance](docs/Recording-Permissions.md) for launch-only mode, safe bundle replacement, and recovery. Version 0.3.2 is installed. All 20 tests pass. Stable signing and a real changed-code update retained recording permission; recordings before and after the update and a Full HD export passed verification. See the [update test](docs/verification/stable-signing-0.3.2.json).
+See [recording permission and update guidance](docs/Recording-Permissions.md) for launch-only mode, safe bundle replacement, and recovery. Version 0.3.3 is installed. All 29 tests pass. Stable signing and a real changed-code update retained recording permission; recordings before and after the update and a Full HD export passed verification. See the [update test](docs/verification/stable-signing-0.3.2.json).
 
 
 Stable local signing is configured and verified on this Mac. See [identity setup and update continuity](docs/Signing-Identity.md). Future builds use the saved identity automatically; older app archives remain available as historical artifacts.

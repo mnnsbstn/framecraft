@@ -91,8 +91,8 @@ cat > "$STAGED_APP/Contents/Info.plist" <<PLIST
 <key>CFBundleName</key><string>$APP_NAME</string>
 <key>CFBundleDisplayName</key><string>$APP_NAME</string>
 <key>CFBundlePackageType</key><string>APPL</string>
-<key>CFBundleShortVersionString</key><string>0.3.2</string>
-<key>CFBundleVersion</key><string>6</string>
+<key>CFBundleShortVersionString</key><string>0.3.3</string>
+<key>CFBundleVersion</key><string>7</string>
 <key>LSMinimumSystemVersion</key><string>15.0</string>
 <key>NSPrincipalClass</key><string>NSApplication</string>
 <key>NSMicrophoneUsageDescription</key><string>FrameCraft nimmt auf deinen Wunsch gesprochenen Ton zum Bildschirmvideo auf.</string>

@@ -12,6 +12,7 @@ final class StudioStore: ObservableObject {
     @Published var selectedZoom: UUID?
     @Published var isPlaying = false
     @Published var isLoading = false
+    @Published private(set) var isSaving = false
     @Published var message: String?
     @Published var saved = true
     let player = AVPlayer()
@@ -127,7 +128,7 @@ final class StudioStore: ObservableObject {
     }
 
     func saveProject(asNew: Bool = false) {
-        guard let source = sourceURL else { return }
+        guard !isLoading, let source = sourceURL else { return }
         var folder = projectFolder
         if folder == nil || asNew {
             let panel = NSSavePanel(); panel.title = "FrameCraft-Projekt speichern"
@@ -137,18 +138,16 @@ final class StudioStore: ObservableObject {
             folder = url.pathExtension == "framecraft" ? url : url.appendingPathExtension("framecraft")
         }
         guard let folder else { return }
-        do {
-            try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
-            let media = folder.appendingPathComponent("source.\(source.pathExtension.lowercased())")
-            if source.standardizedFileURL != media.standardizedFileURL {
-                guard !FileManager.default.fileExists(atPath: media.path) else { throw StudioError.existingMedia }
-                try FileManager.default.copyItem(at: source, to: media)
-            }
-            let file = SavedProject(project: project, mediaFilename: media.lastPathComponent)
-            let encoder = JSONEncoder(); encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-            try encoder.encode(file).write(to: folder.appendingPathComponent("project.json"), options: .atomic)
-            sourceURL = media; projectFolder = folder; saved = true
-        } catch { message = error.localizedDescription }
+        let snapshot = project
+        isLoading = true; isSaving = true
+        Task {
+            defer { isLoading = false; isSaving = false }
+            do {
+                let media = try await ProjectPersistence.shared.save(project: snapshot, source: source, folder: folder)
+                guard sourceURL == source else { return }
+                sourceURL = media; projectFolder = folder; saved = project == snapshot
+            } catch { message = StorageFailure.message(for: error) }
+        }
     }
 
     func openProject() {
@@ -161,7 +160,7 @@ final class StudioStore: ObservableObject {
         Task {
             defer { isLoading = false }
             do {
-                let file = try JSONDecoder().decode(SavedProject.self, from: Data(contentsOf: folder.appendingPathComponent("project.json")))
+                let file = try await ProjectPersistence.shared.read(folder: folder)
                 guard file.project.version == 1, file.mediaFilename == URL(fileURLWithPath: file.mediaFilename).lastPathComponent else { throw StudioError.invalidProject }
                 let media = folder.appendingPathComponent(file.mediaFilename)
                 let actual = try await AVURLAsset(url: media).load(.duration).seconds
@@ -201,7 +200,6 @@ final class StudioStore: ObservableObject {
     }
 }
 
-private struct SavedProject: Codable { let project: Project; let mediaFilename: String }
 enum StudioError: LocalizedError {
     case invalidVideo, invalidProject, existingMedia
     var errorDescription: String? {

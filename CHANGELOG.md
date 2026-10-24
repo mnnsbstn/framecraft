@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.3 — October 24, 2026
+
+- Move large project encoding/decoding and media copies off the UI actor, with a saving indicator.
+- Stage new projects, update metadata atomically, and preserve originals/previous saves on failure.
+- Modernize export completion/progress and propagate both explicit and parent-task cancellation.
+- Explain nested full-disk errors and verify failure recovery without filling the user disk.
+- Pass 29 tests, including a one-hour synthetic cursor track; verify a three-minute silent window recording and Full HD export with resource measurements. See [reliability evidence](docs/Reliability.md).
+
 ## 0.3.2 — October 24, 2026
 
 - Persist a local signing identity in the user keychain and reuse its certificate selector across builds.

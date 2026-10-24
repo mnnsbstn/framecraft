@@ -146,7 +146,10 @@ struct ContentView: View {
                 Circle().fill(capture.isRecording ? Color.red : Color.green).frame(width: 5, height: 5)
                 Text(capture.isRecording ? "Aufnahme läuft — Stop auch in der Menüleiste" : "Bereit")
                 Spacer()
-                if exporter.isExporting {
+                if studio.isSaving {
+                    ProgressView().controlSize(.small)
+                    Text("Projekt wird gespeichert …")
+                } else if exporter.isExporting {
                     ProgressView(value: exporter.progress).frame(width: 140)
                     Text("Export \(Int(exporter.progress * 100)) %").monospacedDigit()
                     Button("Abbrechen") { exporter.cancel() }.buttonStyle(.link)

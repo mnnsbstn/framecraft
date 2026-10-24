@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-24",
+  "language": "English translation of the German Linear updates",
+  "project": "FrameCraft",
+  "version": "0.3.3",
+  "build": 7,
+  "tests_passed": 29,
+  "issues": [
+    {
+      "id": "SBSTN-82",
+      "status": "Done",
+      "summary": "Stable local signing and real changed-code update permission retention verified in 0.3.2; access retained again in 0.3.3."
+    },
+    {
+      "id": "SBSTN-85",
+      "status": "In Progress",
+      "summary": "Background project storage, write-failure protection and modern cancellable export implemented. Tests and 179.642-second silent window recording/save/reopen/export verified. Planned five-minute capture ended before an agent stop action. User clarification of the cause is pending. Endurance acceptance remains open."
+    }
+  ],
+  "evidence": "../Reliability.md",
+  "historical_snapshots": "Other files in this directory retain earlier full snapshots. This file is a targeted current update, not a full refresh of unrelated issues."
+}

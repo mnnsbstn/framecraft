@@ -147,14 +147,14 @@ final class ExportService: ObservableObject {
     @Published private(set) var isExporting = false
     @Published private(set) var progress: Double = 0
     @Published private(set) var errorMessage: String?
-    private var activeSession: AVAssetExportSession?
+    private var activeTask: Task<Void, Error>?
     private var cancelled = false
 
     func clearError() { errorMessage = nil }
 
     func cancel() {
         cancelled = true
-        activeSession?.cancelExport()
+        activeTask?.cancel()
     }
 
     func export(source: URL, project: Project, destination: URL) async -> Bool {
@@ -168,7 +168,7 @@ final class ExportService: ObservableObject {
         var progressTask: Task<Void, Never>?
         defer {
             progressTask?.cancel()
-            activeSession = nil
+            activeTask = nil
             isExporting = false
             try? FileManager.default.removeItem(at: temporary)
         }
@@ -190,9 +190,6 @@ final class ExportService: ObservableObject {
             guard let session = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetHighestQuality) else {
                 throw RenderError.exportUnavailable
             }
-            activeSession = session
-            session.outputURL = temporary
-            session.outputFileType = .mp4
             session.shouldOptimizeForNetworkUse = true
             session.videoComposition = composition
             session.timeRange = CMTimeRange(start: CMTime(seconds: start, preferredTimescale: 600),
@@ -208,24 +205,23 @@ final class ExportService: ObservableObject {
                 session.audioMix = mix
             }
             guard !cancelled else { throw CancellationError() }
-            progressTask = Task { [weak self, weak session] in
-                while !Task.isCancelled {
-                    guard let self, let session else { return }
-                    self.progress = Double(session.progress)
-                    do { try await Task.sleep(for: .milliseconds(100)) } catch { return }
+            progressTask = Task { [weak self] in
+                for await state in session.states(updateInterval: 0.1) {
+                    guard !Task.isCancelled, let self else { return }
+                    if case .exporting(let value) = state {
+                        self.progress = min(1, max(0, value.fractionCompleted))
+                    }
                 }
             }
-            await withTaskCancellationHandler {
-                await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
-                    session.exportAsynchronously { continuation.resume() }
-                }
+            let operation = Task { try await session.export(to: temporary, as: .mp4) }
+            activeTask = operation
+            try await withTaskCancellationHandler {
+                try await operation.value
             } onCancel: {
-                session.cancelExport()
+                operation.cancel()
             }
-            guard !cancelled, !Task.isCancelled, session.status != .cancelled else { throw CancellationError() }
-            guard session.status == .completed else {
-                throw session.error ?? RenderError.failed("Der Videoexport ist fehlgeschlagen.")
-            }
+            guard !cancelled else { throw CancellationError() }
+            try Task.checkCancellation()
             // moveItem refuses to overwrite an existing file, including one created during export.
             try FileManager.default.moveItem(at: temporary, to: destination)
             progress = 1
@@ -234,7 +230,8 @@ final class ExportService: ObservableObject {
             errorMessage = nil
             return false
         } catch {
-            errorMessage = error.localizedDescription
+            // Framework cancellation may arrive as an NSError, not CancellationError.
+            errorMessage = cancelled || Task.isCancelled ? nil : StorageFailure.message(for: error)
             return false
         }
     }

@@ -4,6 +4,76 @@ import XCTest
 
 @MainActor
 final class VideoExportTests: XCTestCase {
+    private func longFixture() async throws -> (directory: URL, source: URL) {
+        let original = try await fixture()
+        let asset = AVURLAsset(url: original.source)
+        let composition = AVMutableComposition()
+        for index in 0..<12 {
+            try await composition.insertTimeRange(CMTimeRange(start: .zero, duration: CMTime(seconds: 6, preferredTimescale: 600)),
+                                            of: asset, at: CMTime(seconds: Double(index) * 6, preferredTimescale: 600))
+        }
+        let source = original.directory.appendingPathComponent("long.mp4")
+        let session = try XCTUnwrap(AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetPassthrough))
+        try await session.export(to: source, as: .mp4)
+        return (original.directory, source)
+    }
+
+    private func waitForActiveExport(_ exporter: ExportService) async throws {
+        for _ in 0..<1000 {
+            if exporter.progress > 0 && exporter.progress < 1 { return }
+            try await Task.sleep(for: .milliseconds(5))
+        }
+        XCTFail("Export never reached observable active progress")
+    }
+
+    func testActiveExportCancellationAndReuse() async throws {
+        let (directory, source) = try await longFixture()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let destination = directory.appendingPathComponent("cancel-active.mp4")
+        let exporter = ExportService()
+        let project = Project(duration: 72, trimEnd: 72)
+        let job = Task { await exporter.export(source: source, project: project, destination: destination) }
+        try await waitForActiveExport(exporter)
+        exporter.cancel()
+        let result = await job.value
+        XCTAssertFalse(result)
+        XCTAssertNil(exporter.errorMessage)
+        XCTAssertFalse(exporter.isExporting)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: destination.path))
+        let retry = await exporter.export(source: source, project: Project(duration: 72, trimEnd: 0.5), destination: destination)
+        XCTAssertTrue(retry, exporter.errorMessage ?? "")
+        XCTAssertFalse(try FileManager.default.contentsOfDirectory(atPath: directory.path).contains { $0.hasPrefix(".framecraft-") })
+    }
+
+    func testParentCancellationRemovesTemporaryOutput() async throws {
+        let (directory, source) = try await longFixture()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let destination = directory.appendingPathComponent("cancel-parent.mp4")
+        let exporter = ExportService()
+        let job = Task { await exporter.export(source: source, project: Project(duration: 72, trimEnd: 72), destination: destination) }
+        try await waitForActiveExport(exporter)
+        job.cancel()
+        let result = await job.value
+        XCTAssertFalse(result)
+        XCTAssertNil(exporter.errorMessage)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: destination.path))
+        XCTAssertFalse(try FileManager.default.contentsOfDirectory(atPath: directory.path).contains { $0.hasPrefix(".framecraft-") })
+    }
+
+    func testUnwritableDestinationFailsAndServiceRecovers() async throws {
+        let (directory, source) = try await fixture()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let exporter = ExportService()
+        let missing = directory.appendingPathComponent("missing/result.mp4")
+        let project = Project(duration: 6, trimEnd: 0.5)
+        let result = await exporter.export(source: source, project: project, destination: missing)
+        XCTAssertFalse(result)
+        XCTAssertNotNil(exporter.errorMessage)
+        XCTAssertFalse(exporter.isExporting)
+        let retry = await exporter.export(source: source, project: project, destination: directory.appendingPathComponent("retry.mp4"))
+        XCTAssertTrue(retry, exporter.errorMessage ?? "")
+    }
+
     private func fixture() async throws -> (directory: URL, source: URL) {
         let directory = FileManager.default.temporaryDirectory
             .appendingPathComponent("FrameCraft-export-tests-\(UUID().uuidString)", isDirectory: true)
