@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.2 — October 24, 2026
+
+- Persist a local signing identity in the user keychain and reuse its certificate selector across builds.
+- Refuse silent ad hoc fallback, require an explicit initial migration, and validate old/new signing requirements before replacing the app.
+- Add native regression checks for changed executables, same-identifier impostors, and tampering.
+- Verify recording permission across builds 5 and 6 with changed executable code, with no permission changes between builds; save original test projects and a Full HD export.
+- Add a version/build tooltip for diagnostics. All 20 app tests and native signing counterchecks pass.
+
 ## 0.3.1 — October 24, 2026
 
 - Add specific screen permission recovery, a settings link, and source refresh on return.

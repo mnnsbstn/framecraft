@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-24",
+  "before": {
+    "version": "0.3.2",
+    "build": "5",
+    "executable_sha256": "2f123c442a27ab4d181bc40475ddacf839b1b8375fe8c37555ee46d73d4ab7e0",
+    "cdhash": "370593313b88fb50ca9083105d04f03fa2587e1e",
+    "designated_requirement": "identifier \"local.sebastian.FrameCraft\" and certificate leaf = H\"e591b886ce2a5acda1a7bf1c2ae64dd6c2e8692c\""
+  },
+  "after": {
+    "version": "0.3.2",
+    "build": "6",
+    "executable_sha256": "84c8e36f1f7f46b9a8340ad6d4d648ca82cb8bb2cbeec040c61b4a3dafa0caef",
+    "cdhash": "17767457df5d228f6d29c176cdf5a5e56dcc30c8",
+    "designated_requirement": "identifier \"local.sebastian.FrameCraft\" and certificate leaf = H\"e591b886ce2a5acda1a7bf1c2ae64dd6c2e8692c\""
+  },
+  "different_program_code": true,
+  "mutually_compatible_requirements": true,
+  "recording_started_before_update": true,
+  "recording_started_after_update": true,
+  "permission_changes_between_signed_builds": false,
+  "permission_prompts_during_signed_update": false,
+  "automated_tests": 20,
+  "test_failures": 0,
+  "signing_regression": {
+    "certificate_sha1": "E591B886CE2A5ACDA1A7BF1C2AE64DD6C2E8692C",
+    "different_executables": true,
+    "mutually_compatible_requirements": true,
+    "same_identifier_adhoc_impostor_rejected": true,
+    "tampering_rejected": true,
+    "designated_requirement": "identifier \"local.sebastian.FrameCraft.signing-probe\" and certificate leaf = H\"e591b886ce2a5acda1a7bf1c2ae64dd6c2e8692c\""
+  },
+  "status": "passed on this Mac",
+  "initial_migration": "Scoped FrameCraft ScreenCapture reset and current-app registration before build 5; no permission changes between builds 5 and 6.",
+  "identity_setup_reuses_existing_key": true,
+  "trust_overrides_added": false,
+  "adhoc_downgrade_refused": true,
+  "running_app_guard_passed": true,
+  "source_a_duration_seconds": 11.0,
+  "source_b_duration_seconds": 17.27166666666667,
+  "source_dimensions": [
+    1312,
+    844
+  ],
+  "export_dimensions": [
+    1920,
+    1080
+  ],
+  "audio_tracks": 0,
+  "sample_frames_decoded": true,
+  "export_frame_visually_checked": true,
+  "full_frame_audit": false,
+  "captured_clicks": 0,
+  "no_new_zoom_validation": true,
+  "artifact_sha256": "85d708c14a775a8961232f9150cec8e95bb27556979f9de08f4a36f0a5f91b16"
+}

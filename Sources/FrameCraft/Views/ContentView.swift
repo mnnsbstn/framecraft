@@ -150,7 +150,10 @@ struct ContentView: View {
                     ProgressView(value: exporter.progress).frame(width: 140)
                     Text("Export \(Int(exporter.progress * 100)) %").monospacedDigit()
                     Button("Abbrechen") { exporter.cancel() }.buttonStyle(.link)
-                } else { Text("MP4 · 30 fps · lokal") }
+                } else {
+                    Text("MP4 · 30 fps · lokal")
+                        .help("FrameCraft \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "–") · Build \(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "–")")
+                }
             }.font(.system(size: 10)).foregroundStyle(.secondary).padding(.horizontal, 20).padding(.vertical, 9)
         }
     }

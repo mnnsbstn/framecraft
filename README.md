@@ -2,23 +2,24 @@
 
 An independent native macOS app for screen recording, automatic click zooms, smooth cursor movement, and MP4 export. Inspired by the Screen Studio workflow, with its own interface, implementation, and test media.
 
-**Status: 0.3.1 · macOS 15+ · 20 tests passed.** Developed on Apple Silicon with Swift 6.4. A new silent window recording, project save/reopen, and Full HD export were verified in version 0.3.1; source access also survived a normal launch-only restart. This is not a complete Screen Studio replica.
+**Status: 0.3.2 · macOS 15+ · 20 tests passed.** Developed on Apple Silicon with Swift 6.4. A new silent window recording, project save/reopen, and Full HD export were verified in version 0.3.1; source access also survived a normal launch-only restart. This is not a complete Screen Studio replica.
 
 ## Getting started
 
-- [Download the local Apple Silicon build 0.3.1](artifacts/FrameCraft-0.3.1-macos-arm64.zip), extract it, and open FrameCraft.app. The build is locally ad hoc signed, without Developer ID signing or public notarization.
+- [Download the local Apple Silicon build 0.3.2](artifacts/FrameCraft-0.3.2-macos-arm64.zip), extract it, and open FrameCraft.app. The build uses a persistent self-signed local identity, without Developer ID signing or public notarization.
 - Alternatively, build from source with a configured Xcode installation:
 
 ```sh
 git clone https://github.com/mnnsbstn/framecraft.git
 cd framecraft
+python3 script/setup-local-signing.py
 ./script/build_and_run.sh --test
 ./script/build_and_run.sh --verify
 ```
 
 The app is created at `dist/FrameCraft.app`. If the app is already running, the script asks you to quit it normally to avoid losing a recording. Other options: `--build`, `--logs`, `--debug`.
 
-For a new recording, allow FrameCraft in macOS System Settings → Privacy & Security → Screen & System Audio Recording. Microphone access is required only when microphone recording is enabled. A local rebuild may require permission to be granted again; version 0.3.1 recording was verified after a scoped permission renewal. Permission retention across future changed builds remains unverified.
+For a new recording, allow FrameCraft in macOS System Settings → Privacy & Security → Screen & System Audio Recording. Microphone access is required only when microphone recording is enabled. The one-time switch from ad hoc to a stable identity may require renewed permission. Version 0.3.2 retained recording access across two builds with different executable code and the same signing identity, without a second permission change. Keep the signing key and bundle identifier stable.
 
 ## Using the app
 
@@ -40,6 +41,8 @@ The app interface remains German. The English instructions below refer to these 
 - Editable projects, including compatibility with older projects without cursor tracks.
 
 ## Examples and verification
+
+- [Stable signing update test — 0.3.2 export](examples/FrameCraft-Signaturtest-B.mp4) and [editable project](examples/FrameCraft-Signaturtest-B.framecraft).
 
 - [Permission recovery — version 0.3.1 export](examples/FrameCraft-Freigabetest-0.3.1.mp4) and [editable project](examples/FrameCraft-Freigabetest-0.3.1.framecraft).
 
@@ -71,4 +74,7 @@ Source, tests, local build instructions, documentation, REA evidence, a Linear s
 
 ## Recording permissions and updates
 
-See [recording permission and update guidance](docs/Recording-Permissions.md) for launch-only mode, safe bundle replacement, and recovery. Version 0.3.1 is installed and its permission-recovery UI is verified. All 20 tests pass. Recording access is restored and survives a normal launch-only restart. A new 9.19-second silent recording and Full HD export passed verification. Stable signing across changed builds remains open.
+See [recording permission and update guidance](docs/Recording-Permissions.md) for launch-only mode, safe bundle replacement, and recovery. Version 0.3.2 is installed. All 20 tests pass. Stable signing and a real changed-code update retained recording permission; recordings before and after the update and a Full HD export passed verification. See the [update test](docs/verification/stable-signing-0.3.2.json).
+
+
+Stable local signing is configured and verified on this Mac. See [identity setup and update continuity](docs/Signing-Identity.md). Future builds use the saved identity automatically; older app archives remain available as historical artifacts.

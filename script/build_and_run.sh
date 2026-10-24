@@ -5,6 +5,7 @@ APP_NAME="FrameCraft"
 BUNDLE_ID="local.sebastian.FrameCraft"
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 APP_BUNDLE="$ROOT_DIR/dist/$APP_NAME.app"
+SIGNING_PIN="$HOME/Library/Application Support/FrameCraft/Signing/identity.sha1"
 cd "$ROOT_DIR"
 case "$MODE" in
   run|--verify|--logs|--debug|--build|--test|--launch|--diagnose) ;;
@@ -20,6 +21,7 @@ if [ "$MODE" = '--diagnose' ]; then
   /usr/bin/codesign --verify --deep --strict "$APP_BUNDLE"
   /usr/bin/codesign --display --verbose=2 -r- "$APP_BUNDLE"
   /usr/bin/security find-identity -p codesigning -v
+  if [ -f "$SIGNING_PIN" ]; then printf 'Gespeicherte lokale Identität: '; cat "$SIGNING_PIN"; fi
   exit 0
 fi
 if ! /usr/bin/xcrun swift --version; then
@@ -43,11 +45,28 @@ ensure_stopped() {
   fi
 }
 ensure_stopped
-SIGN_IDENTITY="${FRAMECRAFT_SIGNING_IDENTITY:--}"
-if [ -d "$APP_BUNDLE" ] && [ "$SIGN_IDENTITY" = '-' ]; then
+if [ "${FRAMECRAFT_SIGNING_IDENTITY+x}" = x ]; then
+  SIGN_IDENTITY="$FRAMECRAFT_SIGNING_IDENTITY"
+  [ -n "$SIGN_IDENTITY" ] || { echo 'Leere Signierungsidentität; Abbruch.' >&2; exit 1; }
+elif [ -f "$SIGNING_PIN" ]; then
+  SIGN_IDENTITY="$(cat "$SIGNING_PIN")"
+  [[ "$SIGN_IDENTITY" =~ ^[A-Fa-f0-9]{40}$ ]] || { echo 'Ungültige lokale Signierungskennung; kein Rückfall auf ad hoc.' >&2; exit 1; }
+else
+  echo 'Feste Signierung fehlt. Einmalig python3 script/setup-local-signing.py ausführen oder FRAMECRAFT_SIGNING_IDENTITY ausdrücklich setzen.' >&2
+  exit 1
+fi
+EXISTING_ADHOC=0
+if [ -d "$APP_BUNDLE" ]; then
+  /usr/bin/codesign --verify --deep --strict "$APP_BUNDLE"
   EXISTING_SIGNATURE="$(/usr/bin/codesign --display --verbose=2 "$APP_BUNDLE" 2>&1)"
-  if ! /usr/bin/grep -q '^Signature=adhoc$' <<< "$EXISTING_SIGNATURE"; then
-    echo 'Die vorhandene App ist mit einer festen Identität signiert. Setze FRAMECRAFT_SIGNING_IDENTITY; kein automatischer Wechsel auf lokale Signierung.' >&2
+  if /usr/bin/grep -q '^Signature=adhoc$' <<< "$EXISTING_SIGNATURE"; then
+    EXISTING_ADHOC=1
+    if [ "$SIGN_IDENTITY" != '-' ] && [ "${FRAMECRAFT_MIGRATE_ADHOC:-0}" != 1 ]; then
+      echo 'Einmaliger Wechsel von ad hoc zu fester Signierung: FRAMECRAFT_MIGRATE_ADHOC=1 setzen. macOS kann hierfür einmalig eine neue Freigabe verlangen.' >&2
+      exit 1
+    fi
+  elif [ "$SIGN_IDENTITY" = '-' ]; then
+    echo 'Die vorhandene App ist fest signiert. Ein Rückfall auf ad hoc wird verweigert.' >&2
     exit 1
   fi
 fi
@@ -72,8 +91,8 @@ cat > "$STAGED_APP/Contents/Info.plist" <<PLIST
 <key>CFBundleName</key><string>$APP_NAME</string>
 <key>CFBundleDisplayName</key><string>$APP_NAME</string>
 <key>CFBundlePackageType</key><string>APPL</string>
-<key>CFBundleShortVersionString</key><string>0.3.1</string>
-<key>CFBundleVersion</key><string>4</string>
+<key>CFBundleShortVersionString</key><string>0.3.2</string>
+<key>CFBundleVersion</key><string>6</string>
 <key>LSMinimumSystemVersion</key><string>15.0</string>
 <key>NSPrincipalClass</key><string>NSApplication</string>
 <key>NSMicrophoneUsageDescription</key><string>FrameCraft nimmt auf deinen Wunsch gesprochenen Ton zum Bildschirmvideo auf.</string>
@@ -83,6 +102,15 @@ cat > "$STAGED_APP/Contents/Info.plist" <<PLIST
 PLIST
 /usr/bin/codesign --force --sign "$SIGN_IDENTITY" --identifier "$BUNDLE_ID" "$STAGED_APP"
 /usr/bin/codesign --verify --deep --strict "$STAGED_APP"
+# A stable update must satisfy the old identity AND the reverse requirement.
+# Reject incompatible or broadened identities before moving the working app.
+if [ -d "$APP_BUNDLE" ] && [ "$EXISTING_ADHOC" = 0 ]; then
+  /usr/bin/codesign --display -r- "$APP_BUNDLE" 2>&1 | /usr/bin/sed -n 's/^#* *designated => //p' > "$STAGING_DIR/previous.req"
+  /usr/bin/codesign --display -r- "$STAGED_APP" 2>&1 | /usr/bin/sed -n 's/^#* *designated => //p' > "$STAGING_DIR/next.req"
+  [ -s "$STAGING_DIR/previous.req" ] && [ -s "$STAGING_DIR/next.req" ] || { echo 'Signierungsanforderungen fehlen; Abbruch.' >&2; exit 1; }
+  /usr/bin/codesign --verify --strict -R "$STAGING_DIR/previous.req" "$STAGED_APP"
+  /usr/bin/codesign --verify --strict -R "$STAGING_DIR/next.req" "$APP_BUNDLE"
+fi
 ensure_stopped
 # Keep the previous bundle recoverable; never overwrite it before signing succeeds.
 BACKUP_DIR=""

@@ -41,3 +41,17 @@ AVFoundation read both media files and decoded a frame from each: source 1172 ×
 This recording contains zero captured clicks and no zoom segments; it verifies permission recovery, recording, persistence, and export, not a new mouse/click/zoom acceptance test. Earlier real-click evidence remains the reference for those features. The app binary and existing 20-test source state were unchanged. Stable signing and permission retention across future changed builds remain open under SBSTN-82; ordinary restart success does not establish update retention.
 
 Evidence: [MP4 export](../examples/FrameCraft-Freigabetest-0.3.1.mp4), [editable project](../examples/FrameCraft-Freigabetest-0.3.1.framecraft), and [installation record](verification/install-0.3.1.json).
+
+## Stable signing accepted — October 24, 2026
+
+Version 0.3.2 build 6 is installed with a persistent local code-signing identity. The private key stays in the user keychain; the build script automatically reuses a saved public certificate selector. No certificate trust overrides, Gatekeeper changes, or direct TCC database edits were made. The setup was rerun successfully using the same identity.
+
+The initial migration from ad hoc signing required one scoped FrameCraft ScreenCapture reset and registration of the current app. The first signed build (5) recorded an original silent TextEdit test window for 11.0 seconds. The next build (6) changed Swift code by adding a version/build tooltip to the footer, and was rebuilt, signed and installed at the same path. Both executable hash and CDHash changed, while the certificate-and-identifier requirement stayed identical. The second build immediately loaded sources and recorded 17.271667 seconds without another permission prompt, reset, toggle or registration. This verifies permission retention across an actual changed-code update on this Mac.
+
+Both original clips are 1312 × 844 with no audio. The second clip exported at 1920 × 1080 with no audio. Metadata and one decoded frame per file were checked; the export frame was visually inspected. These are permission/update checks with zero captured clicks, not a new cursor/zoom acceptance test or full frame-by-frame video audit.
+
+All 20 app tests passed. Native signing checks passed for different executables, mutually compatible requirements, rejection of an ad hoc impostor with the same identifier, and tamper detection. The running-app guard and explicit ad hoc downgrade rejection were also checked. Subsequent updates compare both old/new requirements before replacing the app. A missing key or incompatible identity must fail rather than silently changing identity.
+
+This resolves the local update-related permission loss tracked by SBSTN-82. It does not guarantee that macOS will never request consent after revocation, policy changes, migration to another Mac, or certificate replacement/expiry. Developer ID distribution/notarization remains a separate, unimplemented workflow. Keep the local signing key; see [stable identity guidance](Signing-Identity.md).
+
+Evidence: [machine-readable update test](verification/stable-signing-0.3.2.json), [20-test log](verification/tests-0.3.2.txt), [post-update export](../examples/FrameCraft-Signaturtest-B.mp4), and editable [before](../examples/FrameCraft-Signaturtest-A.framecraft)/[after](../examples/FrameCraft-Signaturtest-B.framecraft) projects.
