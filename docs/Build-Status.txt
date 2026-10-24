@@ -31,3 +31,13 @@ Documentation language update: GitHub documentation is English; app behavior and
 
 Installation follow-up — October 24, 2026
 Version 0.3.1 packaged, strictly signature-verified, installed at the existing path and launched. Previous bundle backed up. Denied-access notice, disabled source/start controls and settings navigation verified in the UI. ScreenCaptureKit still denies access after launch-only restart while the macOS toggle appears enabled. User renewal and stable identity signing remain open; no new recording was made. App archive 0.3.1 created and ZIP integrity/executable permissions checked; 0.3.0 archive retained.
+
+## Recovery verified — October 24, 2026
+
+After the user unlocked the Mac, FrameCraft 0.3.1 successfully enumerated recording sources. No further permission reset or app rebuild was needed. A new 9.19-second recording captured only the original TextEdit test window, with system audio and microphone disabled. The project was saved and reopened after a normal launch-only restart. Source enumeration still worked after that restart.
+
+AVFoundation read both media files and decoded a frame from each: source 1172 × 976, export 1920 × 1080, duration 9.19 seconds each, zero audio tracks. The exported frame was visually checked for the expected test window, gradient, rounded corners, and framing. The first decoding attempt was blocked in the restricted execution environment; the same reviewed local verifier succeeded outside it. This is a metadata and sampled-frame check, not a complete frame-by-frame quality audit.
+
+This recording contains zero captured clicks and no zoom segments; it verifies permission recovery, recording, persistence, and export, not a new mouse/click/zoom acceptance test. Earlier real-click evidence remains the reference for those features. The app binary and existing 20-test source state were unchanged. Stable signing and permission retention across future changed builds remain open under SBSTN-82; ordinary restart success does not establish update retention.
+
+Evidence: [MP4 export](../examples/FrameCraft-Freigabetest-0.3.1.mp4), [editable project](../examples/FrameCraft-Freigabetest-0.3.1.framecraft), and [installation record](verification/install-0.3.1.json).

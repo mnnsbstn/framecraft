@@ -2,7 +2,7 @@
 
 An independent native macOS app for screen recording, automatic click zooms, smooth cursor movement, and MP4 export. Inspired by the Screen Studio workflow, with its own interface, implementation, and test media.
 
-**Status: 0.3.1 · macOS 15+ · 20 tests passed.** Developed on Apple Silicon with Swift 6.4. Recording was tested on this Mac in version 0.2; version 0.3 exported the same recording. This is not a complete Screen Studio replica.
+**Status: 0.3.1 · macOS 15+ · 20 tests passed.** Developed on Apple Silicon with Swift 6.4. A new silent window recording, project save/reopen, and Full HD export were verified in version 0.3.1; source access also survived a normal launch-only restart. This is not a complete Screen Studio replica.
 
 ## Getting started
 
@@ -18,7 +18,7 @@ cd framecraft
 
 The app is created at `dist/FrameCraft.app`. If the app is already running, the script asks you to quit it normally to avoid losing a recording. Other options: `--build`, `--logs`, `--debug`.
 
-For a new recording, allow FrameCraft in macOS System Settings → Privacy & Security → Screen & System Audio Recording. Microphone access is required only when microphone recording is enabled. A local rebuild may require permission to be granted again; a new recording has not yet been tested after rebuilding version 0.3.
+For a new recording, allow FrameCraft in macOS System Settings → Privacy & Security → Screen & System Audio Recording. Microphone access is required only when microphone recording is enabled. A local rebuild may require permission to be granted again; version 0.3.1 recording was verified after a scoped permission renewal. Permission retention across future changed builds remains unverified.
 
 ## Using the app
 
@@ -40,6 +40,8 @@ The app interface remains German. The English instructions below refer to these 
 - Editable projects, including compatibility with older projects without cursor tracks.
 
 ## Examples and verification
+
+- [Permission recovery — version 0.3.1 export](examples/FrameCraft-Freigabetest-0.3.1.mp4) and [editable project](examples/FrameCraft-Freigabetest-0.3.1.framecraft).
 
 - [Smooth zooms — current export](examples/FrameCraft-Sanfte-Zooms.mp4)
 - [Click test — version 0.2 export](examples/FrameCraft-Klicktest.mp4)
@@ -69,4 +71,4 @@ Source, tests, local build instructions, documentation, REA evidence, a Linear s
 
 ## Recording permissions and updates
 
-See [recording permission and update guidance](docs/Recording-Permissions.md) for launch-only mode, safe bundle replacement, and recovery. Version 0.3.1 is installed and its permission-recovery UI is verified. All 20 tests pass. macOS still denies recording after a launch-only restart despite showing the permission enabled; user renewal and stable signing remain open.
+See [recording permission and update guidance](docs/Recording-Permissions.md) for launch-only mode, safe bundle replacement, and recovery. Version 0.3.1 is installed and its permission-recovery UI is verified. All 20 tests pass. Recording access is restored and survives a normal launch-only restart. A new 9.19-second silent recording and Full HD export passed verification. Stable signing across changed builds remains open.

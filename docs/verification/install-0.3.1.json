@@ -9,9 +9,9 @@
   "previous_app_backup_preserved": true,
   "ui_permission_denial_verified": true,
   "settings_navigation_verified": true,
-  "screen_access_after_restart": "denied; user renewal pending",
+  "screen_access_after_restart": "confirmed after scoped renewal and user unlock; confirmed again after a normal launch-only restart",
   "valid_signing_identities": 0,
-  "new_recording_tested": false,
+  "new_recording_tested": true,
   "artifact_sha256": "19c7b2926a12a2fcaafc923b0358564f45fa28d270997926b5140b213cb66fbe",
   "follow_up": {
     "stored_requirement_cdhash": "641a69363d57c5da509cd6d6f6b68b8ccacf6c60",
@@ -19,7 +19,38 @@
     "tcc_mismatch_confirmed": true,
     "scoped_reset": "tccutil reset ScreenCapture local.sebastian.FrameCraft",
     "scoped_reset_reported_success": true,
-    "access_confirmed": false,
-    "current_blocker": "Mac locked; manual unlock required before further UI work"
+    "access_confirmed": true,
+    "current_blocker": null,
+    "remaining_limitation": "Stable identity signing and permission retention across future changed builds remain unverified."
+  },
+  "initial_screen_access_after_restart": "denied; user renewal pending",
+  "live_verification": {
+    "source": "original TextEdit test window only",
+    "duration_seconds": 9.19,
+    "source_dimensions": [
+      1172,
+      976
+    ],
+    "export_dimensions": [
+      1920,
+      1080
+    ],
+    "source_audio_tracks": 0,
+    "export_audio_tracks": 0,
+    "decoded_sample_frames": {
+      "source": true,
+      "export": true
+    },
+    "export_frame_visually_checked": true,
+    "full_frame_decode_audit": false,
+    "project_saved_and_reopened": true,
+    "sources_available_after_launch_only_restart": true,
+    "captured_clicks": 0,
+    "zoom_segments": 0,
+    "new_zoom_validation": false,
+    "no_additional_reset_or_rebuild": true,
+    "export_path": "examples/FrameCraft-Freigabetest-0.3.1.mp4",
+    "project_path": "examples/FrameCraft-Freigabetest-0.3.1.framecraft",
+    "export_sha256": "a287a7137aefe92c86dc3b9e5456d6b0ec4cf475eb964a1420c4bdcd5b8ada3c"
   }
 }

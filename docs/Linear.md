@@ -120,3 +120,13 @@ GitHub contains a snapshot of the project, issues, and journal under docs/linear
 Source enumeration remained denied after normal launch-only restarts. The macOS privacy log explicitly reported a screen-capture code requirement mismatch: stored hash `641a69363d57c5da509cd6d6f6b68b8ccacf6c60`, installed hash `8f556a977cb9bc1f21f737963e0f756f9d368357`. The running process uses the expected app path.
 
 The previously authorized renewal was limited to `tccutil reset ScreenCapture local.sebastian.FrameCraft`; it reported success. No other privacy service or app was reset. The unchanged app was reopened; working access has not yet been confirmed. Further UI work stopped because the Mac became locked. After manual unlock, renew only the FrameCraft registration with the user's authentication if required, then verify source loading and an original silent test window. No new recording/export is claimed.
+
+## Recovery verified — October 24, 2026
+
+After the user unlocked the Mac, FrameCraft 0.3.1 successfully enumerated recording sources. No further permission reset or app rebuild was needed. A new 9.19-second recording captured only the original TextEdit test window, with system audio and microphone disabled. The project was saved and reopened after a normal launch-only restart. Source enumeration still worked after that restart.
+
+AVFoundation read both media files and decoded a frame from each: source 1172 × 976, export 1920 × 1080, duration 9.19 seconds each, zero audio tracks. The exported frame was visually checked for the expected test window, gradient, rounded corners, and framing. The first decoding attempt was blocked in the restricted execution environment; the same reviewed local verifier succeeded outside it. This is a metadata and sampled-frame check, not a complete frame-by-frame quality audit.
+
+This recording contains zero captured clicks and no zoom segments; it verifies permission recovery, recording, persistence, and export, not a new mouse/click/zoom acceptance test. Earlier real-click evidence remains the reference for those features. The app binary and existing 20-test source state were unchanged. Stable signing and permission retention across future changed builds remain open under SBSTN-82; ordinary restart success does not establish update retention.
+
+Evidence: [MP4 export](../examples/FrameCraft-Freigabetest-0.3.1.mp4), [editable project](../examples/FrameCraft-Freigabetest-0.3.1.framecraft), and [installation record](verification/install-0.3.1.json).
