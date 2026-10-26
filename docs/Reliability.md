@@ -40,7 +40,7 @@ Run `./script/build_and_run.sh --test`. Build using the existing stable signing 
 
 ## Live acceptance results
 
-The planned five-minute recording ended at 179.642 seconds before the agent issued a stop action. The app showed no recording error and imported a finalized file. The cause is not yet established; user clarification is pending. The full five-minute endurance acceptance therefore remains open in SBSTN-85. The text visible inside the original test window describes the planned duration, not the achieved duration.
+The planned five-minute recording ended at 179.642 seconds before the agent issued a stop action. The app showed no recording error and imported a finalized file. On October 26, 2026, the user confirmed that they stopped the recording themselves. This resolves the unexplained-stop concern; it is not evidence of an automatic recording failure. The full five-minute endurance acceptance remains open in SBSTN-85 because that duration was not reached. The text visible inside the original test window describes the planned duration, not the achieved duration.
 
 The app recorded the original silent test window for **179.642 seconds** and saved/reopened the project with **10,564 cursor samples**. The full selection exported as **1920 × 1080 at 30 fps**, with no audio tracks. No screen permission reset, toggle or additional grant was required for the update.
 

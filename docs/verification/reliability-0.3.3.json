@@ -86,14 +86,15 @@
   "events": {
     "recording_ended_without_agent_stop": true,
     "observed_duration_seconds": 179.6,
-    "cause": "awaiting user clarification",
+    "cause": "Manually stopped by the user; confirmed October 26, 2026",
     "save_begin_epoch": 1792846501.4230158,
     "export_action_before_epoch": 1792846536.465763,
     "project_reopened": true,
     "export_file_observed_epoch": 1792846572.148881,
     "export_file_birth_epoch": 1792846542.7865767,
     "export_last_modified_epoch": 1792846571.9918065,
-    "export_elapsed_upper_bound_seconds": 35.68311786651611
+    "export_elapsed_upper_bound_seconds": 35.68311786651611,
+    "user_stop_confirmed_date": "2026-10-26"
   },
   "live_cursor_samples": 10564,
   "recording_permission_changed": false,
@@ -102,6 +103,6 @@
   "full_frame_decode": false,
   "disk_full_simulated": true,
   "multi_hour_live_recording": false,
-  "endurance_acceptance": "pending clarification of early stop; five-minute target not achieved",
+  "endurance_acceptance": "Five-minute target not achieved because the user stopped the recording; repeat endurance test outstanding",
   "artifact_sha256": "99b60e37d9691fef07c3bf204f526d88246784d837304c16085bc1fc279fc450"
 }

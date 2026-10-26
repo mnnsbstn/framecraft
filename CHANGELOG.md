@@ -1,5 +1,9 @@
 # Changelog
 
+## Documentation — October 26, 2026
+
+- Record user confirmation that the three-minute recording was manually stopped. The unexplained-stop concern is resolved; the five-minute endurance trial remains outstanding. No app code or binary changes.
+
 ## 0.3.3 — October 24, 2026
 
 - Move large project encoding/decoding and media copies off the UI actor, with a saving indicator.

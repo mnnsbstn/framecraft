@@ -127,3 +127,7 @@ Evidence: [machine-readable update test](verification/stable-signing-0.3.2.json)
 ## Reliability implementation and partial live acceptance — October 24, 2026
 
 Version 0.3.3 build 7 adds background project persistence with staged creation and atomic metadata updates, modern async export progress/completion, propagated cancellation, and a specific full-disk error. All 29 tests pass, including 216,001 cursor samples and failure/retry cases. A 179.642-second original silent window recording was saved, reopened and exported in Full HD. Permission survived the update. See [reliability report](Reliability.md) for measured resources, timing, evidence and the bounded scope of this trial. The planned five-minute capture ended early without an observed agent stop action; its cause remains open in SBSTN-85. Audio/display tests and multi-hour high-motion endurance testing are not claimed.
+
+## Recording-stop clarification — October 26, 2026
+
+The user confirmed that they manually stopped the 179.642-second test recording. The unexplained-stop concern is resolved; this trial does not show an automatic recording failure. Existing save/reopen/export results and 29 passing tests remain valid. SBSTN-85 remains In Progress because the planned five-minute endurance trial has not yet been completed. Documentation-only clarification: no app rebuild, new recording, or new test run.
