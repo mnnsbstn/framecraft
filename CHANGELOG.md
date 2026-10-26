@@ -2,6 +2,8 @@
 
 ## Documentation — October 26, 2026
 
+- Complete the full five-minute repeat: 347.910-second silent recording, project save/reopen, unchanged original media and complete Full HD export. Publish resource samples and sequential/exact-seek decode counterchecks; close SBSTN-85 for the documented scope.
+
 - Record user confirmation that the three-minute recording was manually stopped. The unexplained-stop concern is resolved; the five-minute endurance trial remains outstanding. No app code or binary changes.
 
 ## 0.3.3 — October 24, 2026

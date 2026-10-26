@@ -1,0 +1,109 @@
+{
+  "date": "2026-10-26",
+  "version": "0.3.3",
+  "build": 7,
+  "status": "passed",
+  "issue": "SBSTN-85",
+  "media": [
+    {
+      "audio_tracks": 0,
+      "compressed_video_samples": 19926,
+      "decoded_sample_times": [
+        1.1833333333333333,
+        174.39833333333334,
+        346.41833333333335
+      ],
+      "dimensions": [
+        1312,
+        844
+      ],
+      "duration_seconds": 347.91,
+      "effective_samples_per_second": 57.27343278434078,
+      "file": "source.mp4",
+      "full_frame_decode": false,
+      "maximum_sorted_pts_gap_seconds": 0.20500000000000002,
+      "nominal_fps": 57.26016616821289
+    },
+    {
+      "audio_tracks": 0,
+      "compressed_video_samples": 10442,
+      "decoded_sample_times": [
+        0.9666666666666667,
+        174,
+        347.03333333333336
+      ],
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "duration_seconds": 347.91,
+      "effective_samples_per_second": 30.013509240895633,
+      "file": "FrameCraft-Fuenfminutentest-2026-10-26.mp4",
+      "full_frame_decode": true,
+      "maximum_sorted_pts_gap_seconds": 0.03333333333335986,
+      "nominal_fps": 30,
+      "decoded_video_frames": 10438
+    }
+  ],
+  "cursor_samples": 18782,
+  "resources_summary": {
+    "after-export": {
+      "sample_count": 2,
+      "rss_mib_min": 65.95,
+      "rss_mib_max": 78.3,
+      "cpu_percent_median": 0.55,
+      "cpu_percent_max": 1.1
+    },
+    "capture": {
+      "sample_count": 33,
+      "rss_mib_min": 47.92,
+      "rss_mib_max": 62.42,
+      "cpu_percent_median": 35.6,
+      "cpu_percent_max": 40.3
+    },
+    "capture-stop-transition": {
+      "sample_count": 2,
+      "rss_mib_min": 55.16,
+      "rss_mib_max": 107.08,
+      "cpu_percent_median": 16.95,
+      "cpu_percent_max": 33.9
+    },
+    "export": {
+      "sample_count": 8,
+      "rss_mib_min": 71.25,
+      "rss_mib_max": 155.42,
+      "cpu_percent_median": 93.05000000000001,
+      "cpu_percent_max": 105.3
+    },
+    "save-and-preview": {
+      "sample_count": 14,
+      "rss_mib_min": 66.36,
+      "rss_mib_max": 129.16,
+      "cpu_percent_median": 0.0,
+      "cpu_percent_max": 20.7
+    }
+  },
+  "events": {
+    "capture_start_observed_epoch": 1792998399.114686,
+    "version": "0.3.3",
+    "build": "7",
+    "date": "2026-10-26",
+    "stop_action": "Agent used Aufnahme beenden after UI showed 05:35",
+    "capture_stop_observed_epoch": 1792998747.261493,
+    "project_reopened": true,
+    "export_action_before_epoch": 1792998882.833751,
+    "saved_media_matches_original_sha256": "fbb88d1c40e577014b54c8b9a6e9930c38a9c0999b31d887605134d957e635d5",
+    "export_file_observed_epoch": 1792998962.3600042,
+    "export_file_birth_epoch": 1792998893.9204512,
+    "export_last_modified_epoch": 1792998962.2788267,
+    "export_elapsed_upper_bound_seconds": 79.52625322341919,
+    "export_ui_completed": true,
+    "sample_frames_visually_checked": true,
+    "full_export_decoded_frames": 10438,
+    "fresh_exact_seek_end_verified": true,
+    "seek_check_time_seconds": 347.03333333333336,
+    "preview_check_note": "The initial reused AVAssetImageGenerator seek produced transient text artifacts. Sequential decode of the full export and a fresh exact-time generator both produced a clean frame at the same timestamp. No persistent exported-frame defect reproduced."
+  },
+  "scope": "One original TextEdit window with two visible text changes; no microphone or system audio. No new app build. Earlier 29 automated tests were not rerun for this verification-only follow-up.",
+  "limits": "Not a multi-hour/high-motion/audio/full-display test. Sampled process CPU/RSS exclude GPU and other processes. Full export sequentially decoded; three images per video visually sampled, not a full-frame visual audit."
+}

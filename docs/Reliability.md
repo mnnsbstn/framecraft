@@ -1,5 +1,7 @@
 # Reliability: long recordings, project storage and export
 
+**Update — October 26, 2026:** The [full five-minute repeat](Five-Minute-Test.md) passed, including project save/reopen and full export. SBSTN-85 is complete for this bounded acceptance. Earlier pending statements below describe the first trial.
+
 FrameCraft 0.3.3 (build 7), October 24, 2026. Implements [SBSTN-85](https://linear.app/mnnsbstn/issue/SBSTN-85/lange-aufnahmen-und-fehlerfalle-auf-stabilitat-prufen), selected after stable local signing because reliable saving and export protect the recording workflow before more editing features are added.
 
 ## Changes

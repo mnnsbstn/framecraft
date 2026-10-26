@@ -13,11 +13,12 @@
     },
     {
       "id": "SBSTN-85",
-      "status": "In Progress",
-      "summary": "Background project storage, write-failure protection and modern cancellable export implemented. Tests and 179.642-second silent window recording/save/reopen/export verified. On October 26 the user confirmed they stopped the recording manually, resolving the unexplained-stop concern. The planned five-minute endurance test remains outstanding; status stays In Progress."
+      "status": "Done",
+      "summary": "Five-minute repeat passed: 347.910 seconds, project save/reopen and complete Full HD export. Earlier failure, cancellation and large-cursor tests passed. Evidence: ../Five-Minute-Test.md. No multi-hour/high-motion/audio/full-display claim."
     }
   ],
   "evidence": "../Reliability.md",
   "historical_snapshots": "Other files in this directory retain earlier full snapshots. This file is a targeted current update, not a full refresh of unrelated issues.",
-  "clarification_date": "2026-10-26"
+  "clarification_date": "2026-10-26",
+  "acceptance_date": "2026-10-26"
 }

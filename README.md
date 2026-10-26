@@ -2,7 +2,7 @@
 
 An independent native macOS app for screen recording, automatic click zooms, smooth cursor movement, and MP4 export. Inspired by the Screen Studio workflow, with its own interface, implementation, and test media.
 
-**Status: 0.3.3 · macOS 15+ · 29 tests passed.** Developed on Apple Silicon with Swift 6.4. Version 0.3.3 adds background project storage and more reliable export cancellation. A three-minute silent recording, project save/reopen and Full HD export passed; the user confirmed on October 26 that they stopped it manually. The planned five-minute endurance test remains outstanding. See the [reliability report](docs/Reliability.md). This is not a complete Screen Studio replica.
+**Status: 0.3.3 · macOS 15+ · 29 tests passed.** Developed on Apple Silicon with Swift 6.4. Version 0.3.3 adds background project storage and more reliable export cancellation. A complete 347.910-second silent window recording, project save/reopen and Full HD export passed on October 26. See the [five-minute acceptance](docs/Five-Minute-Test.md). This is not a complete Screen Studio replica.
 
 ## Getting started
 

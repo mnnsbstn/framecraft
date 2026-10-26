@@ -152,3 +152,7 @@ Version 0.3.3 build 7 adds background project persistence with staged creation a
 ## Recording-stop clarification — October 26, 2026
 
 The user confirmed that they manually stopped the 179.642-second test recording. The unexplained-stop concern is resolved; this trial does not show an automatic recording failure. Existing save/reopen/export results and 29 passing tests remain valid. SBSTN-85 remains In Progress because the planned five-minute endurance trial has not yet been completed. Documentation-only clarification: no app rebuild, new recording, or new test run.
+
+## Five-minute acceptance completed — October 26, 2026
+
+The same FrameCraft 0.3.3 build 7 completed a 347.910-second silent test-window recording, project save/reopen and full Full-HD export. SBSTN-85 is complete for this scope. See [measured acceptance and limitations](Five-Minute-Test.md). No code change, app rebuild or automated test rerun.
