@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.4 — November 6, 2026
+
+- Add an original black and #e5ff42 screen-frame/recording-dot app icon.
+- Generate all macOS icon sizes from the committed PNG and embed the ICNS before signing.
+- Verify the installed About panel, archive contents and unchanged signing identity. No runtime behavior changes; previous functional acceptance remains the baseline. See [icon documentation](docs/App-Icon.md).
+
 ## Documentation — October 26, 2026
 
 - Complete the full five-minute repeat: 347.910-second silent recording, project save/reopen, unchanged original media and complete Full HD export. Publish resource samples and sequential/exact-seek decode counterchecks; close SBSTN-85 for the documented scope.

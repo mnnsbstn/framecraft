@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-06",
+  "version": "0.3.4",
+  "issue": "SBSTN-105",
+  "scope": "Icon implementation and verification complete; Linear completion is recorded with the published commit.",
+  "palette": [
+    "#08090b",
+    "#e5ff42"
+  ],
+  "documentation": "docs/App-Icon.md",
+  "verification": "docs/verification/app-icon-0.3.4.json"
+}

@@ -1,0 +1,74 @@
+{
+  "date": "2026-11-06",
+  "version": "0.3.4",
+  "build": 8,
+  "issue": "SBSTN-105",
+  "master": {
+    "width": 1254,
+    "height": 1254,
+    "has_alpha": true,
+    "sha256": "594ac718e80bdda7a4b72644f00790625775517bf69ff0201521935f03c30325"
+  },
+  "representations": [
+    {
+      "file": "icon_128x128.png",
+      "width": 128,
+      "height": 128
+    },
+    {
+      "file": "icon_128x128@2x.png",
+      "width": 256,
+      "height": 256
+    },
+    {
+      "file": "icon_16x16.png",
+      "width": 16,
+      "height": 16
+    },
+    {
+      "file": "icon_16x16@2x.png",
+      "width": 32,
+      "height": 32
+    },
+    {
+      "file": "icon_256x256.png",
+      "width": 256,
+      "height": 256
+    },
+    {
+      "file": "icon_256x256@2x.png",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "file": "icon_32x32.png",
+      "width": 32,
+      "height": 32
+    },
+    {
+      "file": "icon_32x32@2x.png",
+      "width": 64,
+      "height": 64
+    },
+    {
+      "file": "icon_512x512.png",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "file": "icon_512x512@2x.png",
+      "width": 1024,
+      "height": 1024
+    }
+  ],
+  "icns_sha256": "bf59762b2f83e025cd82c345cbbe7e0fc2c82ede5ed4d035b58a465e18eab94d",
+  "archive_sha256": "d315e8c1671283bc9761159646f1fc6377c671fa89b07543c9cd465defcb964a",
+  "strict_signature_valid": true,
+  "mutual_previous_current_designated_requirements": true,
+  "identity": "FrameCraft Local Development",
+  "bundle_id": "local.sebastian.FrameCraft",
+  "archive_extracted_signature_valid": true,
+  "executable_permission_preserved": true,
+  "ui_observation": "Launched successfully. Native About panel visibly displays the black/lime icon and Version 0.3.4 (8).",
+  "scope": "Asset and packaging update. No runtime Swift source changes. Prior 29-test baseline and recording/export acceptance retained; no new functional test or live recording in this task."
+}
