@@ -19,7 +19,7 @@ enum RenderError: LocalizedError {
 
 /// One Core Image pipeline is shared by the player and the exported file.
 enum VideoRenderer {
-    static func composition(asset: AVAsset, project: Project) async throws -> AVVideoComposition {
+    static func composition(asset: AVAsset, project: Project, outputSize: CGSize? = nil, fps: Int = 30) async throws -> AVVideoComposition {
         guard let track = try await asset.loadTracks(withMediaType: .video).first else {
             throw RenderError.missingVideo
         }
@@ -28,7 +28,10 @@ enum VideoRenderer {
         let displayBounds = CGRect(origin: .zero, size: naturalSize).applying(preferredTransform)
         let sourceBounds = CGRect(origin: .zero,
                                   size: CGSize(width: abs(displayBounds.width), height: abs(displayBounds.height)))
-        let canvas = CGRect(origin: .zero, size: project.format.size)
+        let canvas = CGRect(origin: .zero, size: outputSize ?? project.format.size)
+        var scaledProject = project
+        scaledProject.cornerRadius *= canvas.height / project.format.size.height
+        let renderProject = scaledProject
         let background = backdrop(project.backdrop, bounds: canvas)
         let cursorSamples = project.cursor?.prepared(clicks: project.clicks) ?? []
         let camera = CameraPath(project: project)
@@ -41,13 +44,13 @@ enum VideoRenderer {
             let source = cursorOverlay(source: request.sourceImage.cropped(to: sourceBounds),
                                        project: project, samples: cursorSamples, pointer: pointer,
                                        time: request.compositionTime.seconds)
-            let image = render(source: source, project: project,
+            let image = render(source: source, project: renderProject,
                                zoom: camera.zoom(at: request.compositionTime.seconds),
                                canvas: canvas, background: background)
             request.finish(with: image, context: context)
         })
         result.renderSize = canvas.size
-        result.frameDuration = CMTime(value: 1, timescale: 30)
+        result.frameDuration = CMTime(value: 1, timescale: Int32(fps))
         result.sourceTrackIDForFrameTiming = kCMPersistentTrackID_Invalid
         return result
     }
@@ -128,8 +131,9 @@ enum VideoRenderer {
         let mask = maskFilter.outputImage!.cropped(to: canvas)
         let clear = CIImage(color: .clear).cropped(to: canvas)
 
-        let shadowMask = mask.transformed(by: CGAffineTransform(translationX: 0, y: -10))
-            .applyingFilter("CIGaussianBlur", parameters: [kCIInputRadiusKey: 18])
+        let outputScale = canvas.height / project.format.size.height
+        let shadowMask = mask.transformed(by: CGAffineTransform(translationX: 0, y: -10 * outputScale))
+            .applyingFilter("CIGaussianBlur", parameters: [kCIInputRadiusKey: 18 * outputScale])
             .cropped(to: canvas)
         let shadow = CIImage(color: CIColor(red: 0, green: 0, blue: 0, alpha: 0.24))
             .cropped(to: canvas)
@@ -139,100 +143,5 @@ enum VideoRenderer {
         return content.applyingFilter("CIBlendWithMask", parameters: [kCIInputBackgroundImageKey: base,
                                                                     kCIInputMaskImageKey: mask])
             .cropped(to: canvas)
-    }
-}
-
-@MainActor
-final class ExportService: ObservableObject {
-    @Published private(set) var isExporting = false
-    @Published private(set) var progress: Double = 0
-    @Published private(set) var errorMessage: String?
-    private var activeTask: Task<Void, Error>?
-    private var cancelled = false
-
-    func clearError() { errorMessage = nil }
-
-    func cancel() {
-        cancelled = true
-        activeTask?.cancel()
-    }
-
-    func export(source: URL, project: Project, destination: URL) async -> Bool {
-        guard !isExporting else { return false }
-        isExporting = true
-        progress = 0
-        errorMessage = nil
-        cancelled = false
-        let temporary = destination.deletingLastPathComponent()
-            .appendingPathComponent(".framecraft-\(UUID().uuidString).mp4")
-        var progressTask: Task<Void, Never>?
-        defer {
-            progressTask?.cancel()
-            activeTask = nil
-            isExporting = false
-            try? FileManager.default.removeItem(at: temporary)
-        }
-        do {
-            guard source.resolvingSymlinksInPath().standardizedFileURL != destination.resolvingSymlinksInPath().standardizedFileURL,
-                  !FileManager.default.fileExists(atPath: destination.path) else {
-                throw RenderError.destinationExists
-            }
-            let asset = AVURLAsset(url: source)
-            let duration = try await asset.load(.duration).seconds
-            let start = max(0, project.trimStart)
-            let end = min(duration, project.trimEnd)
-            guard duration.isFinite, start.isFinite, end.isFinite, end > start else {
-                throw RenderError.invalidDuration
-            }
-            let composition = try await VideoRenderer.composition(asset: asset, project: project)
-            guard !cancelled else { throw CancellationError() }
-            try Task.checkCancellation()
-            guard let session = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetHighestQuality) else {
-                throw RenderError.exportUnavailable
-            }
-            session.shouldOptimizeForNetworkUse = true
-            session.videoComposition = composition
-            session.timeRange = CMTimeRange(start: CMTime(seconds: start, preferredTimescale: 600),
-                                           end: CMTime(seconds: end, preferredTimescale: 600))
-            if project.muted {
-                let tracks = try await asset.loadTracks(withMediaType: .audio)
-                let mix = AVMutableAudioMix()
-                mix.inputParameters = tracks.map { track in
-                    let parameters = AVMutableAudioMixInputParameters(track: track)
-                    parameters.setVolume(0, at: .zero)
-                    return parameters
-                }
-                session.audioMix = mix
-            }
-            guard !cancelled else { throw CancellationError() }
-            progressTask = Task { [weak self] in
-                for await state in session.states(updateInterval: 0.1) {
-                    guard !Task.isCancelled, let self else { return }
-                    if case .exporting(let value) = state {
-                        self.progress = min(1, max(0, value.fractionCompleted))
-                    }
-                }
-            }
-            let operation = Task { try await session.export(to: temporary, as: .mp4) }
-            activeTask = operation
-            try await withTaskCancellationHandler {
-                try await operation.value
-            } onCancel: {
-                operation.cancel()
-            }
-            guard !cancelled else { throw CancellationError() }
-            try Task.checkCancellation()
-            // moveItem refuses to overwrite an existing file, including one created during export.
-            try FileManager.default.moveItem(at: temporary, to: destination)
-            progress = 1
-            return true
-        } catch is CancellationError {
-            errorMessage = nil
-            return false
-        } catch {
-            // Framework cancellation may arrive as an NSError, not CancellationError.
-            errorMessage = cancelled || Task.isCancelled ? nil : StorageFailure.message(for: error)
-            return false
-        }
     }
 }

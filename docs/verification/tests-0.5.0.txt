@@ -1,0 +1,124 @@
+swift-driver version: 1.168.6 Apple Swift version 6.4.2 (swiftlang-6.4.2.1.9 clang-2100.4.1.1)
+Target: arm64-apple-macosx27.2.0
+Building for debugging...
+[3 / 11] FrameCraft
+[7 / 15] FrameCraft
+[7 / 15] FrameCraft-product
+[15 / 23] FrameCraft-product
+[18 / 19] FrameCraftTests-product
+Build complete! (1,61 Sek.)
+Test Suite 'All tests' started at 2026-11-06 16:09:12.362.
+Test Suite 'FrameCraftTests.xctest' started at 2026-11-06 16:09:12.362.
+Test Suite 'CameraPathTests' started at 2026-11-06 16:09:12.362.
+Test Case '-[FrameCraftTests.CameraPathTests testLaterTargetDoesNotReboundToOlderOverlappingRegion]' started.
+Test Case '-[FrameCraftTests.CameraPathTests testLaterTargetDoesNotReboundToOlderOverlappingRegion]' passed (0.001 seconds).
+Test Case '-[FrameCraftTests.CameraPathTests testRapidRetargetingKeepsPositionAndVelocityContinuousAndCropInBounds]' started.
+Test Case '-[FrameCraftTests.CameraPathTests testRapidRetargetingKeepsPositionAndVelocityContinuousAndCropInBounds]' passed (0.001 seconds).
+Test Case '-[FrameCraftTests.CameraPathTests testShortPauseStaysZoomedAndManualOverrideResumesLatestAutomaticTarget]' started.
+Test Case '-[FrameCraftTests.CameraPathTests testShortPauseStaysZoomedAndManualOverrideResumesLatestAutomaticTarget]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.CameraPathTests testShortZoomIsNotDropped]' started.
+Test Case '-[FrameCraftTests.CameraPathTests testShortZoomIsNotDropped]' passed (0.000 seconds).
+Test Suite 'CameraPathTests' passed at 2026-11-06 16:09:12.365.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.002 (0.002) seconds
+Test Suite 'CaptureAccessTests' started at 2026-11-06 16:09:12.365.
+Test Case '-[FrameCraftTests.CaptureAccessTests testConcurrentRefreshDoesNotStartASecondRequestOrRecording]' started.
+Test Case '-[FrameCraftTests.CaptureAccessTests testConcurrentRefreshDoesNotStartASecondRequestOrRecording]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.CaptureAccessTests testDeniedAccessClearsStaleSourcesAndSelection]' started.
+Test Case '-[FrameCraftTests.CaptureAccessTests testDeniedAccessClearsStaleSourcesAndSelection]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.CaptureAccessTests testOtherFailuresAreNotMisreportedAsPermissionDenials]' started.
+Test Case '-[FrameCraftTests.CaptureAccessTests testOtherFailuresAreNotMisreportedAsPermissionDenials]' passed (0.001 seconds).
+Test Suite 'CaptureAccessTests' passed at 2026-11-06 16:09:12.366.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'CursorTests' started at 2026-11-06 16:09:12.366.
+Test Case '-[FrameCraftTests.CursorTests testCursorDoesNotBridgeHiddenIntervalsOrLongGaps]' started.
+Test Case '-[FrameCraftTests.CursorTests testCursorDoesNotBridgeHiddenIntervalsOrLongGaps]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.CursorTests testCursorSettingsAndPositionsRoundTrip]' started.
+Test Case '-[FrameCraftTests.CursorTests testCursorSettingsAndPositionsRoundTrip]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.CursorTests testLegacyProjectLoadsWithoutInventingCursor]' started.
+Test Case '-[FrameCraftTests.CursorTests testLegacyProjectLoadsWithoutInventingCursor]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.CursorTests testNearbyClicksExtendZoomAndDistantClicksRemain]' started.
+Test Case '-[FrameCraftTests.CursorTests testNearbyClicksExtendZoomAndDistantClicksRemain]' passed (0.005 seconds).
+Test Case '-[FrameCraftTests.CursorTests testSmoothingReducesJitterAndPinsClicks]' started.
+Test Case '-[FrameCraftTests.CursorTests testSmoothingReducesJitterAndPinsClicks]' passed (0.000 seconds).
+Test Suite 'CursorTests' passed at 2026-11-06 16:09:12.372.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.006 (0.006) seconds
+Test Suite 'ExportOptionsTests' started at 2026-11-06 16:09:12.372.
+Test Case '-[FrameCraftTests.ExportOptionsTests testConfiguredMP4ResolutionFrameRateAndTrim]' started.
+Test Case '-[FrameCraftTests.ExportOptionsTests testConfiguredMP4ResolutionFrameRateAndTrim]' passed (1.223 seconds).
+Test Case '-[FrameCraftTests.ExportOptionsTests testGIFFramesDimensionsDelayAndLoop]' started.
+Test Case '-[FrameCraftTests.ExportOptionsTests testGIFFramesDimensionsDelayAndLoop]' passed (0.453 seconds).
+Test Case '-[FrameCraftTests.ExportOptionsTests testGIFLimitsOverwriteCancellationAndRecovery]' started.
+Test Case '-[FrameCraftTests.ExportOptionsTests testGIFLimitsOverwriteCancellationAndRecovery]' passed (0.378 seconds).
+Test Case '-[FrameCraftTests.ExportOptionsTests testOutputSizesRatesAndLimits]' started.
+Test Case '-[FrameCraftTests.ExportOptionsTests testOutputSizesRatesAndLimits]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.ExportOptionsTests testSyntheticAudioSurvivesTrimAndMuteRemovesAudioTrack]' started.
+2026-11-06 16:09:14.721 xctest[9391:213534] Audio files cannot be non-interleaved. Ignoring setting AVLinearPCMIsNonInterleaved YES.
+Test Case '-[FrameCraftTests.ExportOptionsTests testSyntheticAudioSurvivesTrimAndMuteRemovesAudioTrack]' passed (0.613 seconds).
+Test Suite 'ExportOptionsTests' passed at 2026-11-06 16:09:15.041.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 2.668 (2.668) seconds
+Test Suite 'ProjectPersistenceTests' started at 2026-11-06 16:09:15.041.
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testDestinationCreatedDuringSaveIsNotReplaced]' started.
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testDestinationCreatedDuringSaveIsNotReplaced]' passed (0.002 seconds).
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testFailedResavePreservesPreviouslySavedProject]' started.
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testFailedResavePreservesPreviouslySavedProject]' passed (0.001 seconds).
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testFullDiskDuringNewSaveLeavesNoPartialProjectAndCanRetry]' started.
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testFullDiskDuringNewSaveLeavesNoPartialProjectAndCanRetry]' passed (0.002 seconds).
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testLargeCursorTrackRoundTripAndMetadataOnlyResave]' started.
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testLargeCursorTrackRoundTripAndMetadataOnlyResave]' passed (0.879 seconds).
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testSavingDoesNotBlockMainActor]' started.
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testSavingDoesNotBlockMainActor]' passed (0.002 seconds).
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testWrappedFullDiskErrorIsRecognized]' started.
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testWrappedFullDiskErrorIsRecognized]' passed (0.000 seconds).
+Test Suite 'ProjectPersistenceTests' passed at 2026-11-06 16:09:15.927.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.886 (0.886) seconds
+Test Suite 'ProjectTests' started at 2026-11-06 16:09:15.927.
+Test Case '-[FrameCraftTests.ProjectTests testAutoZoomsRespectTrimAndKeepManualEdits]' started.
+Test Case '-[FrameCraftTests.ProjectTests testAutoZoomsRespectTrimAndKeepManualEdits]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.ProjectTests testProjectSerializationRetainsEditingData]' started.
+Test Case '-[FrameCraftTests.ProjectTests testProjectSerializationRetainsEditingData]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.ProjectTests testZoomEntersAndLeavesSmoothly]' started.
+Test Case '-[FrameCraftTests.ProjectTests testZoomEntersAndLeavesSmoothly]' passed (0.000 seconds).
+Test Suite 'ProjectTests' passed at 2026-11-06 16:09:15.927.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'VideoExportTests' started at 2026-11-06 16:09:15.927.
+Test Case '-[FrameCraftTests.VideoExportTests testActiveExportCancellationAndReuse]' started.
+Test Case '-[FrameCraftTests.VideoExportTests testActiveExportCancellationAndReuse]' passed (0.573 seconds).
+Test Case '-[FrameCraftTests.VideoExportTests testCancellationLeavesNoOutputOrTemporaryFile]' started.
+Test Case '-[FrameCraftTests.VideoExportTests testCancellationLeavesNoOutputOrTemporaryFile]' passed (0.282 seconds).
+Test Case '-[FrameCraftTests.VideoExportTests testCursorIsRenderedInExportAndCanBeHidden]' started.
+Test Case '-[FrameCraftTests.VideoExportTests testCursorIsRenderedInExportAndCanBeHidden]' passed (0.686 seconds).
+Test Case '-[FrameCraftTests.VideoExportTests testLandscapeExportUsesTrimAndCanvas]' started.
+Test Case '-[FrameCraftTests.VideoExportTests testLandscapeExportUsesTrimAndCanvas]' passed (0.738 seconds).
+Test Case '-[FrameCraftTests.VideoExportTests testOriginalAndExistingDestinationCannotBeOverwritten]' started.
+Test Case '-[FrameCraftTests.VideoExportTests testOriginalAndExistingDestinationCannotBeOverwritten]' passed (0.278 seconds).
+Test Case '-[FrameCraftTests.VideoExportTests testParentCancellationRemovesTemporaryOutput]' started.
+Test Case '-[FrameCraftTests.VideoExportTests testParentCancellationRemovesTemporaryOutput]' passed (0.467 seconds).
+Test Case '-[FrameCraftTests.VideoExportTests testPortraitExportUsesTrimAndCanvas]' started.
+Test Case '-[FrameCraftTests.VideoExportTests testPortraitExportUsesTrimAndCanvas]' passed (0.745 seconds).
+Test Case '-[FrameCraftTests.VideoExportTests testUnwritableDestinationFailsAndServiceRecovers]' started.
+Test Case '-[FrameCraftTests.VideoExportTests testUnwritableDestinationFailsAndServiceRecovers]' passed (0.414 seconds).
+Test Suite 'VideoExportTests' passed at 2026-11-06 16:09:20.112.
+	 Executed 8 tests, with 0 failures (0 unexpected) in 4.184 (4.184) seconds
+Test Suite 'ZoomTimingTests' started at 2026-11-06 16:09:20.112.
+Test Case '-[FrameCraftTests.ZoomTimingTests testInvalidInputAndNoOpPreserveAutomaticStatus]' started.
+Test Case '-[FrameCraftTests.ZoomTimingTests testInvalidInputAndNoOpPreserveAutomaticStatus]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.ZoomTimingTests testMovingClampsAtBothEdgesWithoutChangingLengthOrFocus]' started.
+Test Case '-[FrameCraftTests.ZoomTimingTests testMovingClampsAtBothEdgesWithoutChangingLengthOrFocus]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.ZoomTimingTests testOverlapRemainsEditableAndManualTimingSurvivesRegenerationAndRoundTrip]' started.
+Test Case '-[FrameCraftTests.ZoomTimingTests testOverlapRemainsEditableAndManualTimingSurvivesRegenerationAndRoundTrip]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.ZoomTimingTests testRepeatedGestureSamplesUseOriginalSnapshot]' started.
+Test Case '-[FrameCraftTests.ZoomTimingTests testRepeatedGestureSamplesUseOriginalSnapshot]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.ZoomTimingTests testResizingCannotCrossOtherEdgeOrVideoBoundary]' started.
+Test Case '-[FrameCraftTests.ZoomTimingTests testResizingCannotCrossOtherEdgeOrVideoBoundary]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.ZoomTimingTests testShortExistingIntervalsRemainValid]' started.
+Test Case '-[FrameCraftTests.ZoomTimingTests testShortExistingIntervalsRemainValid]' passed (0.000 seconds).
+Test Suite 'ZoomTimingTests' passed at 2026-11-06 16:09:20.113.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'FrameCraftTests.xctest' passed at 2026-11-06 16:09:20.113.
+	 Executed 40 tests, with 0 failures (0 unexpected) in 7.747 (7.750) seconds
+Test Suite 'All tests' passed at 2026-11-06 16:09:20.113.
+	 Executed 40 tests, with 0 failures (0 unexpected) in 7.747 (7.751) seconds
+􀟈  Test run started.
+􀄵  Testing Library Version: 2403
+􀄵  Target Platform: arm64e-apple-macos14.0
+􁁛  Test run with 0 tests in 0 suites passed after 0.001 seconds.

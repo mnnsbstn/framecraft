@@ -1,0 +1,27 @@
+[
+  {
+    "audio_tracks" : 0,
+    "bytes" : 371010,
+    "decoded_frames" : 144,
+    "dimensions" : [
+      1280,
+      720
+    ],
+    "duration_seconds" : 6,
+    "file" : "FrameCraft-UI-Export-0.5.0.mp4",
+    "format" : "mp4",
+    "fps" : 24
+  },
+  {
+    "bytes" : 755109,
+    "decoded_frames" : 60,
+    "dimensions" : [
+      480,
+      270
+    ],
+    "duration_seconds" : 5.9999999999999947,
+    "file" : "FrameCraft-UI-Export-0.5.0.gif",
+    "format" : "gif",
+    "loop_count" : 0
+  }
+]

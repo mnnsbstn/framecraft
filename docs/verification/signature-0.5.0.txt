@@ -1,0 +1,13 @@
+Executable=<workspace>/outputs/FrameCraft/dist/FrameCraft.app/Contents/MacOS/FrameCraft
+Identifier=local.sebastian.FrameCraft
+Format=app bundle with Mach-O thin (arm64)
+CodeDirectory v=20400 size=4435 flags=0x0(none) hashes=132+3 location=embedded
+Signature size=2085
+Authority=FrameCraft Local Development
+Signed Time=6. Nov 2026 at 16:10:48
+Info.plist entries=13
+TeamIdentifier=not set
+Sealed Resources version=2 rules=13 files=1
+Total signatures=1
+Chosen signature=1
+designated => identifier "local.sebastian.FrameCraft" and certificate leaf = H"e591b886ce2a5acda1a7bf1c2ae64dd6c2e8692c"

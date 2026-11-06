@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-06",
+  "version": "0.5.0",
+  "issues": [
+    "SBSTN-87"
+  ],
+  "scope": "Implemented, installed and verified; Linear completion follows GitHub publication.",
+  "tests_passed": 40,
+  "documentation": [
+    "docs/Export-Options.md"
+  ],
+  "remaining_acceptance": [
+    "SBSTN-83: real system audio and microphone",
+    "SBSTN-84: full-display and multi-monitor"
+  ]
+}

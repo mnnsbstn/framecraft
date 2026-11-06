@@ -7,6 +7,9 @@ struct ContentView: View {
     @ObservedObject var capture: CaptureService
     @ObservedObject var exporter: ExportService
     @State private var showRecording = false
+    @State private var showExport = false
+    @State private var exportSettings = ExportSettings()
+    @State private var pendingExport: ExportSettings?
 
     var body: some View {
         VStack(spacing: 0) {
@@ -30,6 +33,13 @@ struct ContentView: View {
         }
         .background(StudioTheme.panel)
         .sheet(isPresented: $showRecording) { RecordingView(studio: studio, capture: capture) }
+        .sheet(isPresented: $showExport, onDismiss: {
+            if let settings = pendingExport { pendingExport = nil; exportMovie(settings: settings) }
+        }) {
+            ExportOptionsView(project: studio.project, settings: $exportSettings) {
+                pendingExport = exportSettings; showExport = false
+            }
+        }
         .alert("FrameCraft", isPresented: Binding(get: { studio.message != nil || capture.errorMessage != nil || exporter.errorMessage != nil }, set: { if !$0 { studio.message = nil; capture.errorMessage = nil; exporter.clearError() } })) {
             Button("OK") { studio.message = nil; capture.errorMessage = nil; exporter.clearError() }
         } message: { Text(studio.message ?? capture.errorMessage ?? exporter.errorMessage ?? "") }
@@ -58,7 +68,7 @@ struct ContentView: View {
                     .disabled(capture.isPreparing || exporter.isExporting || studio.isLoading)
             }
             Button { studio.saveProject() } label: { Image(systemName: "square.and.arrow.down") }.help("Projekt speichern · ⌘S").disabled(studio.sourceURL == nil || exporter.isExporting || studio.isLoading || capture.isRecording || capture.isPreparing)
-            Button(action: exportMovie) { Label("Video exportieren", systemImage: "square.and.arrow.up") }
+            Button { studio.player.pause(); studio.isPlaying = false; showExport = true } label: { Label("Video exportieren", systemImage: "square.and.arrow.up") }
                 .studioPrimaryAction().disabled(studio.sourceURL == nil || exporter.isExporting || studio.isLoading || capture.isRecording || capture.isPreparing)
         }
         .padding(.horizontal, 22).padding(.vertical, 15)
@@ -157,22 +167,22 @@ struct ContentView: View {
                     Text("Export \(Int(exporter.progress * 100)) %").monospacedDigit()
                     Button("Abbrechen") { exporter.cancel() }.buttonStyle(.plain).foregroundStyle(StudioTheme.accent)
                 } else {
-                    Text("MP4 · 30 fps · lokal")
+                    Text("MP4 · GIF · lokal")
                         .help("FrameCraft \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "–") · Build \(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "–")")
                 }
             }.font(.system(size: 10)).foregroundStyle(.secondary).padding(.horizontal, 20).padding(.vertical, 9)
         }
     }
 
-    private func exportMovie() {
+    private func exportMovie(settings: ExportSettings) {
         guard let source = studio.sourceURL else { return }
         studio.player.pause(); studio.isPlaying = false
-        let panel = NSSavePanel(); panel.allowedContentTypes = [.mpeg4Movie]
-        panel.nameFieldStringValue = studio.project.title + ".mp4"
+        let panel = NSSavePanel(); panel.allowedContentTypes = settings.format == .gif ? [.gif] : [.mpeg4Movie]
+        panel.nameFieldStringValue = studio.project.title + "." + settings.fileExtension
         guard panel.runModal() == .OK, let url = panel.url else { return }
         let snapshot = studio.project
         Task {
-            if await exporter.export(source: source, project: snapshot, destination: url) {
+            if await exporter.export(source: source, project: snapshot, destination: url, settings: settings) {
                 NSWorkspace.shared.activateFileViewerSelecting([url])
             }
         }

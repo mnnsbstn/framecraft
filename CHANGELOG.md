@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0 — November 6, 2026
+
+- Add export settings for MP4 resolution (HD/Full HD/4K), frame rate (24/30/60 fps) and three bitrate-based quality levels with an estimated file size.
+- Add silent looping GIF export for clips up to ten seconds, at 480/720-pixel long edge and 10/20 fps.
+- Preserve trim, styling, zooms and cursor rendering in both formats; mix available audio for MP4 or omit it when muted.
+- Isolate encoder temporary files and retain cancellation, overwrite protection and recovery. All 40 tests pass, including synthetic audio, configured MP4 and GIF output. See [export options](docs/Export-Options.md).
+
 ## 0.4.0 — November 6, 2026
 
 - Edit zoom boundaries and move whole intervals directly in the timeline, with live timing, keyboard/accessibility controls and separate rows for overlaps.
