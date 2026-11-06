@@ -1,0 +1,21 @@
+[
+  {
+    "audio_tracks" : 0,
+    "compressed_video_samples" : 184,
+    "decoded_sample_times" : [
+      0.96666666666666667,
+      2.8999999999999999,
+      4.833333333333333
+    ],
+    "dimensions" : [
+      1920,
+      1080
+    ],
+    "duration_seconds" : 6,
+    "effective_samples_per_second" : 30.666666666666668,
+    "file" : "FrameCraft-Zeitleistentest-0.4.0.mp4",
+    "full_frame_decode" : false,
+    "maximum_sorted_pts_gap_seconds" : 0.033333333333334103,
+    "nominal_fps" : 30
+  }
+]

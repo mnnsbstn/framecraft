@@ -2,11 +2,11 @@
 
 An independent native macOS app for screen recording, automatic click zooms, smooth cursor movement, and MP4 export. Inspired by the Screen Studio workflow, with its own interface, implementation, and test media.
 
-**Status: 0.3.5 · macOS 15+ · 29 tests passed.** Developed on Apple Silicon with Swift 6.4. Version 0.3.5 adds a [black and lime interface](docs/Interface-Theme.md) matching the [app icon](docs/App-Icon.md). The prior functional acceptance remains unchanged: a complete 347.910-second silent window recording, project save/reopen and Full HD export passed on October 26. See the [five-minute acceptance](docs/Five-Minute-Test.md). This is not a complete Screen Studio replica.
+**Status: 0.4.0 · macOS 15+ · 35 tests passed.** Developed on Apple Silicon with Swift 6.4. Version 0.4.0 adds [direct timeline editing](docs/Timeline-Editing.md) and a [white-on-black app icon](docs/App-Icon.md). The [interface](docs/Interface-Theme.md) keeps its black/lime palette. The prior functional acceptance remains unchanged: a complete 347.910-second silent window recording, project save/reopen and Full HD export passed on October 26. See the [five-minute acceptance](docs/Five-Minute-Test.md). This is not a complete Screen Studio replica.
 
 ## Getting started
 
-- [Download the local Apple Silicon build 0.3.5](artifacts/FrameCraft-0.3.5-macos-arm64.zip), extract it, and open FrameCraft.app. The build uses a persistent self-signed local identity, without Developer ID signing or public notarization.
+- [Download the local Apple Silicon build 0.4.0](artifacts/FrameCraft-0.4.0-macos-arm64.zip), extract it, and open FrameCraft.app. The build uses a persistent self-signed local identity, without Developer ID signing or public notarization.
 - Alternatively, build from source with a configured Xcode installation:
 
 ```sh
@@ -34,6 +34,7 @@ The app interface remains German. The English instructions below refer to these 
 ## Features
 
 - Window/display recording, system audio, and optional microphone input; recording can also be stopped from the menu bar.
+- Direct zoom timeline editing: drag either edge or the whole interval, use 0.1/0.5-second keyboard steps, and edit overlapping zooms in separate rows.
 - Automatic click zooms: new targets replace old ones, with 600 ms camera transitions and no intermediate zoom-out during short gaps.
 - Separate cursor track: 0–250 ms smoothing, size, visibility, and click indicators. No keyboard input recording.
 - Nondestructive trimming, manual zooms, playback/scrubbing, three aspect ratios, four gradients, frames, and shadows.

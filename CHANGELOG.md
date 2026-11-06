@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.0 — November 6, 2026
+
+- Edit zoom boundaries and move whole intervals directly in the timeline, with live timing, keyboard/accessibility controls and separate rows for overlaps.
+- Clamp edits to valid video bounds and retain manual changes through automatic regeneration and project storage.
+- Change the app icon symbols from #e5ff42 to #FFFFFF, preserving the black tile and lime interface.
+- Pass 35 tests; verify drag/keyboard input, project save/reopen, six-second Full HD export (180 decoded frames), icon display and stable signing. See [timeline editing](docs/Timeline-Editing.md).
+
 ## 0.3.5 — November 6, 2026
 
 - Match the interface to the app icon with near-black surfaces and the shared #e5ff42 accent.

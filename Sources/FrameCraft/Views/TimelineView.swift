@@ -32,33 +32,37 @@ struct TimelineView: View {
                     .frame(height: 42)
                     .contentShape(Rectangle())
                     .gesture(DragGesture(minimumDistance: 0).onChanged { studio.seek(min(1, max(0, $0.location.x / width)) * duration) })
-                    ZStack(alignment: .leading) {
-                        RoundedRectangle(cornerRadius: 5).fill(StudioTheme.raised)
-                        ForEach(studio.project.zooms) { zoom in
-                            Button {
-                                studio.selectedZoom = zoom.id
-                                studio.seek((zoom.start + zoom.end) / 2)
-                            } label: {
-                                HStack(spacing: 4) { Image(systemName: "plus.magnifyingglass"); Text(String(format: "%.1f×", zoom.scale)) }
-                                    .font(.system(size: 9, weight: .medium)).lineLimit(1)
-                                    .frame(width: max(22, width * (zoom.end - zoom.start) / duration), height: 25)
-                                    .background(studio.selectedZoom == zoom.id ? StudioTheme.accent : StudioTheme.accent.opacity(0.18), in: RoundedRectangle(cornerRadius: 4))
-                                    .foregroundStyle(studio.selectedZoom == zoom.id ? StudioTheme.onAccent : StudioTheme.accent)
+                    ScrollView(.vertical) {
+                        VStack(spacing: 5) {
+                            ForEach(studio.project.zooms) { zoom in
+                                ZoomTimelineItem(studio: studio, zoom: zoom, width: width)
                             }
-                            .buttonStyle(.plain).offset(x: width * zoom.start / duration)
-                        }
-                    }.frame(height: 28).clipped()
+                            if studio.project.zooms.isEmpty {
+                                Text("Noch keine Zooms").font(.caption2).foregroundStyle(.secondary)
+                                    .frame(maxWidth: .infinity, minHeight: 35)
+                            }
+                        }.padding(.vertical, 3)
+                    }
+                    .coordinateSpace(name: "zoomTimeline")
+                    .frame(height: 84)
+
                 }
-            }.frame(height: 104)
+            }.frame(height: 164)
             HStack {
                 Label("Video", systemImage: "film").foregroundStyle(.secondary)
                 Text("·")
                 Label("Zooms", systemImage: "plus.magnifyingglass").foregroundStyle(StudioTheme.accent)
                 Spacer()
-                Text("Auswahl: \(timeLabel(studio.project.outputDuration))").monospacedDigit().foregroundStyle(.secondary)
+                if let zoom = studio.project.zooms.first(where: { $0.id == studio.selectedZoom }) {
+                    Text(String(format: "Zoom: %.2f – %.2f s", zoom.start, zoom.end)).monospacedDigit()
+                } else {
+                    Text("Kanten ziehen · Mitte verschieben").foregroundStyle(.secondary)
+                }
             }.font(.system(size: 10))
+            Text("Pfeile: 0,1 s · Umschalt + Pfeile: 0,5 s · Jede Zeile ist ein Zoom")
+                .font(.system(size: 9)).foregroundStyle(.secondary)
         }
-        .padding(22).frame(height: 206)
+        .padding(22).frame(height: 278)
         .background(StudioTheme.panel)
         .disabled(studio.sourceURL == nil)
     }

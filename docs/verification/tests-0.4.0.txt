@@ -1,0 +1,129 @@
+swift-driver version: 1.168.6 Apple Swift version 6.4.2 (swiftlang-6.4.2.1.9 clang-2100.4.1.1)
+Target: arm64-apple-macosx27.2.0
+Building for debugging...
+[3 / 12] FrameCraft-product
+[7 / 16] FrameCraft-product
+[12 / 22] FrameCraft-product
+[14 / 24] FrameCraft-product
+[18 / 26] FrameCraft-product
+[21 / 27] FrameCraftTests-product
+[26 / 28] FrameCraftTests-product
+Build complete! (2,63 Sek.)
+Test Suite 'All tests' started at 2026-11-06 15:11:12.604.
+Test Suite 'FrameCraftTests.xctest' started at 2026-11-06 15:11:12.605.
+Test Suite 'CameraPathTests' started at 2026-11-06 15:11:12.605.
+Test Case '-[FrameCraftTests.CameraPathTests testLaterTargetDoesNotReboundToOlderOverlappingRegion]' started.
+Test Case '-[FrameCraftTests.CameraPathTests testLaterTargetDoesNotReboundToOlderOverlappingRegion]' passed (0.001 seconds).
+Test Case '-[FrameCraftTests.CameraPathTests testRapidRetargetingKeepsPositionAndVelocityContinuousAndCropInBounds]' started.
+Test Case '-[FrameCraftTests.CameraPathTests testRapidRetargetingKeepsPositionAndVelocityContinuousAndCropInBounds]' passed (0.001 seconds).
+Test Case '-[FrameCraftTests.CameraPathTests testShortPauseStaysZoomedAndManualOverrideResumesLatestAutomaticTarget]' started.
+Test Case '-[FrameCraftTests.CameraPathTests testShortPauseStaysZoomedAndManualOverrideResumesLatestAutomaticTarget]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.CameraPathTests testShortZoomIsNotDropped]' started.
+Test Case '-[FrameCraftTests.CameraPathTests testShortZoomIsNotDropped]' passed (0.000 seconds).
+Test Suite 'CameraPathTests' passed at 2026-11-06 15:11:12.607.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.002 (0.003) seconds
+Test Suite 'CaptureAccessTests' started at 2026-11-06 15:11:12.607.
+Test Case '-[FrameCraftTests.CaptureAccessTests testConcurrentRefreshDoesNotStartASecondRequestOrRecording]' started.
+Test Case '-[FrameCraftTests.CaptureAccessTests testConcurrentRefreshDoesNotStartASecondRequestOrRecording]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.CaptureAccessTests testDeniedAccessClearsStaleSourcesAndSelection]' started.
+Test Case '-[FrameCraftTests.CaptureAccessTests testDeniedAccessClearsStaleSourcesAndSelection]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.CaptureAccessTests testOtherFailuresAreNotMisreportedAsPermissionDenials]' started.
+Test Case '-[FrameCraftTests.CaptureAccessTests testOtherFailuresAreNotMisreportedAsPermissionDenials]' passed (0.001 seconds).
+Test Suite 'CaptureAccessTests' passed at 2026-11-06 15:11:12.609.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'CursorTests' started at 2026-11-06 15:11:12.609.
+Test Case '-[FrameCraftTests.CursorTests testCursorDoesNotBridgeHiddenIntervalsOrLongGaps]' started.
+Test Case '-[FrameCraftTests.CursorTests testCursorDoesNotBridgeHiddenIntervalsOrLongGaps]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.CursorTests testCursorSettingsAndPositionsRoundTrip]' started.
+Test Case '-[FrameCraftTests.CursorTests testCursorSettingsAndPositionsRoundTrip]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.CursorTests testLegacyProjectLoadsWithoutInventingCursor]' started.
+Test Case '-[FrameCraftTests.CursorTests testLegacyProjectLoadsWithoutInventingCursor]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.CursorTests testNearbyClicksExtendZoomAndDistantClicksRemain]' started.
+Test Case '-[FrameCraftTests.CursorTests testNearbyClicksExtendZoomAndDistantClicksRemain]' passed (0.005 seconds).
+Test Case '-[FrameCraftTests.CursorTests testSmoothingReducesJitterAndPinsClicks]' started.
+Test Case '-[FrameCraftTests.CursorTests testSmoothingReducesJitterAndPinsClicks]' passed (0.000 seconds).
+Test Suite 'CursorTests' passed at 2026-11-06 15:11:12.615.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.006 (0.006) seconds
+Test Suite 'ProjectPersistenceTests' started at 2026-11-06 15:11:12.615.
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testDestinationCreatedDuringSaveIsNotReplaced]' started.
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testDestinationCreatedDuringSaveIsNotReplaced]' passed (0.002 seconds).
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testFailedResavePreservesPreviouslySavedProject]' started.
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testFailedResavePreservesPreviouslySavedProject]' passed (0.001 seconds).
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testFullDiskDuringNewSaveLeavesNoPartialProjectAndCanRetry]' started.
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testFullDiskDuringNewSaveLeavesNoPartialProjectAndCanRetry]' passed (0.001 seconds).
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testLargeCursorTrackRoundTripAndMetadataOnlyResave]' started.
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testLargeCursorTrackRoundTripAndMetadataOnlyResave]' passed (0.873 seconds).
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testSavingDoesNotBlockMainActor]' started.
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testSavingDoesNotBlockMainActor]' passed (0.002 seconds).
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testWrappedFullDiskErrorIsRecognized]' started.
+Test Case '-[FrameCraftTests.ProjectPersistenceTests testWrappedFullDiskErrorIsRecognized]' passed (0.000 seconds).
+Test Suite 'ProjectPersistenceTests' passed at 2026-11-06 15:11:13.496.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.880 (0.881) seconds
+Test Suite 'ProjectTests' started at 2026-11-06 15:11:13.496.
+Test Case '-[FrameCraftTests.ProjectTests testAutoZoomsRespectTrimAndKeepManualEdits]' started.
+Test Case '-[FrameCraftTests.ProjectTests testAutoZoomsRespectTrimAndKeepManualEdits]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.ProjectTests testProjectSerializationRetainsEditingData]' started.
+Test Case '-[FrameCraftTests.ProjectTests testProjectSerializationRetainsEditingData]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.ProjectTests testZoomEntersAndLeavesSmoothly]' started.
+Test Case '-[FrameCraftTests.ProjectTests testZoomEntersAndLeavesSmoothly]' passed (0.000 seconds).
+Test Suite 'ProjectTests' passed at 2026-11-06 15:11:13.496.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'VideoExportTests' started at 2026-11-06 15:11:13.496.
+Test Case '-[FrameCraftTests.VideoExportTests testActiveExportCancellationAndReuse]' started.
+Test Case '-[FrameCraftTests.VideoExportTests testActiveExportCancellationAndReuse]' passed (0.832 seconds).
+Test Case '-[FrameCraftTests.VideoExportTests testCancellationLeavesNoOutputOrTemporaryFile]' started.
+Test Case '-[FrameCraftTests.VideoExportTests testCancellationLeavesNoOutputOrTemporaryFile]' passed (0.302 seconds).
+Test Case '-[FrameCraftTests.VideoExportTests testCursorIsRenderedInExportAndCanBeHidden]' started.
+CoreData: error: Unable to create token NSXPCConnection.  NSXPCStoreServerEndpointFactory 0x7762428bb0 -newEndpointWithError returned error Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.contactsd.persistence" UserInfo={NSDebugDescription=connection to service named com.apple.contactsd.persistence}
+CoreData: error: NSXPCStoreConnectionManager failed to initialize any connections for store at file://<user>/Library/Application%20Support/AddressBook/AddressBook-v22.abcddb with error = Error Domain=NSCocoaErrorDomain Code=4097 "Die Kommunikation mit einem Hilfsprogramm ist fehlgeschlagen." UserInfo={NSUnderlyingError=0x7763874390 {Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.contactsd.persistence" UserInfo={NSDebugDescription=connection to service named com.apple.contactsd.persistence}}}
+Test Case '-[FrameCraftTests.VideoExportTests testCursorIsRenderedInExportAndCanBeHidden]' passed (0.824 seconds).
+Test Case '-[FrameCraftTests.VideoExportTests testLandscapeExportUsesTrimAndCanvas]' started.
+Test Case '-[FrameCraftTests.VideoExportTests testLandscapeExportUsesTrimAndCanvas]' passed (0.828 seconds).
+Test Case '-[FrameCraftTests.VideoExportTests testOriginalAndExistingDestinationCannotBeOverwritten]' started.
+Test Case '-[FrameCraftTests.VideoExportTests testOriginalAndExistingDestinationCannotBeOverwritten]' passed (0.286 seconds).
+Test Case '-[FrameCraftTests.VideoExportTests testParentCancellationRemovesTemporaryOutput]' started.
+CoreData: error: Unable to create token NSXPCConnection.  NSXPCStoreServerEndpointFactory 0x7762428bb0 -newEndpointWithError returned error Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.contactsd.persistence" UserInfo={NSDebugDescription=connection to service named com.apple.contactsd.persistence}
+CoreData: error: NSXPCStoreConnectionManager failed to initialize any connections for store at file://<user>/Library/Application%20Support/AddressBook/AddressBook-v22.abcddb with error = Error Domain=NSCocoaErrorDomain Code=4097 "Die Kommunikation mit einem Hilfsprogramm ist fehlgeschlagen." UserInfo={NSUnderlyingError=0x7763876a90 {Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.contactsd.persistence" UserInfo={NSDebugDescription=connection to service named com.apple.contactsd.persistence}}}
+CoreData: warning: Caught exception trying to load store metadata during error recovery: NSXPCStoreServerEndpointFactory failed to provide an endpoint
+CoreData: error: addPersistentStoreWithType:configuration:URL:options:error: returned error NSCocoaErrorDomain (4097)
+CoreData: error: userInfo:
+CoreData: error: 	NSUnderlyingException : NSXPCStoreServerEndpointFactory failed to provide an endpoint
+CoreData: error: 	NSUnderlyingError : Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.contactsd.persistence" UserInfo={NSDebugDescription=connection to service named com.apple.contactsd.persistence}
+CoreData: error: storeType: NSXPCStore
+CoreData: error: configuration: (null)
+CoreData: error: URL: file://<user>/Library/Application%20Support/AddressBook/AddressBook-v22.abcddb
+CoreData: annotation: options:
+CoreData: annotation: 	NSReadOnlyPersistentStoreOption : 0
+CoreData: annotation: 	NSXPCStoreServerEndpointFactory : <CNCDRemotePersistentStoreEndpointFactory: 0x7762428bb0>
+CoreData: annotation: 	skipModelCheck : 1
+CoreData: annotation: 	NSPersistentHistoryTrackingKey : 1
+Test Case '-[FrameCraftTests.VideoExportTests testParentCancellationRemovesTemporaryOutput]' passed (0.453 seconds).
+Test Case '-[FrameCraftTests.VideoExportTests testPortraitExportUsesTrimAndCanvas]' started.
+Test Case '-[FrameCraftTests.VideoExportTests testPortraitExportUsesTrimAndCanvas]' passed (0.763 seconds).
+Test Case '-[FrameCraftTests.VideoExportTests testUnwritableDestinationFailsAndServiceRecovers]' started.
+Test Case '-[FrameCraftTests.VideoExportTests testUnwritableDestinationFailsAndServiceRecovers]' passed (0.446 seconds).
+Test Suite 'VideoExportTests' passed at 2026-11-06 15:11:18.231.
+	 Executed 8 tests, with 0 failures (0 unexpected) in 4.734 (4.735) seconds
+Test Suite 'ZoomTimingTests' started at 2026-11-06 15:11:18.231.
+Test Case '-[FrameCraftTests.ZoomTimingTests testInvalidInputAndNoOpPreserveAutomaticStatus]' started.
+Test Case '-[FrameCraftTests.ZoomTimingTests testInvalidInputAndNoOpPreserveAutomaticStatus]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.ZoomTimingTests testMovingClampsAtBothEdgesWithoutChangingLengthOrFocus]' started.
+Test Case '-[FrameCraftTests.ZoomTimingTests testMovingClampsAtBothEdgesWithoutChangingLengthOrFocus]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.ZoomTimingTests testOverlapRemainsEditableAndManualTimingSurvivesRegenerationAndRoundTrip]' started.
+Test Case '-[FrameCraftTests.ZoomTimingTests testOverlapRemainsEditableAndManualTimingSurvivesRegenerationAndRoundTrip]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.ZoomTimingTests testRepeatedGestureSamplesUseOriginalSnapshot]' started.
+Test Case '-[FrameCraftTests.ZoomTimingTests testRepeatedGestureSamplesUseOriginalSnapshot]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.ZoomTimingTests testResizingCannotCrossOtherEdgeOrVideoBoundary]' started.
+Test Case '-[FrameCraftTests.ZoomTimingTests testResizingCannotCrossOtherEdgeOrVideoBoundary]' passed (0.000 seconds).
+Test Case '-[FrameCraftTests.ZoomTimingTests testShortExistingIntervalsRemainValid]' started.
+Test Case '-[FrameCraftTests.ZoomTimingTests testShortExistingIntervalsRemainValid]' passed (0.000 seconds).
+Test Suite 'ZoomTimingTests' passed at 2026-11-06 15:11:18.233.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'FrameCraftTests.xctest' passed at 2026-11-06 15:11:18.233.
+	 Executed 35 tests, with 0 failures (0 unexpected) in 5.625 (5.628) seconds
+Test Suite 'All tests' passed at 2026-11-06 15:11:18.233.
+	 Executed 35 tests, with 0 failures (0 unexpected) in 5.625 (5.628) seconds
+􀟈  Test run started.
+􀄵  Testing Library Version: 2403
+􀄵  Target Platform: arm64e-apple-macos14.0
+􁁛  Test run with 0 tests in 0 suites passed after 0.001 seconds.

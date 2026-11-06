@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-06",
+  "version": "0.4.0",
+  "issues": [
+    "SBSTN-86",
+    "SBSTN-107"
+  ],
+  "scope": "Implementation and verification complete; Linear completion follows publication.",
+  "tests_passed": 35,
+  "documentation": [
+    "docs/Timeline-Editing.md",
+    "docs/App-Icon.md"
+  ]
+}

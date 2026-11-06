@@ -1,0 +1,94 @@
+{
+  "date": "2026-11-06",
+  "version": "0.4.0",
+  "build": 10,
+  "issues": [
+    "SBSTN-86",
+    "SBSTN-107"
+  ],
+  "automated_tests": {
+    "passed": 35,
+    "failed": 0
+  },
+  "ui_checks": [
+    "Both interval edges dragged",
+    "Whole interval dragged",
+    "Right arrow adds 0.1 seconds",
+    "Shift+Left subtracts 0.5 seconds",
+    "Tab advances keyboard focus",
+    "Manual interval retained after automatic regeneration",
+    "Project saved and reopened with all three intervals",
+    "Six-second demo exported from reopened project",
+    "White icon visible in native About panel"
+  ],
+  "manual_interval_after_reopen": {
+    "automatic": false,
+    "end": 4.246250808015514,
+    "id": "00D709C4-C7B0-4EA8-874D-BA114D22FD43",
+    "scale": 1.8,
+    "start": 1.5135423400129282,
+    "x": 0.6906726592780089,
+    "y": 0.42983340216689664
+  },
+  "export": {
+    "duration_seconds": 6,
+    "width": 1920,
+    "height": 1080,
+    "nominal_fps": 30,
+    "decoded_frames": 180,
+    "audio_tracks": 0
+  },
+  "final_build_note": "After the full UI/export pass, explicit isEnabled guards were added to selection/mutation callbacks. All 35 tests, release build and installed startup were repeated; export media was not regenerated because rendering and timing algorithms were unchanged.",
+  "strict_signature_valid": true,
+  "mutual_0_3_5_signature_requirements": true,
+  "extracted_archive_signature_valid": true,
+  "archive_sha256": "2d994b7e3f9e5b91801db3c221f7c05124dc90693b33fdef834f3162492649fe",
+  "icon": {
+    "accent_reference": "#FFFFFF",
+    "png_sha256": "e570e9f60a0402e39228e98d1b28de8303c67b6bac09491d88bf635b9bcdd71c",
+    "icns_sha256": "07bdf9d7df0738e123e310e28eb2fe8dd10bed6c5d7d14d944be05deabbb0241",
+    "sizes": [
+      {
+        "file": "icon_128x128.png",
+        "pixels": 128
+      },
+      {
+        "file": "icon_128x128@2x.png",
+        "pixels": 256
+      },
+      {
+        "file": "icon_16x16.png",
+        "pixels": 16
+      },
+      {
+        "file": "icon_16x16@2x.png",
+        "pixels": 32
+      },
+      {
+        "file": "icon_256x256.png",
+        "pixels": 256
+      },
+      {
+        "file": "icon_256x256@2x.png",
+        "pixels": 512
+      },
+      {
+        "file": "icon_32x32.png",
+        "pixels": 32
+      },
+      {
+        "file": "icon_32x32@2x.png",
+        "pixels": 64
+      },
+      {
+        "file": "icon_512x512.png",
+        "pixels": 512
+      },
+      {
+        "file": "icon_512x512@2x.png",
+        "pixels": 1024
+      }
+    ]
+  },
+  "scope": "No new live recording or microphone/system-audio acceptance."
+}

@@ -166,3 +166,8 @@ FrameCraft 0.3.4 (build 8), SBSTN-105: black tile with #e5ff42 screen frame and 
 ## Black and lime interface — November 6, 2026
 
 Version 0.3.5 (build 9), SBSTN-106: shared black/#e5ff42 theme for the welcome screen, editor, primary actions, timeline, inspector and recording sheet. All 29 existing tests pass again. UI states, recording source availability, signature continuity and extracted app archive verified. No new live recording; media palettes and processing behavior remain unchanged. [Design, screenshots and evidence](Interface-Theme.md).
+
+
+## Timeline editing and white icon — November 6, 2026
+
+0.4.0 (build 10): SBSTN-86 adds draggable zoom edges/intervals, keyboard steps and separate overlap rows. SBSTN-107 changes the app icon to white on black; the interface stays black/lime. 35 tests pass. UI drag/key checks, preservation after regeneration, save/reopen and a six-second Full HD export passed; 180 frames fully decoded. Stable signing and the extracted archive checked. See [timeline documentation](Timeline-Editing.md) and [icon provenance](App-Icon.md). No new live recording.

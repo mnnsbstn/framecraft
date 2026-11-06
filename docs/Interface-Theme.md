@@ -2,9 +2,11 @@
 
 FrameCraft 0.3.5 (build 9), November 6, 2026. [SBSTN-106](https://linear.app/mnnsbstn/issue/SBSTN-106/oberflache-an-schwarzes-icon-mit-akzent-e5ff42-anpassen).
 
-The interface now matches the app icon: near-black surfaces, lime primary actions and selection indicators, and neutral text. The requested fixed dark appearance applies to the main window, recording sheet and app-owned native panels, independently of the system's Light/Dark preference. It does not change the system-wide appearance.
+Historical 0.3.5 design: the interface matched the then-lime app icon: near-black surfaces, lime primary actions and selection indicators, and neutral text. The requested fixed dark appearance applies to the main window, recording sheet and app-owned native panels, independently of the system's Light/Dark preference. It does not change the system-wide appearance.
 
 ![Welcome screen](verification/theme-0.3.5-welcome.png)
+
+Since 0.4.0 the app icon uses white symbols at the user’s request; this interface palette remains unchanged.
 
 ## Palette and behavior
 
