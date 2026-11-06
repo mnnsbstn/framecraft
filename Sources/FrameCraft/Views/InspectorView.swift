@@ -13,7 +13,7 @@ struct InspectorView: View {
                     if tab == 0 { appearance } else { edits }
                 }.padding(.horizontal, 19).padding(.bottom, 24)
             }
-        }.background(.bar)
+        }.background(StudioTheme.panel)
         .onChange(of: studio.selectedZoom) { _, value in if value != nil { tab = 1 } }
     }
 
@@ -32,7 +32,7 @@ struct InspectorView: View {
                                 RoundedRectangle(cornerRadius: 8)
                                     .fill(LinearGradient(colors: backdrop.colors, startPoint: .topLeading, endPoint: .bottomTrailing))
                                     .frame(height: 53)
-                                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(studio.project.backdrop == backdrop ? Color.purple : Color.clear, lineWidth: 3))
+                                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(studio.project.backdrop == backdrop ? StudioTheme.accent : Color.clear, lineWidth: 3))
                                 Text(backdrop.title).font(.caption2).foregroundStyle(.secondary)
                             }
                         }.buttonStyle(.plain)

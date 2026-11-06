@@ -10,7 +10,7 @@ struct RecordingView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 22) {
             HStack {
-                Image(systemName: "record.circle").font(.title).foregroundStyle(.purple)
+                Image(systemName: "record.circle").font(.title).foregroundStyle(StudioTheme.accent)
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Neue Aufnahme").font(.title2.bold())
                     Text("Wähle, was du zeigen möchtest.").foregroundStyle(.secondary)
@@ -52,12 +52,15 @@ struct RecordingView: View {
                     }.disabled(capture.isRefreshingSources)
                     Spacer()
                     Button(capture.isPreparing ? "Wird gestartet …" : "Aufnahme starten") { start() }
-                        .buttonStyle(.borderedProminent)
+                        .studioPrimaryAction()
                         .disabled(capture.selectedID == nil || capture.isPreparing || capture.isRefreshingSources || capture.needsScreenPermission)
                 }
             }
         }
         .padding(30).frame(width: 510)
+        .background(StudioTheme.panel)
+        .tint(StudioTheme.accent)
+        .preferredColorScheme(.dark)
         .interactiveDismissDisabled(capture.isPreparing)
         .task { await capture.refreshSources() }
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in

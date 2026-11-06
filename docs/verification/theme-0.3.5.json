@@ -1,0 +1,34 @@
+{
+  "date": "2026-11-06",
+  "version": "0.3.5",
+  "build": "passed",
+  "issue": "SBSTN-106",
+  "palette": {
+    "accent": "#e5ff42",
+    "canvas": "#08090b",
+    "panel": "#101113",
+    "raised": "#1b1d20"
+  },
+  "on_accent_contrast": 17.75,
+  "contrast_scope": "Calculated sRGB contrast for #08090b labels on #e5ff42 only; not a whole-interface accessibility certification.",
+  "strict_signature": "passed",
+  "mutual_0_3_4_identity_requirements": "passed",
+  "extracted_archive_signature": "passed",
+  "archive_executable_permission": "passed",
+  "archive_sha256": "48de306d77ff60dd5bcff353236e823b115caaabca7e6a8fe3f51c7503e4cfd3",
+  "ui_checked": [
+    "Welcome and disabled export",
+    "Recording sheet and enabled start button; cancelled without recording",
+    "Demo generation and preview",
+    "Enabled lime export button",
+    "Selected/unselected zooms; selection seeks and updates inspector",
+    "Appearance tab, sliders and selected background outline"
+  ],
+  "screen_access": "Recording source list loaded after update; no permission reset or prompt. No new live recording.",
+  "scope": "UI palette and controls; models, capture, rendering, persistence and store implementation unchanged.",
+  "automated_tests": {
+    "passed": 29,
+    "failed": 0,
+    "log": "tests-0.3.5.txt"
+  }
+}

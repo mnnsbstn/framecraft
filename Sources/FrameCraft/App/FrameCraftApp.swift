@@ -14,7 +14,9 @@ struct FrameCraftApp: App {
         WindowGroup("FrameCraft", id: "studio") {
             ContentView(studio: studio, capture: capture, exporter: exporter)
                 .frame(minWidth: 1080, minHeight: 700)
-                .tint(.purple)
+                .tint(StudioTheme.accent)
+                .accentColor(StudioTheme.accent)
+                .preferredColorScheme(.dark)
                 .onAppear {
                     delegate.shouldPreventQuit = { capture.isRecording || capture.isPreparing || exporter.isExporting || studio.isLoading }
                     delegate.hasUnsavedEdits = { studio.sourceURL != nil && !studio.saved }
@@ -46,6 +48,7 @@ struct FrameCraftApp: App {
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
+        NSApp.appearance = NSAppearance(named: .darkAqua)
         NSApp.setActivationPolicy(.regular)
         NSApp.activate(ignoringOtherApps: true)
     }

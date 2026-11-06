@@ -2,11 +2,11 @@
 
 An independent native macOS app for screen recording, automatic click zooms, smooth cursor movement, and MP4 export. Inspired by the Screen Studio workflow, with its own interface, implementation, and test media.
 
-**Status: 0.3.4 · macOS 15+ · 29-test functional baseline.** Developed on Apple Silicon with Swift 6.4. Version 0.3.4 adds the [black and lime app icon](docs/App-Icon.md), including repeatable macOS packaging. The prior functional acceptance remains unchanged: a complete 347.910-second silent window recording, project save/reopen and Full HD export passed on October 26. See the [five-minute acceptance](docs/Five-Minute-Test.md). This is not a complete Screen Studio replica.
+**Status: 0.3.5 · macOS 15+ · 29 tests passed.** Developed on Apple Silicon with Swift 6.4. Version 0.3.5 adds a [black and lime interface](docs/Interface-Theme.md) matching the [app icon](docs/App-Icon.md). The prior functional acceptance remains unchanged: a complete 347.910-second silent window recording, project save/reopen and Full HD export passed on October 26. See the [five-minute acceptance](docs/Five-Minute-Test.md). This is not a complete Screen Studio replica.
 
 ## Getting started
 
-- [Download the local Apple Silicon build 0.3.4](artifacts/FrameCraft-0.3.4-macos-arm64.zip), extract it, and open FrameCraft.app. The build uses a persistent self-signed local identity, without Developer ID signing or public notarization.
+- [Download the local Apple Silicon build 0.3.5](artifacts/FrameCraft-0.3.5-macos-arm64.zip), extract it, and open FrameCraft.app. The build uses a persistent self-signed local identity, without Developer ID signing or public notarization.
 - Alternatively, build from source with a configured Xcode installation:
 
 ```sh

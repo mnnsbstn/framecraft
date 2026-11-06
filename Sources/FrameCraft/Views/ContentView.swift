@@ -28,6 +28,7 @@ struct ContentView: View {
             }
             footer
         }
+        .background(StudioTheme.panel)
         .sheet(isPresented: $showRecording) { RecordingView(studio: studio, capture: capture) }
         .alert("FrameCraft", isPresented: Binding(get: { studio.message != nil || capture.errorMessage != nil || exporter.errorMessage != nil }, set: { if !$0 { studio.message = nil; capture.errorMessage = nil; exporter.clearError() } })) {
             Button("OK") { studio.message = nil; capture.errorMessage = nil; exporter.clearError() }
@@ -43,7 +44,7 @@ struct ContentView: View {
 
     private var header: some View {
         HStack(spacing: 14) {
-            Image(systemName: "viewfinder").font(.system(size: 24, weight: .semibold)).foregroundStyle(.purple)
+            Image(systemName: "viewfinder").font(.system(size: 24, weight: .semibold)).foregroundStyle(StudioTheme.accent)
             VStack(alignment: .leading, spacing: 3) {
                 Text("FrameCraft").font(.system(size: 17, weight: .bold, design: .rounded))
                 Text("Dein Bildschirm. Deine Geschichte.").font(.caption).foregroundStyle(.secondary)
@@ -58,7 +59,7 @@ struct ContentView: View {
             }
             Button { studio.saveProject() } label: { Image(systemName: "square.and.arrow.down") }.help("Projekt speichern · ⌘S").disabled(studio.sourceURL == nil || exporter.isExporting || studio.isLoading || capture.isRecording || capture.isPreparing)
             Button(action: exportMovie) { Label("Video exportieren", systemImage: "square.and.arrow.up") }
-                .buttonStyle(.borderedProminent).disabled(studio.sourceURL == nil || exporter.isExporting || studio.isLoading || capture.isRecording || capture.isPreparing)
+                .studioPrimaryAction().disabled(studio.sourceURL == nil || exporter.isExporting || studio.isLoading || capture.isRecording || capture.isPreparing)
         }
         .padding(.horizontal, 22).padding(.vertical, 15)
     }
@@ -66,7 +67,7 @@ struct ContentView: View {
     private var sidebar: some View {
         VStack(alignment: .leading, spacing: 20) {
             Text("ARBEITSPLATZ").font(.system(size: 10, weight: .semibold)).tracking(1.6).foregroundStyle(.secondary)
-            Label("Studio", systemImage: "rectangle.stack").font(.system(size: 13, weight: .semibold)).foregroundStyle(.purple)
+            Label("Studio", systemImage: "rectangle.stack").font(.system(size: 13, weight: .semibold)).foregroundStyle(StudioTheme.accent)
             Button { studio.importVideo() } label: { Label("Video importieren", systemImage: "film") }
             Button { studio.openProject() } label: { Label("Projekt öffnen", systemImage: "folder") }
             Divider()
@@ -84,7 +85,7 @@ struct ContentView: View {
         }
         .buttonStyle(.plain).font(.system(size: 12))
         .padding(20).frame(width: 185).frame(maxHeight: .infinity, alignment: .topLeading)
-        .background(.bar)
+        .background(StudioTheme.panel)
         .disabled(exporter.isExporting || studio.isLoading || capture.isRecording || capture.isPreparing)
     }
 
@@ -117,25 +118,27 @@ struct ContentView: View {
             }
             .buttonStyle(.plain).disabled(studio.sourceURL == nil).padding(.horizontal, 28).padding(.bottom, 20)
         }
-        .background(.background)
+        .background(StudioTheme.canvas)
     }
 
     private var welcome: some View {
         VStack(spacing: 22) {
             ZStack {
-                RoundedRectangle(cornerRadius: 28).fill(LinearGradient(colors: Backdrop.aurora.colors, startPoint: .topLeading, endPoint: .bottomTrailing)).frame(width: 300, height: 180)
-                RoundedRectangle(cornerRadius: 10).fill(.ultraThinMaterial).frame(width: 236, height: 132).shadow(color: .black.opacity(0.25), radius: 18, y: 8)
-                Image(systemName: "play.rectangle.fill").font(.system(size: 46)).foregroundStyle(.white.opacity(0.9))
+                RoundedRectangle(cornerRadius: 28).fill(StudioTheme.raised).frame(width: 300, height: 180)
+                RoundedRectangle(cornerRadius: 14).fill(StudioTheme.canvas).frame(width: 236, height: 132)
+                    .overlay(RoundedRectangle(cornerRadius: 14).stroke(StudioTheme.accent.opacity(0.65), lineWidth: 1))
+                    .shadow(color: .black.opacity(0.35), radius: 18, y: 8)
+                Image(systemName: "play.rectangle.fill").font(.system(size: 46)).foregroundStyle(StudioTheme.accent)
             }
             VStack(spacing: 8) {
                 Text("Mach aus einem Ablauf eine Geschichte.").font(.system(size: 21, weight: .semibold, design: .rounded)).multilineTextAlignment(.center)
                 Text("Aufnehmen, die wichtigen Momente vergrößern\nund mit deinem eigenen Look exportieren.").font(.system(size: 13)).foregroundStyle(.secondary).multilineTextAlignment(.center)
             }
             HStack(spacing: 12) {
-                Button("Neue Aufnahme") { showRecording = true }.buttonStyle(.borderedProminent)
+                Button("Neue Aufnahme") { showRecording = true }.studioPrimaryAction()
                 Button("Video importieren") { studio.importVideo() }.buttonStyle(.bordered)
             }
-            Button("Erst mit einer Demo ausprobieren") { studio.makeDemo() }.buttonStyle(.link).font(.caption)
+            Button("Erst mit einer Demo ausprobieren") { studio.makeDemo() }.buttonStyle(.plain).foregroundStyle(StudioTheme.accent).font(.caption)
         }.padding(25)
     }
 
@@ -143,7 +146,7 @@ struct ContentView: View {
         VStack(spacing: 0) {
             Divider()
             HStack {
-                Circle().fill(capture.isRecording ? Color.red : Color.green).frame(width: 5, height: 5)
+                Circle().fill(capture.isRecording ? Color.red : StudioTheme.accent).frame(width: 5, height: 5)
                 Text(capture.isRecording ? "Aufnahme läuft — Stop auch in der Menüleiste" : "Bereit")
                 Spacer()
                 if studio.isSaving {
@@ -152,7 +155,7 @@ struct ContentView: View {
                 } else if exporter.isExporting {
                     ProgressView(value: exporter.progress).frame(width: 140)
                     Text("Export \(Int(exporter.progress * 100)) %").monospacedDigit()
-                    Button("Abbrechen") { exporter.cancel() }.buttonStyle(.link)
+                    Button("Abbrechen") { exporter.cancel() }.buttonStyle(.plain).foregroundStyle(StudioTheme.accent)
                 } else {
                     Text("MP4 · 30 fps · lokal")
                         .help("FrameCraft \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "–") · Build \(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "–")")

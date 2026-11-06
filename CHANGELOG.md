@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.5 — November 6, 2026
+
+- Match the interface to the app icon with near-black surfaces and the shared #e5ff42 accent.
+- Style primary actions, disabled states, welcome view, timeline selections, inspector and recording sheet with readable contrast.
+- Keep media palettes and semantic recording/error colors independent of the interface theme.
+- Pass all 29 existing tests; verify main UI states, source access after update, stable signing and the extracted app archive. See [interface theme](docs/Interface-Theme.md).
+
 ## 0.3.4 — November 6, 2026
 
 - Add an original black and #e5ff42 screen-frame/recording-dot app icon.

@@ -140,3 +140,8 @@ The same FrameCraft 0.3.3 build 7 completed a 347.910-second silent test-window 
 ## App icon — November 6, 2026
 
 FrameCraft 0.3.4 (build 8), SBSTN-105: black tile with #e5ff42 screen frame and recording dot. PNG master, ten macOS icon representations, repeatable build integration and updated app archive are included. Native About-panel display, build, strict signing, previous/current identity compatibility and extracted archive passed verification. Runtime sources are unchanged; no new recording/export or automated-test run. The prior 29-test and five-minute functional acceptance remains the baseline. Details: [App icon](App-Icon.md).
+
+
+## Black and lime interface — November 6, 2026
+
+Version 0.3.5 (build 9), SBSTN-106: shared black/#e5ff42 theme for the welcome screen, editor, primary actions, timeline, inspector and recording sheet. All 29 existing tests pass again. UI states, recording source availability, signature continuity and extracted app archive verified. No new live recording; media palettes and processing behavior remain unchanged. [Design, screenshots and evidence](Interface-Theme.md).
