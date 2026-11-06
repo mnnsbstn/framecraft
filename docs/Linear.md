@@ -176,3 +176,5 @@ Version 0.3.5 (build 9), SBSTN-106: shared black/#e5ff42 theme for the welcome s
 ## November 6, 2026 — 0.5.0 export options (SBSTN-87)
 
 Installed build 11 with configurable MP4 resolution/frame rate/quality and silent looping GIF output for short clips. All 40 tests pass; native MP4 and GIF save flows completed, with every output frame decoded. Signing identity and source parity verified; app archive extracted and strictly verified. See [export options](Export-Options.md). Real audio and multi-display acceptance remain separate open tasks.
+
+Publication confirmed: implementation commit `c024dc4233d96b75a1084d0c3d031192d6aaf649`; SBSTN-87 is Done. The Linear project summary and development journal now identify version 0.5.0 as current.

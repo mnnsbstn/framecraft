@@ -4,7 +4,7 @@
   "issues": [
     "SBSTN-87"
   ],
-  "scope": "Implemented, installed and verified; Linear completion follows GitHub publication.",
+  "scope": "Implemented, installed, verified and published; SBSTN-87 is Done in Linear.",
   "tests_passed": 40,
   "documentation": [
     "docs/Export-Options.md"
@@ -12,5 +12,7 @@
   "remaining_acceptance": [
     "SBSTN-83: real system audio and microphone",
     "SBSTN-84: full-display and multi-monitor"
-  ]
+  ],
+  "implementation_commit": "c024dc4233d96b75a1084d0c3d031192d6aaf649",
+  "linear_status": "Done"
 }
