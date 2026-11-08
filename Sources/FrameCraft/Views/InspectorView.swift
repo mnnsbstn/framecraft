@@ -74,8 +74,8 @@ struct InspectorView: View {
             }
             group("ZOOMS") {
                 Button { studio.addZoom() } label: { Label("Zoom an Abspielposition", systemImage: "plus") }.controlSize(.small)
-                if let index = studio.project.zooms.firstIndex(where: { $0.id == studio.selectedZoom }) {
-                    zoomControls(index)
+                if let zoom = studio.project.zooms.first(where: { $0.id == studio.selectedZoom }) {
+                    zoomControls(zoom)
                 } else {
                     Text("Wähle einen Zoom in der Zeitleiste oder füge einen neuen hinzu.").font(.caption).foregroundStyle(.secondary)
                 }
@@ -88,18 +88,17 @@ struct InspectorView: View {
         }
     }
 
-    private func zoomControls(_ index: Int) -> some View {
+    private func zoomControls(_ zoom: ZoomRegion) -> some View {
         VStack(alignment: .leading, spacing: 13) {
-            valueSlider("Stärke", value: zoomBinding(index, \.scale), range: 1...3, valueText: String(format: "%.1f×", studio.project.zooms[index].scale))
-            valueSlider("Start", value: Binding(get: { studio.project.zooms[index].start }, set: { studio.project.zooms[index].automatic = false; studio.project.zooms[index].start = min($0, studio.project.zooms[index].end - 0.1) }), range: 0...max(0.0001, studio.project.duration), valueText: timeLabel(studio.project.zooms[index].start))
-            valueSlider("Ende", value: Binding(get: { studio.project.zooms[index].end }, set: { studio.project.zooms[index].automatic = false; studio.project.zooms[index].end = max($0, studio.project.zooms[index].start + 0.1) }), range: 0...max(0.0001, studio.project.duration), valueText: timeLabel(studio.project.zooms[index].end))
+            valueSlider("Stärke", value: zoomBinding(zoom, \.scale), range: 1...3, valueText: String(format: "%.1f×", zoom.scale))
+            valueSlider("Start", value: zoomBinding(zoom, \.start), range: 0...max(0.0001, studio.project.duration), valueText: timeLabel(zoom.start))
+            valueSlider("Ende", value: zoomBinding(zoom, \.end), range: 0...max(0.0001, studio.project.duration), valueText: timeLabel(zoom.end))
             Text("FOKUSPUNKT").font(.system(size: 9, weight: .semibold)).foregroundStyle(.secondary)
-            valueSlider("Horizontal", value: zoomBinding(index, \.x), range: 0...1, valueText: "\(Int(studio.project.zooms[index].x * 100)) %")
-            valueSlider("Vertikal", value: zoomBinding(index, \.y), range: 0...1, valueText: "\(Int(studio.project.zooms[index].y * 100)) %")
+            valueSlider("Horizontal", value: zoomBinding(zoom, \.x), range: 0...1, valueText: "\(Int(zoom.x * 100)) %")
+            valueSlider("Vertikal", value: zoomBinding(zoom, \.y), range: 0...1, valueText: "\(Int(zoom.y * 100)) %")
             Button(role: .destructive) {
-                let id = studio.project.zooms[index].id
-                studio.selectedZoom = nil
-                studio.project.zooms.removeAll { $0.id == id }
+                if studio.selectedZoom == zoom.id { studio.selectedZoom = nil }
+                studio.project.zooms.removeAll { $0.id == zoom.id }
             } label: { Label("Zoom entfernen", systemImage: "trash") }.controlSize(.small)
         }
     }
@@ -108,10 +107,20 @@ struct InspectorView: View {
         Binding(get: { studio.project.cursor?[keyPath: keyPath] ?? value }, set: { studio.project.cursor?[keyPath: keyPath] = $0 })
     }
 
-    private func zoomBinding(_ index: Int, _ keyPath: WritableKeyPath<ZoomRegion, Double>) -> Binding<Double> {
-        Binding(get: { studio.project.zooms[index][keyPath: keyPath] }, set: {
-            studio.project.zooms[index].automatic = false
-            studio.project.zooms[index][keyPath: keyPath] = $0
+    func zoomBinding(_ zoom: ZoomRegion, _ keyPath: WritableKeyPath<ZoomRegion, Double>) -> Binding<Double> {
+        Binding(get: {
+            let current = studio.project.zooms.first { $0.id == zoom.id } ?? zoom
+            return current[keyPath: keyPath]
+        }, set: { value in
+            guard let index = studio.project.zooms.firstIndex(where: { $0.id == zoom.id }) else { return }
+            var current = studio.project.zooms[index]
+            switch keyPath {
+            case \.start: current.start = min(value, current.end - 0.1)
+            case \.end: current.end = max(value, current.start + 0.1)
+            default: current[keyPath: keyPath] = value
+            }
+            current.automatic = false
+            studio.project.zooms[index] = current
         })
     }
 

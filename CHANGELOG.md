@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.1 — November 8, 2026
+
+- Use native mouse-down locations for click zooms and retain counter sampling as a fallback when no native mouse-down events arrive.
+- Resolve inspector edits by zoom ID so a project change or zoom deletion can safely retire old slider bindings.
+- Verify two full-display recordings against independent click markers and HD exports. [Display acceptance](docs/Display-Acceptance.md)
+
 ## November 8, 2026 — Audio acceptance on 0.5.0
 
 - Verify live window recordings with system audio alone, microphone alone, and both together. Check saved projects, audible and muted MP4s, sync, levels, permission denial and local listening. [Results](docs/Audio-Acceptance.md)

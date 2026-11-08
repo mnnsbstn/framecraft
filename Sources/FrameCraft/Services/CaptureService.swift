@@ -38,7 +38,7 @@ final class CaptureService: NSObject, ObservableObject {
     private var activeSource: CaptureSource?
     private var content: SCShareableContent?
     private var recordingEpoch: Double?
-    private var clicks: [ClickSample] = []
+    private var clickLog = CaptureClicks()
     private var cursorSamples: [CursorSample] = []
     private var mouseTimer: Timer?
     private var lastLeftCount: UInt32 = 0
@@ -119,7 +119,7 @@ final class CaptureService: NSObject, ObservableObject {
         isPreparing = true
         errorMessage = nil
         elapsed = 0
-        clicks = []; cursorSamples = []
+        clickLog = CaptureClicks(); cursorSamples = []
         lastInventoryTime = -Double.infinity
         recordingEpoch = nil
         outputURL = url
@@ -285,7 +285,7 @@ final class CaptureService: NSObject, ObservableObject {
     private func mouseSample(at time: Double, point: CGPoint? = nil) -> CursorSample? {
         guard isRecording, !isStopping, let source = activeSource else { return nil }
         let now = ProcessInfo.processInfo.systemUptime
-        if now - lastInventoryTime > 0.1 {
+        if point != nil || now - lastInventoryTime > 0.1 {
             windowInventory = (CGWindowListCopyWindowInfo([.optionOnScreenOnly, .excludeDesktopElements], kCGNullWindowID) as? [[String: Any]]) ?? []
             lastInventoryTime = now
         }
@@ -316,23 +316,19 @@ final class CaptureService: NSObject, ObservableObject {
         let time = ProcessInfo.processInfo.systemUptime
         guard let sample = mouseSample(at: time) else { return }
         cursorSamples.append(sample)
-        // Counters retain fast down/up clicks between timer ticks. Event monitors
-        // provide exact timestamps when available; both paths are deduplicated.
+        // Use counter observations only for sessions without native mouse-down
+        // delivery. They have neither the event location nor the exact timestamp.
         let left = CGEventSource.counterForEventType(.combinedSessionState, eventType: .leftMouseDown)
         let right = CGEventSource.counterForEventType(.combinedSessionState, eventType: .rightMouseDown)
-        if left != lastLeftCount || right != lastRightCount { appendClick(sample) }
+        if left != lastLeftCount || right != lastRightCount { clickLog.observeCounter(sample) }
         lastLeftCount = left; lastRightCount = right
     }
 
-    private func appendClick(_ sample: CursorSample) {
-        guard sample.visible, !clicks.contains(where: { abs($0.time - sample.time) < 0.04 }) else { return }
-        clicks.append(ClickSample(time: sample.time, x: sample.x, y: sample.y))
-        cursorSamples.append(sample)
-    }
-
     private func recordClick(_ event: NSEvent) {
-        guard let sample = mouseSample(at: event.timestamp, point: event.cgEvent?.location) else { return }
-        appendClick(sample)
+        guard let point = event.cgEvent?.location,
+              let sample = mouseSample(at: event.timestamp, point: point) else { return }
+        clickLog.observeNative(sample)
+        if sample.visible { cursorSamples.append(sample) }
     }
 
 }
@@ -369,7 +365,7 @@ extension CaptureService: SCRecordingOutputDelegate, SCStreamDelegate {
             let duration = recordingOutput.recordedDuration.seconds
             if duration.isFinite { self.elapsed = max(0, duration) }
             let epoch = self.recordingEpoch ?? ProcessInfo.processInfo.systemUptime
-            let samples = self.clicks.map { ClickSample(time: $0.time - epoch, x: $0.x, y: $0.y) }
+            let samples = self.clickLog.resolved.map { ClickSample(time: $0.time - epoch, x: $0.x, y: $0.y) }
                 .filter { $0.time >= 0 && $0.time <= self.elapsed }.sorted { $0.time < $1.time }
             var positions = self.cursorSamples.map { CursorSample(time: max(0, $0.time - epoch), x: $0.x, y: $0.y, visible: $0.visible) }
                 .filter { $0.time <= self.elapsed }.sorted { $0.time < $1.time }

@@ -1,0 +1,192 @@
+{
+  "date": "2026-11-08",
+  "app_version": "0.5.1",
+  "automated_tests": 44,
+  "capture_audio": false,
+  "display_mode": "extended",
+  "method": "Independent AppKit mouse-down records, visible click flashes, saved project tracks and decoded HD exports with and without the cursor. Pixel errors are Euclidean distances in the named image, not an estimate across every frame.",
+  "displays": {
+    "lg": {
+      "raw_size": [
+        3840,
+        2160
+      ],
+      "output_size": [
+        1280,
+        720
+      ],
+      "clicks": 3,
+      "zooms": 3,
+      "targets": [
+        {
+          "target": "A",
+          "scale": 1.8,
+          "source_flash_error_px": 0.83,
+          "export_flash_error_px": 0.72,
+          "arrow_outline_distance_to_click_px": 0.54,
+          "arrow_outline_distance_to_cursor_px": 0.45
+        },
+        {
+          "target": "B",
+          "scale": 1.8,
+          "source_flash_error_px": 0.87,
+          "export_flash_error_px": 0.6,
+          "arrow_outline_distance_to_click_px": 0.0,
+          "arrow_outline_distance_to_cursor_px": 0.0
+        },
+        {
+          "target": "C",
+          "scale": 1.8,
+          "source_flash_error_px": 0.86,
+          "export_flash_error_px": 0.73,
+          "arrow_outline_distance_to_click_px": 0.35,
+          "arrow_outline_distance_to_cursor_px": 0.35
+        }
+      ],
+      "other_monitor": [
+        {
+          "target": "A",
+          "visible": false,
+          "click": false,
+          "changed_pixels": 0
+        },
+        {
+          "target": "B",
+          "visible": false,
+          "click": false,
+          "changed_pixels": 0
+        },
+        {
+          "target": "C",
+          "visible": false,
+          "click": false,
+          "changed_pixels": 0
+        }
+      ],
+      "build": 12,
+      "origin_points": [
+        2048,
+        -108
+      ],
+      "size_points": [
+        2560,
+        1440
+      ],
+      "backing_scale": 2,
+      "flash_timing_ms_last_dark_first_lit": [
+        [
+          "A",
+          10.8,
+          110.8
+        ],
+        [
+          "B",
+          -47.2,
+          36.2
+        ],
+        [
+          "C",
+          -22.0,
+          28.0
+        ]
+      ]
+    },
+    "internal": {
+      "raw_size": [
+        2048,
+        1332
+      ],
+      "output_size": [
+        1280,
+        720
+      ],
+      "clicks": 12,
+      "zooms": 12,
+      "targets": [
+        {
+          "target": "A",
+          "scale": 1.8,
+          "source_flash_error_px": 0.87,
+          "export_flash_error_px": 0.67,
+          "arrow_outline_distance_to_click_px": 0.49,
+          "arrow_outline_distance_to_cursor_px": 0.39
+        },
+        {
+          "target": "B",
+          "scale": 1.8,
+          "source_flash_error_px": 0.91,
+          "export_flash_error_px": 0.55,
+          "arrow_outline_distance_to_click_px": 0.0,
+          "arrow_outline_distance_to_cursor_px": 0.03
+        },
+        {
+          "target": "C",
+          "scale": 1.8,
+          "source_flash_error_px": 0.85,
+          "export_flash_error_px": 0.58,
+          "arrow_outline_distance_to_click_px": 0.36,
+          "arrow_outline_distance_to_cursor_px": 0.36
+        }
+      ],
+      "other_monitor": [
+        {
+          "target": "A",
+          "visible": false,
+          "click": false,
+          "changed_pixels": 0
+        },
+        {
+          "target": "A",
+          "visible": false,
+          "click": false,
+          "changed_pixels": 0
+        },
+        {
+          "target": "B",
+          "visible": false,
+          "click": false,
+          "changed_pixels": 0
+        },
+        {
+          "target": "C",
+          "visible": false,
+          "click": false,
+          "changed_pixels": 0
+        }
+      ],
+      "build": 13,
+      "origin_points": [
+        0,
+        0
+      ],
+      "size_points": [
+        2048,
+        1332
+      ],
+      "backing_scale": 1,
+      "flash_timing_ms_last_dark_first_lit": [
+        [
+          "A",
+          20.4,
+          53.8
+        ],
+        [
+          "B",
+          -12.8,
+          20.6
+        ],
+        [
+          "C",
+          -6.5,
+          26.9
+        ]
+      ]
+    }
+  },
+  "window_replay": {
+    "first_duration_s": 27.088,
+    "second_duration_s": 300.553,
+    "source_following_and_occlusion": "inconclusive",
+    "studio_window_exclusion": "inconclusive"
+  }
+}

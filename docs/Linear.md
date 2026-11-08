@@ -183,3 +183,7 @@ Publication confirmed: implementation commit `c024dc4233d96b75a1084d0c3d031192d6
 ## November 8, 2026 — SBSTN-83
 
 System audio and microphone acceptance passed for window recording on this Mac. See [measurements and listening results](Audio-Acceptance.md). Full-display and multi-monitor acceptance remains tracked by SBSTN-84.
+
+### November 8, 2026 · SBSTN-84 · FrameCraft 0.5.1
+
+Whole-display capture passed on the internal and external LG monitors in extended mode. Six click targets matched the saved zoom coordinates. Seven off-display clicks produced no corresponding click or visible cursor in the checked frames. Fixed duplicate click zooms and a stale zoom-inspector binding. All 44 automated tests passed. The wider issue stays in progress for moving or covered single-window capture and a conclusive visual check of studio exclusion. [Test report](Display-Acceptance.md)

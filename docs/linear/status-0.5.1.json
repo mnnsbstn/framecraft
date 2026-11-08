@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-08",
+  "version": "0.5.1",
+  "build": 13,
+  "issue": "SBSTN-84",
+  "status": "In Progress",
+  "tests_passed": 44,
+  "verified": "Whole-display recordings and click zooms on both monitors in one extended arrangement",
+  "remaining": [
+    "Moving or covered single-window capture",
+    "Foreground studio exclusion by direct image comparison"
+  ],
+  "documentation": "docs/Display-Acceptance.md"
+}

@@ -2,11 +2,11 @@
 
 An independent native macOS app for screen recording, automatic click zooms, smooth cursor movement, and MP4/GIF export. Inspired by the Screen Studio workflow, with its own interface, implementation, and test media.
 
-**Status: 0.5.0 · macOS 15+ · 40 tests passed.** Developed on Apple Silicon with Swift 6.4. Version 0.5.0 adds [configurable MP4 and GIF export](docs/Export-Options.md), building on [direct timeline editing](docs/Timeline-Editing.md) and a [white-on-black app icon](docs/App-Icon.md). The [interface](docs/Interface-Theme.md) keeps its black/lime palette. The prior functional acceptance remains unchanged: a complete 347.910-second silent window recording, project save/reopen and Full HD export passed on October 26. See the [five-minute acceptance](docs/Five-Minute-Test.md). This is not a complete Screen Studio replica.
+**Version 0.5.1 · macOS 15+ · 44 automated tests passed.** FrameCraft records either monitor in an extended desktop and places click zooms using the mouse-down location. See the [two-display recording and export measurements](docs/Display-Acceptance.md).
 
 ## Getting started
 
-- [Download the local Apple Silicon build 0.5.0](artifacts/FrameCraft-0.5.0-macos-arm64.zip), extract it, and open FrameCraft.app. The build uses a persistent self-signed local identity, without Developer ID signing or public notarization.
+- [Download the local Apple Silicon build 0.5.1](artifacts/FrameCraft-0.5.1-macos-arm64.zip), extract it, and open FrameCraft.app. The build uses a persistent self-signed local identity, without Developer ID signing or public notarization.
 - Alternatively, build from source with a configured Xcode installation:
 
 ```sh
@@ -69,7 +69,7 @@ All existing and future work, including previously unplanned features, is docume
 
 REA was set up persistently on the local machine and used for read-only reference inspection. See [setup/reuse](docs/rea/REA-Nutzung.md), [verification evidence](docs/rea), and [reference findings](docs/REA-Befunde.json). Provenance and integrity were checked; this is not a full security audit. The reference app was not executed because of checksum/signature issues and is not included in this repository.
 
-System audio and microphone input passed [live window recording and export checks](docs/Audio-Acceptance.md) on this Mac. Full-display and multi-monitor recording remain open for practical validation. The cursor currently uses a fixed arrow shape; cursors embedded in imported videos cannot be smoothed. Region recording, webcam overlays, multi-clip editing, subtitles, and cloud sharing are in the ideas backlog. Very short zoom intervals may ease out beyond their nominal end.
+System audio and microphone input passed [live window recording and export checks](docs/Audio-Acceptance.md) on this Mac. Full-display capture has been tested on this Mac with its built-in panel and an external LG in extended mode. The cursor currently uses a fixed arrow shape; cursors embedded in imported videos cannot be smoothed. Region recording, webcam overlays, multi-clip editing, subtitles, and cloud sharing are in the ideas backlog. Very short zoom intervals may ease out beyond their nominal end.
 
 ## Repository contents
 
@@ -77,7 +77,7 @@ Source, tests, local build instructions, documentation, REA evidence, a Linear s
 
 ## Recording permissions and updates
 
-See [recording permission and update guidance](docs/Recording-Permissions.md) for launch-only mode, safe bundle replacement, and recovery. Version 0.5.0 is the current build. All 40 tests pass. The earlier stable-signing acceptance used a real changed-code update and retained recording permission; recordings before and after the update and a Full HD export passed verification. See the [update test](docs/verification/stable-signing-0.3.2.json).
+See [recording permission and update guidance](docs/Recording-Permissions.md) for launch-only mode, safe bundle replacement, and recovery. Version 0.5.1 is the current build. All 44 tests pass. The earlier stable-signing acceptance used a real changed-code update and retained recording permission; recordings before and after the update and a Full HD export passed verification. See the [update test](docs/verification/stable-signing-0.3.2.json).
 
 
 Stable local signing is configured and verified on this Mac. See [identity setup and update continuity](docs/Signing-Identity.md). Future builds use the saved identity automatically; older app archives remain available as historical artifacts.
