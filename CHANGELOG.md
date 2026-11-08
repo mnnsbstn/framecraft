@@ -1,5 +1,9 @@
 # Changelog
 
+## November 8, 2026 — Audio acceptance on 0.5.0
+
+- Verify live window recordings with system audio alone, microphone alone, and both together. Check saved projects, audible and muted MP4s, sync, levels, permission denial and local listening. [Results](docs/Audio-Acceptance.md)
+
 ## 0.5.0 — November 6, 2026
 
 - Add export settings for MP4 resolution (HD/Full HD/4K), frame rate (24/30/60 fps) and three bitrate-based quality levels with an estimated file size.

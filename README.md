@@ -69,7 +69,7 @@ All existing and future work, including previously unplanned features, is docume
 
 REA was set up persistently on the local machine and used for read-only reference inspection. See [setup/reuse](docs/rea/REA-Nutzung.md), [verification evidence](docs/rea), and [reference findings](docs/REA-Befunde.json). Provenance and integrity were checked; this is not a full security audit. The reference app was not executed because of checksum/signature issues and is not included in this repository.
 
-System audio, microphone input, and full-display recording have not yet been practically validated. The cursor currently uses a fixed arrow shape; cursors embedded in imported videos cannot be smoothed. Region recording, webcam overlays, multi-clip editing, subtitles, and cloud sharing are in the ideas backlog. Very short zoom intervals may ease out beyond their nominal end.
+System audio and microphone input passed [live window recording and export checks](docs/Audio-Acceptance.md) on this Mac. Full-display and multi-monitor recording remain open for practical validation. The cursor currently uses a fixed arrow shape; cursors embedded in imported videos cannot be smoothed. Region recording, webcam overlays, multi-clip editing, subtitles, and cloud sharing are in the ideas backlog. Very short zoom intervals may ease out beyond their nominal end.
 
 ## Repository contents
 

@@ -1,0 +1,128 @@
+{
+  "date": "2026-11-08",
+  "version": "0.5.0",
+  "build": 11,
+  "system_version": "macOS 27.2",
+  "capture": "QuickTime test window",
+  "monitoring": "speakers, no headphones",
+  "measurements": {
+    "system": {
+      "original": {
+        "duration_s": 37.09,
+        "decoded_video_frames": 2123,
+        "channels": 2,
+        "sample_rate_hz": 48000,
+        "peak_dbfs": -18.18,
+        "whole_clip_rms_dbfs": -34.18,
+        "near_clipped_frames": 0,
+        "maximum_audio_timestamp_gap_ms": 0.0,
+        "audio_minus_visual_marker_ms": [
+          -13.33,
+          -23.33,
+          -21.67,
+          -21.67,
+          -21.67
+        ]
+      },
+      "trimmed_mp4": {
+        "duration_s": 36.09,
+        "decoded_video_frames": 1083,
+        "channels": 2,
+        "sample_rate_hz": 48000,
+        "peak_dbfs": -18.17,
+        "whole_clip_rms_dbfs": -34.07,
+        "near_clipped_frames": 0,
+        "maximum_audio_timestamp_gap_ms": 0.0,
+        "audio_minus_visual_marker_ms": [
+          -13.33,
+          -46.67,
+          -46.67,
+          -46.67,
+          -46.67
+        ]
+      },
+      "original_saved_reopened_media_hashes_match": true,
+      "muted_export_audio_tracks": 0,
+      "muted_export_decoded_video_frames": 1083
+    },
+    "microphone": {
+      "original": {
+        "duration_s": 62.0983,
+        "decoded_video_frames": 3558,
+        "channels": 2,
+        "sample_rate_hz": 48000,
+        "peak_dbfs": -17.07,
+        "whole_clip_rms_dbfs": -38.72,
+        "near_clipped_frames": 0,
+        "maximum_audio_timestamp_gap_ms": 0.0,
+        "audio_minus_visual_marker_ms": []
+      },
+      "trimmed_mp4": {
+        "duration_s": 61.0983,
+        "decoded_video_frames": 1833,
+        "channels": 2,
+        "sample_rate_hz": 48000,
+        "peak_dbfs": -17.09,
+        "whole_clip_rms_dbfs": -38.67,
+        "near_clipped_frames": 0,
+        "maximum_audio_timestamp_gap_ms": 0.0,
+        "audio_minus_visual_marker_ms": []
+      },
+      "original_saved_reopened_media_hashes_match": true,
+      "muted_export_audio_tracks": 0,
+      "muted_export_decoded_video_frames": 1833
+    },
+    "combined": {
+      "original": {
+        "duration_s": 43.34,
+        "decoded_video_frames": 2492,
+        "channels": 2,
+        "sample_rate_hz": 48000,
+        "peak_dbfs": -14.88,
+        "whole_clip_rms_dbfs": -34.66,
+        "near_clipped_frames": 0,
+        "maximum_audio_timestamp_gap_ms": 0.0,
+        "audio_minus_visual_marker_ms": [
+          -6.67,
+          -11.67,
+          -8.33,
+          -5.0,
+          -20.0
+        ]
+      },
+      "trimmed_mp4": {
+        "duration_s": 42.34,
+        "decoded_video_frames": 1271,
+        "channels": 2,
+        "sample_rate_hz": 48000,
+        "peak_dbfs": -14.89,
+        "whole_clip_rms_dbfs": -34.56,
+        "near_clipped_frames": 0,
+        "maximum_audio_timestamp_gap_ms": 0.0,
+        "audio_minus_visual_marker_ms": [
+          -13.33,
+          -13.33,
+          -13.33,
+          -13.33,
+          -46.67
+        ]
+      },
+      "original_saved_reopened_media_hashes_match": true,
+      "muted_export_audio_tracks": 0,
+      "muted_export_decoded_video_frames": 1271
+    }
+  },
+  "listening_check": "User heard clear speech, audible marker tones and no distracting echo in the combined MP4 export.",
+  "denied_microphone": {
+    "scope": "Separate macOS application identity running the FrameCraft 0.5.0 CaptureService. A placeholder source prevented real capture. Microphone access was switched off for the helper in System Settings.",
+    "initial_probe": "The first probe received authorization and did not exercise denial.",
+    "results": {
+      "authorization_after": 2,
+      "authorization_before": 2,
+      "microphone_denial_reported": true,
+      "no_output_created": true,
+      "retry_reached_source_validation": true,
+      "returned_to_idle": true
+    }
+  }
+}
