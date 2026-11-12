@@ -60,9 +60,9 @@ final class StudioStore: ObservableObject {
             projectFolder = nil
             sourceURL = url
             project = Project(title: url.deletingPathExtension().lastPathComponent, duration: duration, trimEnd: duration, clicks: clicks)
-            if webcam != nil { project.version = 2 }
             project.webcam = webcam
             project.cursor = cursor
+            project.version = project.requiredVersion
             project.generateZooms()
             selectedZoom = project.zooms.first?.id
             currentTime = 0
@@ -163,7 +163,7 @@ final class StudioStore: ObservableObject {
             defer { isLoading = false }
             do {
                 let file = try await ProjectPersistence.shared.read(folder: folder)
-                guard file.project.version == (file.project.webcam == nil ? 1 : 2), file.mediaFilename == URL(fileURLWithPath: file.mediaFilename).lastPathComponent else { throw StudioError.invalidProject }
+                guard file.project.version == file.project.requiredVersion, file.mediaFilename == URL(fileURLWithPath: file.mediaFilename).lastPathComponent else { throw StudioError.invalidProject }
                 let media = folder.appendingPathComponent(file.mediaFilename)
                 let actual = try await AVURLAsset(url: media).load(.duration).seconds
                 guard actual.isFinite, actual > 0, file.project.duration.isFinite, abs(file.project.duration - actual) < 0.1, file.project.trimStart >= 0,
@@ -179,7 +179,7 @@ final class StudioStore: ObservableObject {
                 }
                 if let cursor = file.project.cursor {
                     guard (0...0.3).contains(cursor.smoothing), (0.5...3).contains(cursor.size),
-                          cursor.samples.count <= 4_000_000,
+                          cursor.samples.count <= 4_000_000, cursor.validAppearances,
                           cursor.samples.allSatisfy({ $0.time.isFinite && (0...actual + 0.1).contains($0.time) && (0...1).contains($0.x) && (0...1).contains($0.y) }),
                           zip(cursor.samples, cursor.samples.dropFirst()).allSatisfy({ $0.time < $1.time }) else { throw StudioError.invalidProject }
                 }

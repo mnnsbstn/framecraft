@@ -5,6 +5,7 @@ struct CursorSample: Codable, Equatable, Sendable {
     var x: Double
     var y: Double
     var visible: Bool = true
+    var appearance: Int? = nil
 }
 
 /// Present only when the source was captured without an embedded cursor.
@@ -14,6 +15,20 @@ struct CursorTrack: Codable, Equatable, Sendable {
     var smoothing: Double = 0.12
     var size: Double = 1.2
     var highlightClicks = true
+
+    var appearances: [CursorAppearance]? = nil
+    var capturePointSize: CGSize? = nil
+
+    var validAppearances: Bool {
+        guard let appearances, let capturePointSize else {
+            return appearances == nil && capturePointSize == nil && samples.allSatisfy { $0.appearance == nil }
+        }
+        guard capturePointSize.width.isFinite, capturePointSize.height.isFinite,
+              capturePointSize.width >= 1, capturePointSize.height >= 1,
+              appearances.count <= CursorAppearance.maxCount, appearances.allSatisfy({ $0.isValid }),
+              appearances.reduce(0, { $0 + $1.pixels.count }) <= CursorAppearance.byteBudget else { return false }
+        return samples.allSatisfy { $0.appearance.map(appearances.indices.contains) ?? true }
+    }
 
     func prepared(clicks: [ClickSample]) -> [CursorSample] {
         guard smoothing > 0, samples.count > 2 else { return samples }
@@ -63,6 +78,6 @@ struct CursorTrack: Codable, Equatable, Sendable {
         let b = samples[low], gap = b.time - a.time
         guard b.visible, gap > 0, gap < 0.15 else { return time - a.time < 0.035 ? a : nil }
         let t = min(1, max(0, (time - a.time) / gap))
-        return CursorSample(time: time, x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t)
+        return CursorSample(time: time, x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t, appearance: a.appearance)
     }
 }

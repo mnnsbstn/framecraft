@@ -41,7 +41,7 @@ final class CaptureService: NSObject, ObservableObject {
     var captureMicrophone = false
     var captureWebcam = false
     private var webcamRecorder: WebcamRecorder?
-    var onFinished: ((URL, [ClickSample], CursorTrack, WebcamOverlay?) -> Void)?
+    var onFinished: ((URL, [ClickSample], CursorTrack?, WebcamOverlay?) -> Void)?
 
     private var stream: SCStream?
     private var recording: SCRecordingOutput?
@@ -52,6 +52,8 @@ final class CaptureService: NSObject, ObservableObject {
     private var content: SCShareableContent?
     private var recordingEpoch: Double?
     private var clickLog = CaptureClicks()
+    private var cursorRecorder = CursorAppearanceRecorder()
+    private var cursorCaptureSize: CGSize?
     private var cursorSamples: [CursorSample] = []
     private var mouseTimer: Timer?
     private var lastLeftCount: UInt32 = 0
@@ -246,7 +248,10 @@ final class CaptureService: NSObject, ObservableObject {
         configuration.height = max(2, Int(pixelHeight * factor) / 2 * 2)
         configuration.minimumFrameInterval = CMTime(value: 1, timescale: 60)
         configuration.queueDepth = 5
-        configuration.showsCursor = false
+        // ScreenCaptureKit can embed the native pointer if AppKit cannot supply a separate system cursor.
+        cursorRecorder = CursorAppearanceRecorder()
+        cursorCaptureSize = NSCursor.currentSystem == nil ? nil : size
+        configuration.showsCursor = cursorCaptureSize == nil
         configuration.showMouseClicks = false
         configuration.ignoreShadowsSingleWindow = true
         configuration.capturesAudio = captureSystemAudio
@@ -336,6 +341,8 @@ final class CaptureService: NSObject, ObservableObject {
         if let displayObserver { NotificationCenter.default.removeObserver(displayObserver) }
         displayObserver = nil
         activeRegion = nil
+        cursorRecorder = CursorAppearanceRecorder()
+        cursorCaptureSize = nil
         webcamRecorder?.discard(); webcamRecorder = nil
         watchdog?.cancel(); watchdog = nil
         timer?.invalidate(); timer = nil
@@ -400,16 +407,18 @@ final class CaptureService: NSObject, ObservableObject {
         }
         let ownWindow = (top?[kCGWindowOwnerPID as String] as? Int32) == ProcessInfo.processInfo.processIdentifier
         let windowMatches = source.window == nil || (top?[kCGWindowNumber as String] as? UInt32) == source.window?.windowID
+        let visible = bounds.contains(location) && !ownWindow && windowMatches
+        let appearance = visible && cursorCaptureSize != nil ? cursorRecorder.currentIndex() : nil
         return CursorSample(time: time,
                             x: min(1, max(0, (location.x - bounds.minX) / bounds.width)),
                             y: min(1, max(0, (location.y - bounds.minY) / bounds.height)),
-                            visible: bounds.contains(location) && !ownWindow && windowMatches)
+                            visible: visible, appearance: appearance)
     }
 
     private func sampleMouse() {
         let time = ProcessInfo.processInfo.systemUptime
         guard let sample = mouseSample(at: time) else { return }
-        cursorSamples.append(sample)
+        if cursorCaptureSize != nil { cursorSamples.append(sample) }
         // Use counter observations only for sessions without native mouse-down
         // delivery. They have neither the event location nor the exact timestamp.
         let left = CGEventSource.counterForEventType(.combinedSessionState, eventType: .leftMouseDown)
@@ -422,7 +431,7 @@ final class CaptureService: NSObject, ObservableObject {
         guard let point = event.cgEvent?.location,
               let sample = mouseSample(at: event.timestamp, point: point) else { return }
         clickLog.observeNative(sample)
-        if sample.visible { cursorSamples.append(sample) }
+        if sample.visible, cursorCaptureSize != nil { cursorSamples.append(sample) }
     }
 
 }
@@ -462,11 +471,13 @@ extension CaptureService: SCRecordingOutputDelegate, SCStreamDelegate {
             let epoch = self.recordingEpoch ?? ProcessInfo.processInfo.systemUptime
             let samples = self.clickLog.resolved.map { ClickSample(time: $0.time - epoch, x: $0.x, y: $0.y) }
                 .filter { $0.time >= 0 && $0.time <= self.elapsed }.sorted { $0.time < $1.time }
-            var positions = self.cursorSamples.map { CursorSample(time: max(0, $0.time - epoch), x: $0.x, y: $0.y, visible: $0.visible) }
+            var positions = self.cursorSamples.map { CursorSample(time: max(0, $0.time - epoch), x: $0.x, y: $0.y, visible: $0.visible, appearance: $0.appearance) }
                 .filter { $0.time <= self.elapsed }.sorted { $0.time < $1.time }
             // Keep timestamps strictly increasing for deterministic interpolation.
             positions = positions.enumerated().filter { $0.offset == 0 || $0.element.time > positions[$0.offset - 1].time }.map(\.element)
-            let cursor = CursorTrack(samples: positions)
+            let cursor = self.cursorCaptureSize.map {
+                CursorTrack(samples: positions, size: 1, appearances: self.cursorRecorder.appearances, capturePointSize: $0)
+            }
             let oldStream = self.stream
             let wasStopping = self.isStopping
             self.isStopping = true

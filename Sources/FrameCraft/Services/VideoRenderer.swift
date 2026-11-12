@@ -36,10 +36,11 @@ enum VideoRenderer {
         let cursorSamples = project.cursor?.prepared(clicks: project.clicks) ?? []
         let camera = CameraPath(project: project)
         let pointer = pointerImage()
+        let shapes = (project.cursor?.appearances ?? []).map { $0.image().map { CIImage(cgImage: $0) } }
         let context = CIContext(options: [.cacheIntermediates: false])
         func drawScreen(_ frame: CIImage, at time: Double) -> CIImage {
             let source = cursorOverlay(source: frame.cropped(to: sourceBounds), project: project,
-                                       samples: cursorSamples, pointer: pointer, time: time)
+                                       samples: cursorSamples, pointer: pointer, shapes: shapes, time: time)
             return render(source: source, project: renderProject, zoom: camera.zoom(at: time),
                           canvas: canvas, background: background)
         }
@@ -90,7 +91,7 @@ enum VideoRenderer {
         return CIImage(cgImage: context.makeImage()!)
     }
 
-    private static func cursorOverlay(source: CIImage, project: Project, samples: [CursorSample], pointer: CIImage, time: Double) -> CIImage {
+    private static func cursorOverlay(source: CIImage, project: Project, samples: [CursorSample], pointer: CIImage, shapes: [CIImage?], time: Double) -> CIImage {
         guard let track = project.cursor, track.enabled,
               let position = CursorTrack.position(at: time, samples: samples) else { return source }
         let extent = source.extent
@@ -105,6 +106,16 @@ enum VideoRenderer {
             pulse.color0 = CIColor(red: 0.72, green: 0.35, blue: 1, alpha: 0.45 * (1 - progress))
             pulse.color1 = .clear
             result = pulse.outputImage!.cropped(to: extent).composited(over: result)
+        }
+        if let id = position.appearance, shapes.indices.contains(id), let image = shapes[id],
+           let appearance = track.appearances?[id], let captureSize = track.capturePointSize {
+            let sx = extent.width / captureSize.width * track.size
+            let sy = extent.height / captureSize.height * track.size
+            let transform = CGAffineTransform(a: sx * appearance.pointSize.width / image.extent.width, b: 0, c: 0,
+                                              d: sy * appearance.pointSize.height / image.extent.height,
+                                              tx: point.x - sx * appearance.hotSpot.x,
+                                              ty: point.y - sy * (appearance.pointSize.height - appearance.hotSpot.y))
+            return image.transformed(by: transform).composited(over: result).cropped(to: extent)
         }
         let scale = max(18, extent.height * 0.035) * track.size / 53
         let transform = CGAffineTransform(a: scale, b: 0, c: 0, d: scale,

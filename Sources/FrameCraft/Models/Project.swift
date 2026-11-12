@@ -60,6 +60,11 @@ struct Project: Codable, Equatable, Sendable {
     var clicks: [ClickSample] = []
     var webcam: WebcamOverlay? = nil
     var cursor: CursorTrack? = nil
+    var requiredVersion: Int {
+        if cursor?.appearances != nil { return 3 }
+        return webcam == nil ? 1 : 2
+    }
+
     var outputDuration: Double { max(0, trimEnd - trimStart) }
 
     func zoom(at time: Double) -> (scale: Double, x: Double, y: Double) {

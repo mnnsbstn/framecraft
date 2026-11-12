@@ -54,7 +54,7 @@ struct RecordingView: View {
                 Toggle("Systemton aufnehmen", isOn: $systemAudio)
                 Toggle("Mikrofon aufnehmen", isOn: $microphone)
                 Toggle("Webcam als Overlay aufnehmen", isOn: $webcam)
-                Text("Mausbewegungen und Klicks werden während der Aufnahme separat erfasst. Danach entstehen automatische Zooms und ein geglätteter Cursor. Es werden keine Tastatureingaben erfasst.")
+                Text("Aus Mausklicks entstehen automatische Zooms. Wenn macOS die Cursorform separat bereitstellt, lässt sich die Mausspur später glätten. Es werden keine Tastatureingaben erfasst.")
                     .font(.caption).foregroundStyle(.secondary)
                 if let message = capture.errorMessage { Text(message).font(.caption).foregroundStyle(.red).textSelection(.enabled) }
                 HStack {

@@ -2,11 +2,11 @@
 
 An independent native macOS app for screen recording, automatic click zooms, smooth cursor movement, and MP4/GIF export. Inspired by the Screen Studio workflow, with its own interface, implementation, and test media.
 
-**Version 0.7.0 · macOS 15+ · Apple Silicon.** Select a rectangular region on any connected display before recording. An optional webcam overlay can be positioned and resized in the editor. FrameCraft records either monitor in an extended desktop and places click zooms using the mouse-down location. See the [two-display recording and export measurements](docs/Display-Acceptance.md).
+**Version 0.8.0 · macOS 15+ · Apple Silicon.** New recordings follow system cursor changes, including text, hand and resize pointers. Select a rectangular region on any connected display before recording. An optional webcam overlay can be positioned and resized in the editor. FrameCraft records either monitor in an extended desktop and places click zooms using the mouse-down location. See the [two-display recording and export measurements](docs/Display-Acceptance.md).
 
 ## Getting started
 
-- [Download the local Apple Silicon build 0.7.0](artifacts/FrameCraft-0.7.0-macos-arm64.zip), extract it, and open FrameCraft.app. The build uses a persistent self-signed local identity, without Developer ID signing or public notarization.
+- [Download the local Apple Silicon build 0.8.0](artifacts/FrameCraft-0.8.0-macos-arm64.zip), extract it, and open FrameCraft.app. The build uses a persistent self-signed local identity, without Developer ID signing or public notarization.
 - Alternatively, build from source with a configured Xcode installation:
 
 ```sh
@@ -30,6 +30,14 @@ The app interface remains German. The English instructions below refer to these 
 3. Under **Appearance** (`Gestaltung`), adjust the format, background, frame, and cursor.
 4. Press **⌘S** to save a `.framecraft` project; **Export video** (`Video exportieren`) opens MP4/GIF settings before choosing a destination.
 5. To resume editing, select the entire project folder using **Open project** (`Projekt öffnen`). Keep the original video and JSON together.
+
+## Cursor shapes
+
+Start a recording as usual. When macOS supplies the system cursor separately, FrameCraft stores its image, logical dimensions and hotspot with the mouse track. Repeated shapes share one image in the project. Text insertion, hand and resize pointers use their recorded hotspots as the position moves. **Gestaltung → Cursor** controls visibility, smoothing and size. New shape tracks start at native size (1×). The preview, MP4 and GIF use the same renderer.
+
+If a particular shape is unavailable during editable capture, FrameCraft uses its arrow for those samples. If macOS cannot supply the separate system cursor at the start of capture, ScreenCaptureKit includes the native cursor in the video for that recording. In this mode click zooms remain available, while the cursor itself is part of the video. Apple documents both the scope of the system cursor API and its deprecation. [System cursor](https://developer.apple.com/documentation/appkit/nscursor/currentsystem) · [Hotspot coordinates](https://developer.apple.com/documentation/appkit/nscursor/hotspot)
+
+Projects containing recorded cursor artwork require FrameCraft 0.8.0 or later. Older projects open with their existing cursor behavior. Live cursor changes and export alignment await functional acceptance.
 
 ## Region recording
 
@@ -85,7 +93,7 @@ All existing and future work, including previously unplanned features, is docume
 
 REA was set up persistently on the local machine and used for read-only reference inspection. See [setup/reuse](docs/rea/REA-Nutzung.md), [verification evidence](docs/rea), and [reference findings](docs/REA-Befunde.json). Provenance and integrity were checked; this is not a full security audit. The reference app was not executed because of checksum/signature issues and is not included in this repository.
 
-System audio and microphone input passed [live window recording and export checks](docs/Audio-Acceptance.md) on this Mac. Full-display capture has been tested on this Mac with its built-in panel and an external LG in extended mode. The cursor currently uses a fixed arrow shape; cursors embedded in imported videos cannot be smoothed. Multi-clip editing, subtitles, and cloud sharing are in the ideas backlog. Very short zoom intervals may ease out beyond their nominal end.
+System audio and microphone input passed [live window recording and export checks](docs/Audio-Acceptance.md) on this Mac. Full-display capture has been tested on this Mac with its built-in panel and an external LG in extended mode. Older editable tracks retain the original FrameCraft arrow. Embedded cursors in imported videos cannot be smoothed. Multi-clip editing, subtitles, and cloud sharing are in the ideas backlog. Very short zoom intervals may ease out beyond their nominal end.
 
 ## Repository contents
 

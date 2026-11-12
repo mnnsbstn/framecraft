@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.8.0 — November 12, 2026
+
+- Capture system cursor artwork and hotspots with the editable pointer track. Apply shape changes at the recorded timestamps in preview, MP4 and GIF.
+- Fall back to a single embedded native cursor if separate system cursor capture is unavailable at recording start.
+
 ## 0.7.0 — November 12, 2026
 
 - Drag to select and preview a capture region on a single display, then confirm with Return. ScreenCaptureKit captures the selected rectangle. Cursor positions and click zooms use region-relative coordinates.

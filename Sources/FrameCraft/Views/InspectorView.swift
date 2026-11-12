@@ -54,7 +54,7 @@ struct InspectorView: View {
                     Toggle("Klicks hervorheben", isOn: cursorBinding(\.highlightClicks, default: true))
                     Text("\(studio.project.clicks.count) Klicks · separate Mausspur").font(.caption2).foregroundStyle(.secondary)
                 } else {
-                    Text("Neue Aufnahmen enthalten eine glättbare Mausspur. Der Cursor älterer oder importierter Videos bleibt im Bild enthalten.")
+                    Text("Dieses Video enthält keine separat bearbeitbare Mausspur.")
                         .font(.caption).foregroundStyle(.secondary)
                 }
             }
