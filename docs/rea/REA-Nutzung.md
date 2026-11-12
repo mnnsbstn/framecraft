@@ -75,3 +75,7 @@ For an update, ask Codex: “Review the new official REA release and update the 
 To remove REA, first remove its entry from the Codex configuration, then delete the REA skill, launcher, and package directory. Keep the shared Codex Node runtime. Back up configuration before editing and preserve other Codex settings.
 
 Evidence files next to this guide: `REA-Paketpruefung.json`, `REA-Verbindungstest.json`, `REA-Pruefstatus.json`, and `REA-Archivtest.json`.
+
+## Remote review — November 12, 2026
+
+The archived [environment report](REA-Pruefstatus.json) distinguishes two outstanding items. The Ghidra adapter did not find a configured installation. The native plist probe reported `io` without a cause. The evidence does not connect the two. No provider, tool update or diagnostic command was run on the user's Mac in this work session. Local provider setup and a new plist observation remain pending under SBSTN-94.

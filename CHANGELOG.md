@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.0 source — November 12, 2026
+
+- Append movies and saved single-source projects to a timeline. Split at the playhead, remove an interior section, move sections and undo edits.
+- Preserve original source time for zooms, pointer artwork and movement, captions, webcam and audio through edits. Save the sources alongside the project manifest.
+- Add editable offline captions with timing, placement and size. Preview and MP4/GIF export use the same caption renderer.
+- Document user-controlled iCloud sharing of finished exports. Functional acceptance remains deferred.
+
 ## 0.8.0 — November 12, 2026
 
 - Capture system cursor artwork and hotspots with the editable pointer track. Apply shape changes at the recorded timestamps in preview, MP4 and GIF.

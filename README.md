@@ -31,6 +31,21 @@ The app interface remains German. The English instructions below refer to these 
 4. Press **⌘S** to save a `.framecraft` project; **Export video** (`Video exportieren`) opens MP4/GIF settings before choosing a destination.
 5. To resume editing, select the entire project folder using **Open project** (`Projekt öffnen`). Keep the original video and JSON together.
 
+## Multi-clip editing and captions
+
+These controls are available in the 0.9.0 source and the [hosted Apple Silicon preview](https://github.com/mnnsbstn/framecraft/actions/runs/43250524759/artifacts/13959700154) (build 17, available through November 26, 2026; sign in to GitHub to download). Extract the artifact and its enclosed ZIP. The hosted build uses an ad hoc signature. Replacing a persistently signed installation with it can require new recording permissions. To keep that identity, build the source with your existing local signing setup. The packaged 0.8.0 download above predates these controls. [Build record](https://github.com/mnnsbstn/framecraft/actions/runs/43250524759)
+
+1. Open a recording or video. Set its trim and desired zoom, cursor and webcam options. Use **Clip hinzufügen …** in the timeline to append videos or saved single-source FrameCraft projects. A saved project carries its separate recording tracks into the edit. The first clip sets the canvas. Background, framing, aspect ratio and master mute remain adjustable.
+2. Scrub to the start of the section to remove and press **Teilen**. Repeat at the end. Select the middle section and choose **Abschnitt entfernen**. Move a selected section with **Nach links** or **Nach rechts**. The curved arrow undoes recent edits during the current session.
+3. Choose **Untertitel bearbeiten …** at the desired timeline position. Add the text, enter its start and end in seconds on the original movie and choose its placement or larger type. Cues on the same original may not overlap. Each use of the same source shares its captions. Caption entry is manual and offline.
+4. Save the project or export MP4/GIF as usual. An edit references original media ranges. The project folder keeps the original videos, separate webcam files and recording metadata, including material cut from the visible timeline. Share the exported movie when only the edited result should be visible.
+
+Packages using a cut list or captions require the 0.9.0 source build. Existing single-source projects can still be opened. Practical save/reopen, playback and export acceptance is pending.
+
+## Sharing an export
+
+For private tutorial review, export the finished movie and put that file in your own iCloud Drive. In Finder, choose **Share → Collaborate**, invite specific people and set view-only access. You control who receives the invitation. You can stop sharing or delete the cloud file later. A recipient who saved a copy can still use that copy. FrameCraft has no upload service. [Apple's Finder sharing guide](https://support.apple.com/en-gb/guide/mac-help/mchl91854a7a/26/mac/26)
+
 ## Cursor shapes
 
 Start a recording as usual. When macOS supplies the system cursor separately, FrameCraft stores its image, logical dimensions and hotspot with the mouse track. Repeated shapes share one image in the project. Text insertion, hand and resize pointers use their recorded hotspots as the position moves. **Gestaltung → Cursor** controls visibility, smoothing and size. New shape tracks start at native size (1×). The preview, MP4 and GIF use the same renderer.
@@ -93,7 +108,7 @@ All existing and future work, including previously unplanned features, is docume
 
 REA was set up persistently on the local machine and used for read-only reference inspection. See [setup/reuse](docs/rea/REA-Nutzung.md), [verification evidence](docs/rea), and [reference findings](docs/REA-Befunde.json). Provenance and integrity were checked; this is not a full security audit. The reference app was not executed because of checksum/signature issues and is not included in this repository.
 
-System audio and microphone input passed [live window recording and export checks](docs/Audio-Acceptance.md) on this Mac. Full-display capture has been tested on this Mac with its built-in panel and an external LG in extended mode. Older editable tracks retain the original FrameCraft arrow. Embedded cursors in imported videos cannot be smoothed. Multi-clip editing, subtitles, and cloud sharing are in the ideas backlog. Very short zoom intervals may ease out beyond their nominal end.
+System audio and microphone input passed [live window recording and export checks](docs/Audio-Acceptance.md) on this Mac. Full-display capture has been tested on this Mac with its built-in panel and an external LG in extended mode. Older editable tracks retain the original FrameCraft arrow. Embedded cursors in imported videos cannot be smoothed. Very short zoom intervals may ease out beyond their nominal end.
 
 ## Repository contents
 
