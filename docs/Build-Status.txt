@@ -89,3 +89,5 @@ Version 0.3.5 (build 9), SBSTN-106: shared black/#e5ff42 theme for the welcome s
 Installed build 11 with configurable MP4 resolution/frame rate/quality and silent looping GIF output for short clips. All 40 tests pass; native MP4 and GIF save flows completed, with every output frame decoded. Signing identity and source parity verified; app archive extracted and strictly verified. See docs/Export-Options.md. Real audio and multi-display acceptance remain separate open tasks.
 
 0.5.1 (build 13), November 8, 2026. All 44 automated tests passed. The release bundle launched, and strict signature verification succeeded on the extracted archive. The dual-display capture procedure and measured results are in Display-Acceptance.md.
+
+November 12, 2026. FrameCraft 0.5.1 (build 13) was rebuilt and packaged for Apple Silicon from the same application source. The build script verified the bundle signature and continuity with the previous local signing identity. The ZIP integrity check passed. Functional testing was deferred by request. The outstanding moving-window, occlusion and studio-exclusion checks are tracked in SBSTN-84.

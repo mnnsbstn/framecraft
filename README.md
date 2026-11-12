@@ -2,7 +2,7 @@
 
 An independent native macOS app for screen recording, automatic click zooms, smooth cursor movement, and MP4/GIF export. Inspired by the Screen Studio workflow, with its own interface, implementation, and test media.
 
-**Version 0.5.1 · macOS 15+ · 44 automated tests passed.** FrameCraft records either monitor in an extended desktop and places click zooms using the mouse-down location. See the [two-display recording and export measurements](docs/Display-Acceptance.md).
+**Version 0.5.1 · macOS 15+ · Apple Silicon.** FrameCraft records either monitor in an extended desktop and places click zooms using the mouse-down location. See the [two-display recording and export measurements](docs/Display-Acceptance.md).
 
 ## Getting started
 
@@ -77,7 +77,7 @@ Source, tests, local build instructions, documentation, REA evidence, a Linear s
 
 ## Recording permissions and updates
 
-See [recording permission and update guidance](docs/Recording-Permissions.md) for launch-only mode, safe bundle replacement, and recovery. Version 0.5.1 is the current build. All 44 tests pass. The earlier stable-signing acceptance used a real changed-code update and retained recording permission; recordings before and after the update and a Full HD export passed verification. See the [update test](docs/verification/stable-signing-0.3.2.json).
+See [recording permission and update guidance](docs/Recording-Permissions.md) for launch-only mode, safe bundle replacement, and recovery. Version 0.5.1 (build 13) was packaged on November 12. The previous functional run on November 8 passed all 44 automated tests. The earlier stable-signing acceptance used a real changed-code update and retained recording permission; recordings before and after the update and a Full HD export passed verification. See the [update test](docs/verification/stable-signing-0.3.2.json).
 
 
 Stable local signing is configured and verified on this Mac. See [identity setup and update continuity](docs/Signing-Identity.md). Future builds use the saved identity automatically; older app archives remain available as historical artifacts.
