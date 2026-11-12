@@ -58,6 +58,7 @@ struct Project: Codable, Equatable, Sendable {
     var muted: Bool = false
     var zooms: [ZoomRegion] = []
     var clicks: [ClickSample] = []
+    var webcam: WebcamOverlay? = nil
     var cursor: CursorTrack? = nil
     var outputDuration: Double { max(0, trimEnd - trimStart) }
 

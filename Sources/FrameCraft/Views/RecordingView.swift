@@ -6,6 +6,7 @@ struct RecordingView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var systemAudio = true
     @State private var microphone = false
+    @State private var webcam = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 22) {
@@ -42,6 +43,7 @@ struct RecordingView: View {
                 .disabled(capture.isRefreshingSources || capture.needsScreenPermission)
                 Toggle("Systemton aufnehmen", isOn: $systemAudio)
                 Toggle("Mikrofon aufnehmen", isOn: $microphone)
+                Toggle("Webcam als Overlay aufnehmen", isOn: $webcam)
                 Text("Mausbewegungen und Klicks werden während der Aufnahme separat erfasst. Danach entstehen automatische Zooms und ein geglätteter Cursor. Es werden keine Tastatureingaben erfasst.")
                     .font(.caption).foregroundStyle(.secondary)
                 if let message = capture.errorMessage { Text(message).font(.caption).foregroundStyle(.red).textSelection(.enabled) }
@@ -74,6 +76,7 @@ struct RecordingView: View {
             let stamp = Date().formatted(.iso8601).replacingOccurrences(of: ":", with: "-")
             let url = folder.appendingPathComponent("Aufnahme-\(stamp)-\(UUID().uuidString.prefix(4)).mp4")
             capture.captureSystemAudio = systemAudio; capture.captureMicrophone = microphone
+            capture.captureWebcam = webcam
             Task { await capture.start(to: url) }
         } catch { studio.message = error.localizedDescription }
     }

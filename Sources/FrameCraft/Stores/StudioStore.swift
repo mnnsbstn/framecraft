@@ -49,7 +49,7 @@ final class StudioStore: ObservableObject {
         Task { await loadVideo(url) }
     }
 
-    func loadVideo(_ url: URL, clicks: [ClickSample] = [], cursor: CursorTrack? = nil) async {
+    func loadVideo(_ url: URL, clicks: [ClickSample] = [], cursor: CursorTrack? = nil, webcam: WebcamOverlay? = nil) async {
         isLoading = true; defer { isLoading = false }
         do {
             let asset = AVURLAsset(url: url)
@@ -60,6 +60,8 @@ final class StudioStore: ObservableObject {
             projectFolder = nil
             sourceURL = url
             project = Project(title: url.deletingPathExtension().lastPathComponent, duration: duration, trimEnd: duration, clicks: clicks)
+            if webcam != nil { project.version = 2 }
+            project.webcam = webcam
             project.cursor = cursor
             project.generateZooms()
             selectedZoom = project.zooms.first?.id
@@ -92,7 +94,7 @@ final class StudioStore: ObservableObject {
         renderTask?.cancel()
         renderTask = Task {
             do {
-                let asset = AVURLAsset(url: url)
+                let asset = try await WebcamComposition.asset(source: url, project: snapshot)
                 let composition = try await VideoRenderer.composition(asset: asset, project: snapshot)
                 guard !Task.isCancelled, revision == expectedRevision else { return }
                 let time = currentTime
@@ -161,7 +163,7 @@ final class StudioStore: ObservableObject {
             defer { isLoading = false }
             do {
                 let file = try await ProjectPersistence.shared.read(folder: folder)
-                guard file.project.version == 1, file.mediaFilename == URL(fileURLWithPath: file.mediaFilename).lastPathComponent else { throw StudioError.invalidProject }
+                guard file.project.version == (file.project.webcam == nil ? 1 : 2), file.mediaFilename == URL(fileURLWithPath: file.mediaFilename).lastPathComponent else { throw StudioError.invalidProject }
                 let media = folder.appendingPathComponent(file.mediaFilename)
                 let actual = try await AVURLAsset(url: media).load(.duration).seconds
                 guard actual.isFinite, actual > 0, file.project.duration.isFinite, abs(file.project.duration - actual) < 0.1, file.project.trimStart >= 0,
@@ -169,6 +171,12 @@ final class StudioStore: ObservableObject {
                       file.project.padding.isFinite, (0...0.25).contains(file.project.padding),
                       file.project.cornerRadius.isFinite, (0...100).contains(file.project.cornerRadius),
                       file.project.zooms.allSatisfy({ $0.start.isFinite && $0.end.isFinite && $0.start >= 0 && $0.end > $0.start && $0.end <= actual + 0.1 && (1...4).contains($0.scale) && (0...1).contains($0.x) && (0...1).contains($0.y) }) else { throw StudioError.invalidProject }
+                if let webcam = file.project.webcam {
+                    guard webcam.startOffset.isFinite, (0.12...0.45).contains(webcam.size),
+                          !(try await AVURLAsset(url: WebcamOverlay.movie(for: media)).loadTracks(withMediaType: .video)).isEmpty else {
+                        throw StudioError.invalidProject
+                    }
+                }
                 if let cursor = file.project.cursor {
                     guard (0...0.3).contains(cursor.smoothing), (0.5...3).contains(cursor.size),
                           cursor.samples.count <= 4_000_000,

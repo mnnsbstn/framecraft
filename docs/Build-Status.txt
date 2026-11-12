@@ -91,3 +91,5 @@ Installed build 11 with configurable MP4 resolution/frame rate/quality and silen
 0.5.1 (build 13), November 8, 2026. All 44 automated tests passed. The release bundle launched, and strict signature verification succeeded on the extracted archive. The dual-display capture procedure and measured results are in Display-Acceptance.md.
 
 November 12, 2026. FrameCraft 0.5.1 (build 13) was rebuilt and packaged for Apple Silicon from the same application source. The build script verified the bundle signature and continuity with the previous local signing identity. The ZIP integrity check passed. Functional testing was deferred by request. The outstanding moving-window, occlusion and studio-exclusion checks are tracked in SBSTN-84.
+
+0.6.0 (build 14), November 12, 2026. Added opt-in camera recording, synchronized sidecar video, editable overlay and shared preview/export composition. Functional tests, live permission changes, disconnects and sync measurements were deferred by request.

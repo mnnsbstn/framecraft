@@ -58,6 +58,16 @@ struct InspectorView: View {
                         .font(.caption).foregroundStyle(.secondary)
                 }
             }
+            if let webcam = studio.project.webcam {
+                group("WEBCAM") {
+                    Toggle("Webcam anzeigen", isOn: webcamBinding(\.enabled, fallback: webcam.enabled))
+                    Picker("Position", selection: webcamBinding(\.corner, fallback: webcam.corner)) {
+                        ForEach(WebcamOverlay.Corner.allCases, id: \.self) { corner in Text(corner.title).tag(corner) }
+                    }.disabled(!webcam.enabled)
+                    valueSlider("Größe", value: webcamBinding(\.size, fallback: webcam.size), range: 0.12...0.45,
+                                valueText: "\(Int(webcam.size * 100)) %").disabled(!webcam.enabled)
+                }
+            }
             group("TON") {
                 Toggle("Originalton stummschalten", isOn: $studio.project.muted).font(.caption)
             }
@@ -101,6 +111,10 @@ struct InspectorView: View {
                 studio.project.zooms.removeAll { $0.id == zoom.id }
             } label: { Label("Zoom entfernen", systemImage: "trash") }.controlSize(.small)
         }
+    }
+
+    private func webcamBinding<T>(_ key: WritableKeyPath<WebcamOverlay, T>, fallback: T) -> Binding<T> {
+        Binding(get: { studio.project.webcam?[keyPath: key] ?? fallback }, set: { studio.project.webcam?[keyPath: key] = $0 })
     }
 
     private func cursorBinding<T>(_ keyPath: WritableKeyPath<CursorTrack, T>, default value: T) -> Binding<T> {

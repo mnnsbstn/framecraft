@@ -44,10 +44,10 @@ struct ContentView: View {
             Button("OK") { studio.message = nil; capture.errorMessage = nil; exporter.clearError() }
         } message: { Text(studio.message ?? capture.errorMessage ?? exporter.errorMessage ?? "") }
         .onAppear {
-            capture.onFinished = { url, clicks, cursor in
+            capture.onFinished = { url, clicks, cursor, webcam in
                 showRecording = false
                 NSApp.activate(ignoringOtherApps: true)
-                Task { await studio.loadVideo(url, clicks: clicks, cursor: cursor) }
+                Task { await studio.loadVideo(url, clicks: clicks, cursor: cursor, webcam: webcam) }
             }
         }
     }

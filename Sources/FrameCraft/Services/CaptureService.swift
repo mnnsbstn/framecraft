@@ -28,7 +28,9 @@ final class CaptureService: NSObject, ObservableObject {
     private let loadShareableContent: () async throws -> SCShareableContent
     var captureSystemAudio = true
     var captureMicrophone = false
-    var onFinished: ((URL, [ClickSample], CursorTrack) -> Void)?
+    var captureWebcam = false
+    private var webcamRecorder: WebcamRecorder?
+    var onFinished: ((URL, [ClickSample], CursorTrack, WebcamOverlay?) -> Void)?
 
     private var stream: SCStream?
     private var recording: SCRecordingOutput?
@@ -139,6 +141,26 @@ final class CaptureService: NSObject, ObservableObject {
             }
         }
 
+        if captureWebcam {
+            let status = AVCaptureDevice.authorizationStatus(for: .video)
+            let granted = status == .notDetermined ? await AVCaptureDevice.requestAccess(for: .video) : status == .authorized
+            guard sessionID == id, !isStopping else { return }
+            guard granted else {
+                fail("Der Kamerazugriff fehlt. Erlaube FrameCraft die Kamera in den Systemeinstellungen oder schalte die Webcam aus.")
+                return
+            }
+            guard AVCaptureDevice.default(for: .video) != nil else {
+                fail("Keine Webcam gefunden. Schließe eine Kamera an oder schalte die Webcam für diese Aufnahme aus.")
+                return
+            }
+            webcamRecorder = WebcamRecorder(url: WebcamOverlay.movie(for: url)) { [weak self] message in
+                Task { @MainActor in
+                    guard let self, self.sessionID == id else { return }
+                    self.errorMessage = message
+                }
+            }
+        }
+
         let filter: SCContentFilter
         if let display = source.display {
             let ownApps = content.applications.filter { $0.processID == ProcessInfo.processInfo.processIdentifier }
@@ -210,6 +232,7 @@ final class CaptureService: NSObject, ObservableObject {
             stopWaiters.append(continuation)
             guard !isStopping else { return }
             isStopping = true
+            webcamRecorder?.stopInput()
             isPreparing = true
             isRecording = false
             removeMonitors()
@@ -244,6 +267,7 @@ final class CaptureService: NSObject, ObservableObject {
     }
 
     private func reset() {
+        webcamRecorder?.discard(); webcamRecorder = nil
         watchdog?.cancel(); watchdog = nil
         timer?.invalidate(); timer = nil
         removeMonitors()
@@ -340,6 +364,7 @@ extension CaptureService: SCRecordingOutputDelegate, SCStreamDelegate {
             self.watchdog?.cancel(); self.watchdog = nil
             if self.recordingEpoch == nil { self.recordingEpoch = ProcessInfo.processInfo.systemUptime }
             self.isPreparing = false; self.isRecording = true
+            self.webcamRecorder?.start()
             self.addMonitors()
             self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
                 MainActor.assumeIsolated {
@@ -374,9 +399,21 @@ extension CaptureService: SCRecordingOutputDelegate, SCStreamDelegate {
             let cursor = CursorTrack(samples: positions)
             let oldStream = self.stream
             let wasStopping = self.isStopping
+            self.isStopping = true
+            self.isPreparing = true
+            self.isRecording = false
+            self.watchdog?.cancel()
+            let webcam = self.webcamRecorder
+            self.webcamRecorder = nil
+            let firstCameraFrame = await webcam?.finish()
+            guard self.recording === recordingOutput else { return }
+            let overlay = firstCameraFrame.map { WebcamOverlay(startOffset: $0 - epoch) }
+            if webcam != nil && overlay == nil {
+                self.errorMessage = "Die Bildschirmaufnahme ist bereit. Die Webcam hat keine nutzbare Videospur geliefert."
+            }
             self.reset()
             if !wasStopping { oldStream?.stopCapture(completionHandler: { _ in }) }
-            self.onFinished?(url, samples, cursor)
+            self.onFinished?(url, samples, cursor, overlay)
         }
     }
 
@@ -389,6 +426,7 @@ extension CaptureService: SCRecordingOutputDelegate, SCStreamDelegate {
             if nativeError.domain == SCStreamErrorDomain, nativeError.code == -3817,
                let id = self.sessionID {
                 self.isStopping = true
+                self.webcamRecorder?.stopInput()
                 self.isPreparing = true
                 self.isRecording = false
                 self.removeMonitors()

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.6.0 — November 12, 2026
+
+- Add optional local webcam capture. Edit visibility, corner and size independently of screen zooms. Camera frames use the screen recording’s host clock for alignment.
+- Include camera media when saving a project. Render the overlay through the shared preview, MP4 and GIF pipeline.
+
 ## 0.5.1 — November 8, 2026
 
 - Use native mouse-down locations for click zooms and retain counter sampling as a fallback when no native mouse-down events arrive.

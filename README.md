@@ -2,11 +2,11 @@
 
 An independent native macOS app for screen recording, automatic click zooms, smooth cursor movement, and MP4/GIF export. Inspired by the Screen Studio workflow, with its own interface, implementation, and test media.
 
-**Version 0.5.1 · macOS 15+ · Apple Silicon.** FrameCraft records either monitor in an extended desktop and places click zooms using the mouse-down location. See the [two-display recording and export measurements](docs/Display-Acceptance.md).
+**Version 0.6.0 · macOS 15+ · Apple Silicon.** An optional webcam overlay can be positioned and resized in the editor. FrameCraft records either monitor in an extended desktop and places click zooms using the mouse-down location. See the [two-display recording and export measurements](docs/Display-Acceptance.md).
 
 ## Getting started
 
-- [Download the local Apple Silicon build 0.5.1](artifacts/FrameCraft-0.5.1-macos-arm64.zip), extract it, and open FrameCraft.app. The build uses a persistent self-signed local identity, without Developer ID signing or public notarization.
+- [Download the local Apple Silicon build 0.6.0](artifacts/FrameCraft-0.6.0-macos-arm64.zip), extract it, and open FrameCraft.app. The build uses a persistent self-signed local identity, without Developer ID signing or public notarization.
 - Alternatively, build from source with a configured Xcode installation:
 
 ```sh
@@ -30,6 +30,14 @@ The app interface remains German. The English instructions below refer to these 
 3. Under **Appearance** (`Gestaltung`), adjust the format, background, frame, and cursor.
 4. Press **⌘S** to save a `.framecraft` project; **Export video** (`Video exportieren`) opens MP4/GIF settings before choosing a destination.
 5. To resume editing, select the entire project folder using **Open project** (`Projekt öffnen`). Keep the original video and JSON together.
+
+## Webcam overlay
+
+In **Aufnehmen**, enable **Webcam als Overlay aufnehmen** before starting. On first use, allow camera access when macOS asks. FrameCraft uses the default video camera. The microphone and system audio have separate switches.
+
+After recording, open **Gestaltung → Webcam**. Choose a corner, adjust the circular inset from 12% to 45% of the shorter canvas edge, or hide it. The overlay stays fixed during screen zooms. Preview, MP4 and GIF use the same composition.
+
+The local recording includes a separate silent camera movie. Saving a webcam project copies that movie into the project folder, including when the overlay is hidden. Share an exported video to share only the visible result. Projects with camera media require FrameCraft 0.6.0 or later. This release can also open older projects.
 
 ## Features
 
@@ -69,7 +77,7 @@ All existing and future work, including previously unplanned features, is docume
 
 REA was set up persistently on the local machine and used for read-only reference inspection. See [setup/reuse](docs/rea/REA-Nutzung.md), [verification evidence](docs/rea), and [reference findings](docs/REA-Befunde.json). Provenance and integrity were checked; this is not a full security audit. The reference app was not executed because of checksum/signature issues and is not included in this repository.
 
-System audio and microphone input passed [live window recording and export checks](docs/Audio-Acceptance.md) on this Mac. Full-display capture has been tested on this Mac with its built-in panel and an external LG in extended mode. The cursor currently uses a fixed arrow shape; cursors embedded in imported videos cannot be smoothed. Region recording, webcam overlays, multi-clip editing, subtitles, and cloud sharing are in the ideas backlog. Very short zoom intervals may ease out beyond their nominal end.
+System audio and microphone input passed [live window recording and export checks](docs/Audio-Acceptance.md) on this Mac. Full-display capture has been tested on this Mac with its built-in panel and an external LG in extended mode. The cursor currently uses a fixed arrow shape; cursors embedded in imported videos cannot be smoothed. Region recording, multi-clip editing, subtitles, and cloud sharing are in the ideas backlog. Very short zoom intervals may ease out beyond their nominal end.
 
 ## Repository contents
 
@@ -77,7 +85,7 @@ Source, tests, local build instructions, documentation, REA evidence, a Linear s
 
 ## Recording permissions and updates
 
-See [recording permission and update guidance](docs/Recording-Permissions.md) for launch-only mode, safe bundle replacement, and recovery. Version 0.5.1 (build 13) was packaged on November 12. The previous functional run on November 8 passed all 44 automated tests. The earlier stable-signing acceptance used a real changed-code update and retained recording permission; recordings before and after the update and a Full HD export passed verification. See the [update test](docs/verification/stable-signing-0.3.2.json).
+See [recording permission and update guidance](docs/Recording-Permissions.md) for launch-only mode, safe bundle replacement, and recovery. Version 0.6.0 (build 14) adds optional camera access. The previous functional run on November 8 passed all 44 automated tests. The earlier stable-signing acceptance used a real changed-code update and retained recording permission; recordings before and after the update and a Full HD export passed verification. See the [update test](docs/verification/stable-signing-0.3.2.json).
 
 
 Stable local signing is configured and verified on this Mac. See [identity setup and update continuity](docs/Signing-Identity.md). Future builds use the saved identity automatically; older app archives remain available as historical artifacts.

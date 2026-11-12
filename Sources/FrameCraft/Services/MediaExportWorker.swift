@@ -7,7 +7,7 @@ import UniformTypeIdentifiers
 enum MediaExportWorker {
     static func write(source: URL, project: Project, settings: ExportSettings, destination: URL,
                       progress: @escaping @Sendable (Double) async -> Void) async throws {
-        let asset = AVURLAsset(url: source)
+        let asset = try await WebcamComposition.asset(source: source, project: project)
         let duration = try await asset.load(.duration).seconds
         guard project.trimStart.isFinite, project.trimEnd.isFinite, duration.isFinite else { throw RenderError.invalidDuration }
         let start = max(0, project.trimStart), end = min(duration, project.trimEnd)

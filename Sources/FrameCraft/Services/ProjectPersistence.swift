@@ -24,7 +24,7 @@ actor ProjectPersistence {
         let file = SavedProject(project: project, mediaFilename: media.lastPathComponent)
         let sameMedia = source.resolvingSymlinksInPath().standardizedFileURL == media.resolvingSymlinksInPath().standardizedFileURL
         if sameMedia {
-            guard manager.fileExists(atPath: media.path) else { throw StudioError.invalidProject }
+            guard manager.fileExists(atPath: media.path), project.webcam == nil || manager.fileExists(atPath: WebcamOverlay.movie(for: media).path) else { throw StudioError.invalidProject }
             // An atomic metadata write preserves the last saved project if the disk fills.
             try writeMetadata(encoder.encode(file), folder.appendingPathComponent("project.json"))
             return media
@@ -34,6 +34,10 @@ actor ProjectPersistence {
         try manager.createDirectory(at: staging, withIntermediateDirectories: false)
         defer { try? manager.removeItem(at: staging) }
         try manager.copyItem(at: source, to: staging.appendingPathComponent(media.lastPathComponent))
+        if project.webcam != nil {
+            try manager.copyItem(at: WebcamOverlay.movie(for: source),
+                                 to: WebcamOverlay.movie(for: staging.appendingPathComponent(media.lastPathComponent)))
+        }
         try writeMetadata(encoder.encode(file), staging.appendingPathComponent("project.json"))
         // Publish only a complete project. A destination created during the copy wins.
         try manager.moveItem(at: staging, to: folder)

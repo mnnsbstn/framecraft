@@ -37,18 +37,40 @@ enum VideoRenderer {
         let camera = CameraPath(project: project)
         let pointer = pointerImage()
         let context = CIContext(options: [.cacheIntermediates: false])
-        // Preloading above avoids synchronous metadata I/O in this compatibility initializer.
-        let result = AVMutableVideoComposition(asset: asset, applyingCIFiltersWithHandler: { request in
-            // AVFoundation applies the track's preferred transform before this callback.
-            // Keep the original display bounds independent of the chosen output canvas.
-            let source = cursorOverlay(source: request.sourceImage.cropped(to: sourceBounds),
-                                       project: project, samples: cursorSamples, pointer: pointer,
-                                       time: request.compositionTime.seconds)
-            let image = render(source: source, project: renderProject,
-                               zoom: camera.zoom(at: request.compositionTime.seconds),
-                               canvas: canvas, background: background)
-            request.finish(with: image, context: context)
-        })
+        func drawScreen(_ frame: CIImage, at time: Double) -> CIImage {
+            let source = cursorOverlay(source: frame.cropped(to: sourceBounds), project: project,
+                                       samples: cursorSamples, pointer: pointer, time: time)
+            return render(source: source, project: renderProject, zoom: camera.zoom(at: time),
+                          canvas: canvas, background: background)
+        }
+        let result: AVMutableVideoComposition
+        if let overlay = project.webcam, overlay.enabled, let combined = asset as? AVComposition,
+           let inset = try await combined.loadTrack(withTrackID: WebcamComposition.cameraID) {
+            let transform = try await inset.load(.preferredTransform)
+            let segments = try await inset.load(.segments)
+            guard let active = segments.first(where: { !$0.isEmpty })?.timeMapping.target else { throw RenderError.missingVideo }
+            let duration = try await asset.load(.duration)
+            func oriented(_ image: CIImage, _ transform: CGAffineTransform) -> CIImage {
+                let rotated = image.transformed(by: transform)
+                return rotated.transformed(by: CGAffineTransform(translationX: -rotated.extent.minX, y: -rotated.extent.minY))
+            }
+            let draw: (CIImage, CIImage?, Double) -> CIImage = { frame, webcam, time in
+                let background = drawScreen(oriented(frame, preferredTransform), at: time)
+                guard let webcam else { return background }
+                return WebcamComposition.overlay(oriented(webcam, transform), on: background, settings: overlay, canvas: canvas)
+            }
+            let ranges: [(CMTime, CMTime, Bool)] = [(.zero, active.start, false), (active.start, active.end, true), (active.end, duration, false)]
+            result = AVMutableVideoComposition()
+            result.customVideoCompositorClass = WebcamCompositor.self
+            result.instructions = ranges.compactMap { start, end, enabled in
+                guard end > start else { return nil }
+                return WebcamInstruction(range: CMTimeRange(start: start, end: end), cameraActive: enabled, draw: draw)
+            }
+        } else {
+            result = AVMutableVideoComposition(asset: asset, applyingCIFiltersWithHandler: { request in
+                request.finish(with: drawScreen(request.sourceImage, at: request.compositionTime.seconds), context: context)
+            })
+        }
         result.renderSize = canvas.size
         result.frameDuration = CMTime(value: 1, timescale: Int32(fps))
         result.sourceTrackIDForFrameTiming = kCMPersistentTrackID_Invalid
