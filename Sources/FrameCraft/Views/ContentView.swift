@@ -85,7 +85,7 @@ struct ContentView: View {
             if studio.sourceURL != nil {
                 Label(studio.project.title, systemImage: "doc.richtext").lineLimit(2)
                 Text(studio.saved ? "Gespeichert" : "Ungespeicherte Änderungen").font(.caption).foregroundStyle(.secondary)
-                Text("\(timeLabel(studio.project.duration)) · Original").font(.caption).foregroundStyle(.secondary)
+                Text("\(timeLabel(studio.project.duration)) · \(studio.project.cuts == nil ? "Original" : "Schnittfassung")").font(.caption).foregroundStyle(.secondary)
             } else {
                 Text("Alles beginnt mit einer Aufnahme.").font(.caption).foregroundStyle(.secondary)
             }

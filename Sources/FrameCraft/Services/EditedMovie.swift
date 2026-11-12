@@ -111,10 +111,11 @@ struct EditedMovie {
                 let rotated = image.transformed(by: transform)
                 return rotated.transformed(by: CGAffineTransform(translationX: -rotated.extent.minX, y: -rotated.extent.minY))
             }
+            let insetTransform = cameraTransform
             draw = { screen, face, seconds in
                 var result = render(orient(screen, transform), seconds)
                 if let face, let overlay {
-                    result = WebcamComposition.overlay(orient(face, cameraTransform), on: result, settings: overlay, canvas: canvas)
+                    result = WebcamComposition.overlay(orient(face, insetTransform), on: result, settings: overlay, canvas: canvas)
                 }
                 return captions.draw(on: result, at: seconds)
             }

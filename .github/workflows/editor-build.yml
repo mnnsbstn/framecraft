@@ -7,7 +7,13 @@ on:
       - 'script/**'
       - 'Package.swift'
       - '.github/workflows/editor-build.yml'
+  pull_request:
+    branches: [main]
+    paths: ['Sources/**', 'script/**', 'Package.swift', '.github/workflows/editor-build.yml']
   workflow_dispatch:
+concurrency:
+  group: editor-build-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:

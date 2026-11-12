@@ -26,7 +26,7 @@ final class StudioStore: ObservableObject {
     init() {
         observer = player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1 / 30, preferredTimescale: 600), queue: .main) { [weak self] time in
             Task { @MainActor in
-                guard let self else { return }
+                guard let self, !self.isLoading, abs(self.player.currentTime().seconds - time.seconds) < 0.15 else { return }
                 self.currentTime = max(0, time.seconds.isFinite ? time.seconds : 0)
                 if self.isPlaying && self.currentTime >= self.project.trimEnd {
                     self.player.pause(); self.isPlaying = false
@@ -189,6 +189,7 @@ final class StudioStore: ObservableObject {
                 if var cuts = opened.cuts {
                     try cuts.validate()
                     guard cuts.media(in: folder, at: 0) == media,
+                          (0...0.25).contains(opened.padding), (0...100).contains(opened.cornerRadius),
                           abs(opened.duration - cuts.duration) < 0.0001,
                           opened.trimStart >= 0, opened.trimEnd <= cuts.duration,
                           opened.trimStart < opened.trimEnd else { throw StudioError.invalidProject }
