@@ -106,17 +106,23 @@ extension StudioStore {
     }
 
     func rememberEdit() {
-        cutHistory.append(project)
+        cutHistory.append(EditSnapshot(project: project, position: currentTime, selection: selectedSegment))
         if cutHistory.count > 40 { cutHistory.removeFirst() }
     }
 
     func undoEdit() {
         guard let previous = cutHistory.popLast() else { return }
         player.pause(); isPlaying = false
-        let position = min(previous.trimEnd, max(previous.trimStart, currentTime))
-        project = previous
-        selectedSegment = previous.cuts?.segments.first?.id
+        var restored = previous.project
+        restored.format = project.format
+        restored.backdrop = project.backdrop
+        restored.padding = project.padding
+        restored.cornerRadius = project.cornerRadius
+        restored.title = project.title
+        restored.muted = project.muted
+        project = restored
+        selectedSegment = previous.selection
         selectedZoom = nil
-        seek(position)
+        seek(previous.position)
     }
 }

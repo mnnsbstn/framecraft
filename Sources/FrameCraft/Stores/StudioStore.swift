@@ -16,7 +16,12 @@ final class StudioStore: ObservableObject {
     @Published var message: String?
     @Published var saved = true
     @Published var selectedSegment: UUID?
-    @Published var cutHistory: [Project] = []
+    struct EditSnapshot {
+        var project: Project
+        let position: Double
+        let selection: UUID?
+    }
+    @Published var cutHistory: [EditSnapshot] = []
     let player = AVPlayer()
     private var observer: Any?
     private var renderTask: Task<Void, Never>?
@@ -156,13 +161,13 @@ final class StudioStore: ObservableObject {
                     // Undo retains its source metadata even when the package moved.
                     cutHistory = cutHistory.map { old in
                         var copy = old
-                        if var list = copy.cuts {
+                        if var list = copy.project.cuts {
                             for i in list.sources.indices {
                                 if let current = cuts.sources.first(where: { $0.id == list.sources[i].id }) {
                                     list.sources[i].url = current.url
                                 }
                             }
-                            copy.cuts = list
+                            copy.project.cuts = list
                         }
                         return copy
                     }

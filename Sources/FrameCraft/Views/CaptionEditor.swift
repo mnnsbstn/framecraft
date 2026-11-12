@@ -31,6 +31,13 @@ struct CaptionEditor: View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Untertitel · " + original.title).font(.headline)
             Text("Die Zeiten beziehen sich auf das Originalvideo. Beim Schneiden wandern die Untertitel mit.").font(.caption)
+            HStack {
+                Text("Text")
+                Spacer()
+                Text("Von (s)").frame(width: 62)
+                Text("Bis (s)").frame(width: 62)
+                Color.clear.frame(width: 26, height: 1)
+            }.font(.caption).foregroundStyle(.secondary)
             Picker("Darstellung", selection: $style) {
                 ForEach(CaptionStyle.allCases, id: \.self) { Text($0.title).tag($0) }
             }

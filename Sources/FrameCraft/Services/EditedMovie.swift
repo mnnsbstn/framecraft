@@ -56,7 +56,7 @@ struct EditedMovie {
             }
             let delta = range.start.seconds - start.seconds
             for (lo, hi, active) in [(start, cameraStart, false), (cameraStart, cameraEnd, true), (cameraEnd, end, false)] where hi > lo {
-                instructions.append(WebcamInstruction(range: CMTimeRange(start: lo, end: hi), cameraActive: active) { frame, face, t in
+                instructions.append(WebcamInstruction(range: CMTimeRange(start: lo, end: hi), cameraActive: active, acceptsVideoGap: true) { frame, face, t in
                     input.draw(frame, face, t + delta)
                 })
             }
