@@ -191,3 +191,5 @@ Whole-display capture passed on the internal and external LG monitors in extende
 November 12, 2026. SBSTN-84 returned to Todo while the current application was packaged. The November 8 measurements remain the most recent functional results.
 
 November 12, 2026 · SBSTN-90. The requested webcam overlay is implemented in 0.6.0, build 14. Hardware and functional acceptance are deferred by request.
+
+November 12, 2026 · SBSTN-88. Implemented region selection, capture sizing and region-relative input for 0.7.0. Functional acceptance is pending. [Instructions](../README.md#region-recording)

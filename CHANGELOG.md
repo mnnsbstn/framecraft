@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.0 — November 12, 2026
+
+- Drag to select and preview a capture region on a single display, then confirm with Return. ScreenCaptureKit captures the selected rectangle. Cursor positions and click zooms use region-relative coordinates.
+
 ## 0.6.0 — November 12, 2026
 
 - Add optional local webcam capture. Edit visibility, corner and size independently of screen zooms. Camera frames use the screen recording’s host clock for alignment.

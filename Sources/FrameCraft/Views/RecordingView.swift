@@ -41,6 +41,16 @@ struct RecordingView: View {
                     ForEach(capture.sources) { source in Text(source.title).tag(Optional(source.id)) }
                 }
                 .disabled(capture.isRefreshingSources || capture.needsScreenPermission)
+                if capture.selectedSource?.kind == .region {
+                    HStack {
+                        Button(capture.selectedRegion == nil ? "Bereich auswählen …" : "Bereich ändern …") { capture.chooseRegion() }
+                            .disabled(capture.isRefreshingSources || capture.needsScreenPermission)
+                        if let region = capture.selectedRegion {
+                            Text("\(Int(region.rect.width)) × \(Int(region.rect.height)) pt")
+                                .monospacedDigit().foregroundStyle(.secondary)
+                        }
+                    }
+                }
                 Toggle("Systemton aufnehmen", isOn: $systemAudio)
                 Toggle("Mikrofon aufnehmen", isOn: $microphone)
                 Toggle("Webcam als Overlay aufnehmen", isOn: $webcam)
@@ -55,7 +65,7 @@ struct RecordingView: View {
                     Spacer()
                     Button(capture.isPreparing ? "Wird gestartet …" : "Aufnahme starten") { start() }
                         .studioPrimaryAction()
-                        .disabled(capture.selectedID == nil || capture.isPreparing || capture.isRefreshingSources || capture.needsScreenPermission)
+                        .disabled(!capture.canStartWithSelection || capture.isPreparing || capture.isRefreshingSources || capture.needsScreenPermission)
                 }
             }
         }

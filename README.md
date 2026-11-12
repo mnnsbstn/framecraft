@@ -2,11 +2,11 @@
 
 An independent native macOS app for screen recording, automatic click zooms, smooth cursor movement, and MP4/GIF export. Inspired by the Screen Studio workflow, with its own interface, implementation, and test media.
 
-**Version 0.6.0 · macOS 15+ · Apple Silicon.** An optional webcam overlay can be positioned and resized in the editor. FrameCraft records either monitor in an extended desktop and places click zooms using the mouse-down location. See the [two-display recording and export measurements](docs/Display-Acceptance.md).
+**Version 0.7.0 · macOS 15+ · Apple Silicon.** Select a rectangular region on any connected display before recording. An optional webcam overlay can be positioned and resized in the editor. FrameCraft records either monitor in an extended desktop and places click zooms using the mouse-down location. See the [two-display recording and export measurements](docs/Display-Acceptance.md).
 
 ## Getting started
 
-- [Download the local Apple Silicon build 0.6.0](artifacts/FrameCraft-0.6.0-macos-arm64.zip), extract it, and open FrameCraft.app. The build uses a persistent self-signed local identity, without Developer ID signing or public notarization.
+- [Download the local Apple Silicon build 0.7.0](artifacts/FrameCraft-0.7.0-macos-arm64.zip), extract it, and open FrameCraft.app. The build uses a persistent self-signed local identity, without Developer ID signing or public notarization.
 - Alternatively, build from source with a configured Xcode installation:
 
 ```sh
@@ -25,11 +25,19 @@ For a new recording, allow FrameCraft in macOS System Settings → Privacy & Sec
 
 The app interface remains German. The English instructions below refer to these existing controls.
 
-1. Choose **Record** (`Aufnehmen`) and select a window or display; alternatively, import a video or load the demo.
+1. Choose **Record** (`Aufnehmen`) and select a window, display or region. You can also import a video or load the demo.
 2. Stop recording to generate click zooms automatically. Under **Zoom & Trim** (`Zoom & Schnitt`), edit focus, zoom strength, and timing.
 3. Under **Appearance** (`Gestaltung`), adjust the format, background, frame, and cursor.
 4. Press **⌘S** to save a `.framecraft` project; **Export video** (`Video exportieren`) opens MP4/GIF settings before choosing a destination.
 5. To resume editing, select the entire project folder using **Open project** (`Projekt öffnen`). Keep the original video and JSON together.
+
+## Region recording
+
+1. In **Aufnehmen**, open **Quelle** and choose **Bereich · Bildschirm …** for the monitor you want.
+2. Click **Bereich auswählen …** and drag a rectangle over the live desktop. The highlighted outline and dimensions show the selection in logical display points. Drag again to replace it, press Return to confirm, or press Escape to cancel.
+3. Click **Aufnahme starten**. FrameCraft passes the selected rectangle to the screen recorder. Cursor positions and automatic click zooms use the same rectangle. Points outside it are hidden and clicks there are ignored.
+
+Each selection belongs to one display. Output dimensions use that display’s pixel scale and the existing 3840 × 2160 encoding limit. After capture, edit and export the project as usual. Live region capture and cursor alignment on different display scales are awaiting functional testing.
 
 ## Webcam overlay
 
@@ -77,7 +85,7 @@ All existing and future work, including previously unplanned features, is docume
 
 REA was set up persistently on the local machine and used for read-only reference inspection. See [setup/reuse](docs/rea/REA-Nutzung.md), [verification evidence](docs/rea), and [reference findings](docs/REA-Befunde.json). Provenance and integrity were checked; this is not a full security audit. The reference app was not executed because of checksum/signature issues and is not included in this repository.
 
-System audio and microphone input passed [live window recording and export checks](docs/Audio-Acceptance.md) on this Mac. Full-display capture has been tested on this Mac with its built-in panel and an external LG in extended mode. The cursor currently uses a fixed arrow shape; cursors embedded in imported videos cannot be smoothed. Region recording, multi-clip editing, subtitles, and cloud sharing are in the ideas backlog. Very short zoom intervals may ease out beyond their nominal end.
+System audio and microphone input passed [live window recording and export checks](docs/Audio-Acceptance.md) on this Mac. Full-display capture has been tested on this Mac with its built-in panel and an external LG in extended mode. The cursor currently uses a fixed arrow shape; cursors embedded in imported videos cannot be smoothed. Multi-clip editing, subtitles, and cloud sharing are in the ideas backlog. Very short zoom intervals may ease out beyond their nominal end.
 
 ## Repository contents
 

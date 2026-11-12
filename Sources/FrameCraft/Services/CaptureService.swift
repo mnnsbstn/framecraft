@@ -5,7 +5,7 @@ import CoreMedia
 import ScreenCaptureKit
 
 struct CaptureSource: Identifiable {
-    enum Kind: String { case display = "Bildschirm", window = "Fenster" }
+    enum Kind: String { case display = "Bildschirm", region = "Bereich", window = "Fenster" }
     let id: String
     let title: String
     let kind: Kind
@@ -18,7 +18,18 @@ struct CaptureSource: Identifiable {
 @MainActor
 final class CaptureService: NSObject, ObservableObject {
     @Published var sources: [CaptureSource] = []
-    @Published var selectedID: String?
+    @Published var selectedID: String? {
+        didSet { if oldValue != selectedID { selectedRegion = nil } }
+    }
+    @Published private(set) var selectedRegion: CaptureRegion?
+    private var choseInitialSource = false
+    private var activeRegion: CaptureRegion?
+    private var displayObserver: NSObjectProtocol?
+    var selectedSource: CaptureSource? { sources.first { $0.id == selectedID } }
+    var canStartWithSelection: Bool {
+        guard let source = selectedSource else { return false }
+        return source.kind != .region || validRegion(for: source) != nil
+    }
     @Published private(set) var isRecording = false
     @Published private(set) var isPreparing = false
     @Published private(set) var elapsed: Double = 0
@@ -72,8 +83,12 @@ final class CaptureService: NSObject, ObservableObject {
             guard sessionID == nil else { return }
             needsScreenPermission = false
             content = available
-            let displays = available.displays.enumerated().map { index, display in
-                CaptureSource(id: "display-\(display.displayID)", title: "Bildschirm \(index + 1) · \(display.width) × \(display.height)", kind: .display, display: display, window: nil)
+            let displays = available.displays.enumerated().flatMap { index, display in
+                let title = "Bildschirm \(index + 1) · \(display.width) × \(display.height)"
+                return [
+                    CaptureSource(id: "display-\(display.displayID)", title: title, kind: .display, display: display, window: nil),
+                    CaptureSource(id: "region-\(display.displayID)", title: "Bereich · \(title)", kind: .region, display: display, window: nil)
+                ]
             }
             let windows = available.windows.filter {
                 $0.owningApplication?.processID != ProcessInfo.processInfo.processIdentifier &&
@@ -83,7 +98,13 @@ final class CaptureService: NSObject, ObservableObject {
                 CaptureSource(id: "window-\(window.windowID)", title: "\(window.owningApplication?.applicationName ?? "App") — \(window.title ?? "Fenster")", kind: .window, display: nil, window: window)
             }
             sources = displays + windows
-            if !sources.contains(where: { $0.id == selectedID }) { selectedID = sources.first?.id }
+            if !choseInitialSource, let first = sources.first {
+                selectedID = first.id
+                choseInitialSource = true
+            } else if let id = selectedID, selectedSource == nil {
+                selectedID = id.hasPrefix("region-") ? nil : sources.first?.id
+            }
+            if let region = selectedRegion, !region.isCurrent() { selectedRegion = nil }
             errorMessage = sources.isEmpty ? "Keine Aufnahmequelle gefunden." : nil
         } catch {
             // Never retain a selectable source after permission was revoked or
@@ -98,6 +119,29 @@ final class CaptureService: NSObject, ObservableObject {
                 ? "FrameCraft hat noch keinen Zugriff auf deinen Bildschirm. Aktiviere FrameCraft in den Systemeinstellungen und klicke danach auf „Erneut prüfen“. Falls macOS es verlangt, speichere dein Projekt und öffne die App erneut."
                 : "Aufnahmequellen konnten nicht geladen werden. Versuche es erneut. \(error.localizedDescription)"
         }
+    }
+
+    private func validRegion(for source: CaptureSource) -> CaptureRegion? {
+        guard source.kind == .region, let region = selectedRegion, let display = source.display,
+              region.displayID == display.displayID, region.displaySize == display.frame.size,
+              region.isCurrent() else { return nil }
+        return region
+    }
+
+    func chooseRegion() {
+        guard sessionID == nil, let source = selectedSource, source.kind == .region,
+              let display = source.display else { return }
+        guard let screen = NSScreen.screens.first(where: {
+            ($0.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? NSNumber)?.uint32Value == display.displayID
+        }), screen.frame.size == display.frame.size else {
+            selectedRegion = nil
+            errorMessage = "Die Bildschirmkonfiguration hat sich geändert. Bitte aktualisiere die Aufnahmequellen."
+            return
+        }
+        guard let rect = RegionSelectionPanel.choose(on: screen, initial: validRegion(for: source)?.rect),
+              selectedID == source.id else { return }
+        let region = CaptureRegion(displayID: display.displayID, displaySize: screen.frame.size, rect: rect)
+        selectedRegion = region.isCurrent() ? region : nil
     }
 
     func openScreenRecordingSettings() {
@@ -116,7 +160,13 @@ final class CaptureService: NSObject, ObservableObject {
         guard url.isFileURL, !FileManager.default.fileExists(atPath: url.path) else {
             errorMessage = "Das Aufnahmeziel muss eine neue lokale Datei sein."; return
         }
+        let region = validRegion(for: source)
+        guard source.kind != .region || region != nil else {
+            errorMessage = "Wähle den Aufnahmebereich auf dem aktuellen Bildschirm erneut aus."
+            return
+        }
         let id = UUID()
+        activeRegion = region
         sessionID = id
         isPreparing = true
         errorMessage = nil
@@ -171,7 +221,23 @@ final class CaptureService: NSObject, ObservableObject {
 
         let configuration = SCStreamConfiguration()
         let scale = CGFloat(filter.pointPixelScale)
-        let size = filter.contentRect.size
+        if let region {
+            guard region.isCurrent() else {
+                fail("Der Bildschirm hat sich geändert. Bitte wähle den Aufnahmebereich erneut aus.")
+                return
+            }
+            configuration.sourceRect = region.rect
+            displayObserver = NotificationCenter.default.addObserver(forName: NSApplication.didChangeScreenParametersNotification,
+                                                                     object: nil, queue: .main) { [weak self] _ in
+                Task { @MainActor in
+                    guard let self, self.sessionID == id, !self.isStopping, !region.isCurrent() else { return }
+                    self.selectedRegion = nil
+                    self.errorMessage = "Der Aufnahmebildschirm hat sich geändert. Die Bereichsaufnahme wird beendet."
+                    await self.stop()
+                }
+            }
+        }
+        let size = region?.rect.size ?? filter.contentRect.size
         // H.264 accepts even dimensions. Limit to 3840 × 2160 while preserving ratio.
         let pixelWidth = max(2, size.width * scale)
         let pixelHeight = max(2, size.height * scale)
@@ -267,6 +333,9 @@ final class CaptureService: NSObject, ObservableObject {
     }
 
     private func reset() {
+        if let displayObserver { NotificationCenter.default.removeObserver(displayObserver) }
+        displayObserver = nil
+        activeRegion = nil
         webcamRecorder?.discard(); webcamRecorder = nil
         watchdog?.cancel(); watchdog = nil
         timer?.invalidate(); timer = nil
@@ -319,7 +388,8 @@ final class CaptureService: NSObject, ObservableObject {
             return CGRect(dictionaryRepresentation: dictionary as CFDictionary)
         }
         let bounds: CGRect
-        if let display = source.display { bounds = display.frame }
+        if let activeRegion { bounds = activeRegion.desktopBounds }
+        else if let display = source.display { bounds = display.frame }
         else if let window = source.window,
                 let info = windowInventory.first(where: { ($0[kCGWindowNumber as String] as? UInt32) == window.windowID }),
                 let current = frame(info) { bounds = current }
