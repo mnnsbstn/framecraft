@@ -29,21 +29,9 @@ enum VideoRenderer {
         let sourceBounds = CGRect(origin: .zero,
                                   size: CGSize(width: abs(displayBounds.width), height: abs(displayBounds.height)))
         let canvas = CGRect(origin: .zero, size: outputSize ?? project.format.size)
-        var scaledProject = project
-        scaledProject.cornerRadius *= canvas.height / project.format.size.height
-        let renderProject = scaledProject
-        let background = backdrop(project.backdrop, bounds: canvas)
-        let cursorSamples = project.cursor?.prepared(clicks: project.clicks) ?? []
-        let camera = CameraPath(project: project)
-        let pointer = pointerImage()
-        let shapes = (project.cursor?.appearances ?? []).map { $0.image().map { CIImage(cgImage: $0) } }
+        let drawScreen = screenRenderer(project: project, canvas: canvas, sourceBounds: sourceBounds)
+        let captions = CaptionRenderer(project: project, canvas: canvas)
         let context = CIContext(options: [.cacheIntermediates: false])
-        func drawScreen(_ frame: CIImage, at time: Double) -> CIImage {
-            let source = cursorOverlay(source: frame.cropped(to: sourceBounds), project: project,
-                                       samples: cursorSamples, pointer: pointer, shapes: shapes, time: time)
-            return render(source: source, project: renderProject, zoom: camera.zoom(at: time),
-                          canvas: canvas, background: background)
-        }
         let result: AVMutableVideoComposition
         if let overlay = project.webcam, overlay.enabled, let combined = asset as? AVComposition,
            let inset = try await combined.loadTrack(withTrackID: WebcamComposition.cameraID) {
@@ -56,9 +44,9 @@ enum VideoRenderer {
                 return rotated.transformed(by: CGAffineTransform(translationX: -rotated.extent.minX, y: -rotated.extent.minY))
             }
             let draw: (CIImage, CIImage?, Double) -> CIImage = { frame, webcam, time in
-                let background = drawScreen(oriented(frame, preferredTransform), at: time)
-                guard let webcam else { return background }
-                return WebcamComposition.overlay(oriented(webcam, transform), on: background, settings: overlay, canvas: canvas)
+                let background = drawScreen(oriented(frame, preferredTransform), time)
+                guard let webcam else { return captions.draw(on: background, at: time) }
+                return captions.draw(on: WebcamComposition.overlay(oriented(webcam, transform), on: background, settings: overlay, canvas: canvas), at: time)
             }
             let ranges: [(CMTime, CMTime, Bool)] = [(.zero, active.start, false), (active.start, active.end, true), (active.end, duration, false)]
             result = AVMutableVideoComposition()
@@ -69,13 +57,30 @@ enum VideoRenderer {
             }
         } else {
             result = AVMutableVideoComposition(asset: asset, applyingCIFiltersWithHandler: { request in
-                request.finish(with: drawScreen(request.sourceImage, at: request.compositionTime.seconds), context: context)
+                request.finish(with: captions.draw(on: drawScreen(request.sourceImage, request.compositionTime.seconds), at: request.compositionTime.seconds), context: context)
             })
         }
         result.renderSize = canvas.size
         result.frameDuration = CMTime(value: 1, timescale: Int32(fps))
         result.sourceTrackIDForFrameTiming = kCMPersistentTrackID_Invalid
         return result
+    }
+
+    static func screenRenderer(project: Project, canvas: CGRect, sourceBounds: CGRect) -> (CIImage, Double) -> CIImage {
+        var scaledProject = project
+        scaledProject.cornerRadius *= canvas.height / project.format.size.height
+        let renderProject = scaledProject
+        let background = backdrop(project.backdrop, bounds: canvas)
+        let cursorSamples = project.cursor?.prepared(clicks: project.clicks) ?? []
+        let camera = CameraPath(project: project)
+        let pointer = pointerImage()
+        let shapes = (project.cursor?.appearances ?? []).map { $0.image().map { CIImage(cgImage: $0) } }
+        return { frame, time in
+            let source = cursorOverlay(source: frame.cropped(to: sourceBounds), project: project,
+                                       samples: cursorSamples, pointer: pointer, shapes: shapes, time: time)
+            return render(source: source, project: renderProject, zoom: camera.zoom(at: time),
+                          canvas: canvas, background: background)
+        }
     }
 
     private static func pointerImage() -> CIImage {

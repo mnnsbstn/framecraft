@@ -195,3 +195,10 @@ November 12, 2026 · SBSTN-90. The requested webcam overlay is implemented in 0.
 November 12, 2026 · SBSTN-88. Implemented region selection, capture sizing and region-relative input for 0.7.0. Functional acceptance is pending. [Instructions](../README.md#region-recording)
 
 November 12, 2026 · SBSTN-89. Implemented changing cursor shapes for the 0.8.0 build. Practical acceptance remains open. [Cursor settings and compatibility](../README.md#cursor-shapes)
+
+## Remote editor work — November 12, 2026
+
+- SBSTN-91 and SBSTN-92 implement source-time editing and manual captions. The editor supports raw videos and saved single-source projects. Software changes and hosted build information are in [PR #1](https://github.com/mnnsbstn/framecraft/pull/1). Functional acceptance remains open.
+- SBSTN-93 evaluated private tutorial review and selected explicit sharing of the finished export through the owner's iCloud Drive. The owner chooses recipients, read-only access and revocation. There is no FrameCraft account, link database or automatic upload.
+- SBSTN-84, SBSTN-88, SBSTN-89 and SBSTN-90 retain their outstanding practical checks. No new capture or functional tests were run.
+- SBSTN-94 concerns the optional analysis provider on the user's Mac. The archived environment report identifies an unconfigured Ghidra provider and a separate plist probe I/O error. Installation and diagnostics on that device are deferred. See [the setup record](rea/REA-Nutzung.md).

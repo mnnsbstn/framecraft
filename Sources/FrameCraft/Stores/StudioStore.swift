@@ -15,6 +15,13 @@ final class StudioStore: ObservableObject {
     @Published private(set) var isSaving = false
     @Published var message: String?
     @Published var saved = true
+    @Published var selectedSegment: UUID?
+    struct EditSnapshot {
+        var project: Project
+        let position: Double
+        let selection: UUID?
+    }
+    @Published var cutHistory: [EditSnapshot] = []
     let player = AVPlayer()
     private var observer: Any?
     private var renderTask: Task<Void, Never>?
@@ -24,7 +31,7 @@ final class StudioStore: ObservableObject {
     init() {
         observer = player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1 / 30, preferredTimescale: 600), queue: .main) { [weak self] time in
             Task { @MainActor in
-                guard let self else { return }
+                guard let self, !self.isLoading, abs(self.player.currentTime().seconds - time.seconds) < 0.15 else { return }
                 self.currentTime = max(0, time.seconds.isFinite ? time.seconds : 0)
                 if self.isPlaying && self.currentTime >= self.project.trimEnd {
                     self.player.pause(); self.isPlaying = false
@@ -57,6 +64,7 @@ final class StudioStore: ObservableObject {
             let tracks = try await asset.loadTracks(withMediaType: .video)
             guard duration.isFinite, duration > 0, !tracks.isEmpty else { throw StudioError.invalidVideo }
             player.pause(); isPlaying = false
+            cutHistory.removeAll(); selectedSegment = nil
             projectFolder = nil
             sourceURL = url
             project = Project(title: url.deletingPathExtension().lastPathComponent, duration: duration, trimEnd: duration, clicks: clicks)
@@ -94,12 +102,11 @@ final class StudioStore: ObservableObject {
         renderTask?.cancel()
         renderTask = Task {
             do {
-                let asset = try await WebcamComposition.asset(source: url, project: snapshot)
-                let composition = try await VideoRenderer.composition(asset: asset, project: snapshot)
+                let movie = try await EditedMovie.prepare(source: url, project: snapshot)
                 guard !Task.isCancelled, revision == expectedRevision else { return }
                 let time = currentTime
-                let item = AVPlayerItem(asset: asset)
-                item.videoComposition = composition
+                let item = AVPlayerItem(asset: movie.asset)
+                item.videoComposition = movie.composition
                 player.replaceCurrentItem(with: item)
                 player.isMuted = snapshot.muted
                 player.seek(to: CMTime(seconds: time, preferredTimescale: 600), toleranceBefore: .zero, toleranceAfter: .zero, completionHandler: { _ in })
@@ -147,7 +154,25 @@ final class StudioStore: ObservableObject {
             do {
                 let media = try await ProjectPersistence.shared.save(project: snapshot, source: source, folder: folder)
                 guard sourceURL == source else { return }
-                sourceURL = media; projectFolder = folder; saved = project == snapshot
+                let unchanged = project == snapshot
+                if var cuts = project.cuts {
+                    for i in cuts.sources.indices { cuts.sources[i].url = cuts.media(in: folder, at: i) }
+                    project.cuts = cuts
+                    // Undo retains its source metadata even when the package moved.
+                    cutHistory = cutHistory.map { old in
+                        var copy = old
+                        if var list = copy.project.cuts {
+                            for i in list.sources.indices {
+                                if let current = cuts.sources.first(where: { $0.id == list.sources[i].id }) {
+                                    list.sources[i].url = current.url
+                                }
+                            }
+                            copy.project.cuts = list
+                        }
+                        return copy
+                    }
+                }
+                sourceURL = media; projectFolder = folder; saved = unchanged
             } catch { message = StorageFailure.message(for: error) }
         }
     }
@@ -165,32 +190,55 @@ final class StudioStore: ObservableObject {
                 let file = try await ProjectPersistence.shared.read(folder: folder)
                 guard file.project.version == file.project.requiredVersion, file.mediaFilename == URL(fileURLWithPath: file.mediaFilename).lastPathComponent else { throw StudioError.invalidProject }
                 let media = folder.appendingPathComponent(file.mediaFilename)
-                let actual = try await AVURLAsset(url: media).load(.duration).seconds
-                guard actual.isFinite, actual > 0, file.project.duration.isFinite, abs(file.project.duration - actual) < 0.1, file.project.trimStart >= 0,
-                      file.project.trimEnd <= actual + 0.1, file.project.trimEnd > file.project.trimStart,
-                      file.project.padding.isFinite, (0...0.25).contains(file.project.padding),
-                      file.project.cornerRadius.isFinite, (0...100).contains(file.project.cornerRadius),
-                      file.project.zooms.allSatisfy({ $0.start.isFinite && $0.end.isFinite && $0.start >= 0 && $0.end > $0.start && $0.end <= actual + 0.1 && (1...4).contains($0.scale) && (0...1).contains($0.x) && (0...1).contains($0.y) }) else { throw StudioError.invalidProject }
-                if let webcam = file.project.webcam {
-                    guard webcam.startOffset.isFinite, (0.12...0.45).contains(webcam.size),
-                          !(try await AVURLAsset(url: WebcamOverlay.movie(for: media)).loadTracks(withMediaType: .video)).isEmpty else {
-                        throw StudioError.invalidProject
+                var opened = file.project
+                if var cuts = opened.cuts {
+                    try cuts.validate()
+                    guard cuts.media(in: folder, at: 0) == media,
+                          (0...0.25).contains(opened.padding), (0...100).contains(opened.cornerRadius),
+                          abs(opened.duration - cuts.duration) < 0.0001,
+                          opened.trimStart >= 0, opened.trimEnd <= cuts.duration,
+                          opened.trimStart < opened.trimEnd else { throw StudioError.invalidProject }
+                    for index in cuts.sources.indices {
+                        let url = cuts.media(in: folder, at: index)
+                        try await Self.validateSource(cuts.sources[index].project, media: url)
+                        cuts.sources[index].url = url
                     }
+                    opened.cuts = cuts
+                } else {
+                    try await Self.validateSource(opened, media: media)
                 }
-                if let cursor = file.project.cursor {
-                    guard (0...0.3).contains(cursor.smoothing), (0.5...3).contains(cursor.size),
-                          cursor.samples.count <= 4_000_000, cursor.validAppearances,
-                          cursor.samples.allSatisfy({ $0.time.isFinite && (0...actual + 0.1).contains($0.time) && (0...1).contains($0.x) && (0...1).contains($0.y) }),
-                          zip(cursor.samples, cursor.samples.dropFirst()).allSatisfy({ $0.time < $1.time }) else { throw StudioError.invalidProject }
-                }
-                let videoTracks = try await AVURLAsset(url: media).loadTracks(withMediaType: .video)
-                guard !videoTracks.isEmpty, file.project.clicks.allSatisfy({ $0.time.isFinite && (0...actual).contains($0.time) && (0...1).contains($0.x) && (0...1).contains($0.y) }) else { throw StudioError.invalidProject }
                 player.pause(); isPlaying = false
-                project = file.project; sourceURL = media; projectFolder = folder
+                cutHistory.removeAll(); selectedSegment = nil
+                project = opened; sourceURL = media; projectFolder = folder
                 currentTime = project.trimStart; selectedZoom = nil
                 refreshPreview(); saved = true
             } catch { message = error.localizedDescription }
         }
+    }
+
+    static func validateSource(_ project: Project, media: URL) async throws {
+        guard project.cuts == nil, project.version == project.requiredVersion,
+              project.validCaptions else { throw StudioError.invalidProject }
+        let actual = try await AVURLAsset(url: media).load(.duration).seconds
+        guard actual.isFinite, actual > 0, project.duration.isFinite, abs(project.duration - actual) < 0.1, project.trimStart >= 0,
+              project.trimEnd <= actual + 0.1, project.trimEnd > project.trimStart,
+              project.padding.isFinite, (0...0.25).contains(project.padding),
+              project.cornerRadius.isFinite, (0...100).contains(project.cornerRadius),
+              project.zooms.allSatisfy({ $0.start.isFinite && $0.end.isFinite && $0.start >= 0 && $0.end > $0.start && $0.end <= actual + 0.1 && (1...4).contains($0.scale) && (0...1).contains($0.x) && (0...1).contains($0.y) }) else { throw StudioError.invalidProject }
+        if let webcam = project.webcam {
+            guard webcam.startOffset.isFinite, (0.12...0.45).contains(webcam.size),
+                  !(try await AVURLAsset(url: WebcamOverlay.movie(for: media)).loadTracks(withMediaType: .video)).isEmpty else {
+                throw StudioError.invalidProject
+            }
+        }
+        if let cursor = project.cursor {
+            guard (0...0.3).contains(cursor.smoothing), (0.5...3).contains(cursor.size),
+                  cursor.samples.count <= 4_000_000, cursor.validAppearances,
+                  cursor.samples.allSatisfy({ $0.time.isFinite && (0...actual + 0.1).contains($0.time) && (0...1).contains($0.x) && (0...1).contains($0.y) }),
+                  zip(cursor.samples, cursor.samples.dropFirst()).allSatisfy({ $0.time < $1.time }) else { throw StudioError.invalidProject }
+        }
+        let videoTracks = try await AVURLAsset(url: media).loadTracks(withMediaType: .video)
+        guard !videoTracks.isEmpty, project.clicks.allSatisfy({ $0.time.isFinite && (0...actual).contains($0.time) && (0...1).contains($0.x) && (0...1).contains($0.y) }) else { throw StudioError.invalidProject }
     }
 
     func confirmReplace() -> Bool {

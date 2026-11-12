@@ -64,11 +64,13 @@ final class WebcamInstruction: NSObject, AVVideoCompositionInstructionProtocol, 
     let containsTweening = true
     let passthroughTrackID = kCMPersistentTrackID_Invalid
     let requiredSourceTrackIDs: [NSValue]?
+    let acceptsVideoGap: Bool
     let cameraActive: Bool
     let draw: (CIImage, CIImage?, Double) -> CIImage
 
-    init(range: CMTimeRange, cameraActive: Bool, draw: @escaping (CIImage, CIImage?, Double) -> CIImage) {
+    init(range: CMTimeRange, cameraActive: Bool, acceptsVideoGap: Bool = false, draw: @escaping (CIImage, CIImage?, Double) -> CIImage) {
         self.timeRange = range
+        self.acceptsVideoGap = acceptsVideoGap
         self.cameraActive = cameraActive
         self.draw = draw
         let ids = cameraActive ? [WebcamComposition.screenID, WebcamComposition.cameraID] : [WebcamComposition.screenID]
@@ -86,13 +88,21 @@ final class WebcamCompositor: NSObject, AVVideoCompositing {
     func startRequest(_ request: AVAsynchronousVideoCompositionRequest) {
         autoreleasepool {
             guard let instruction = request.videoCompositionInstruction as? WebcamInstruction,
-                  let screen = request.sourceFrame(byTrackID: WebcamComposition.screenID),
                   let destination = request.renderContext.newPixelBuffer() else {
                 request.finish(with: RenderError.missingVideo)
                 return
             }
+            let screen: CIImage
+            if let buffer = request.sourceFrame(byTrackID: WebcamComposition.screenID) {
+                screen = CIImage(cvPixelBuffer: buffer)
+            } else if instruction.acceptsVideoGap {
+                screen = CIImage(color: .black).cropped(to: CGRect(origin: .zero, size: request.renderContext.size))
+            } else {
+                request.finish(with: RenderError.missingVideo)
+                return
+            }
             let camera = instruction.cameraActive ? request.sourceFrame(byTrackID: WebcamComposition.cameraID) : nil
-            let image = instruction.draw(CIImage(cvPixelBuffer: screen), camera.map { CIImage(cvPixelBuffer: $0) }, request.compositionTime.seconds)
+            let image = instruction.draw(screen, camera.map { CIImage(cvPixelBuffer: $0) }, request.compositionTime.seconds)
             context.render(image, to: destination, bounds: image.extent, colorSpace: CGColorSpace(name: CGColorSpace.sRGB))
             request.finish(withComposedVideoFrame: destination)
         }

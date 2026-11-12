@@ -1,8 +1,10 @@
 import SwiftUI
+import AVFoundation
 
 struct InspectorView: View {
     @ObservedObject var studio: StudioStore
     @State private var tab = 0
+    @State private var showCaptions = false
     var body: some View {
         VStack(spacing: 0) {
             Picker("Einstellungen", selection: $tab) {
@@ -10,10 +12,16 @@ struct InspectorView: View {
             }.pickerStyle(.segmented).labelsHidden().padding(16)
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
-                    if tab == 0 { appearance } else { edits }
+                    Button("Untertitel bearbeiten …") {
+                        studio.player.pause(); studio.isPlaying = false
+                        showCaptions = true
+                    }
+                    if tab == 0 { appearance } else if studio.project.cuts == nil { edits }
+                    else { Text("Abschnitte lassen sich unten in der Zeitleiste teilen, verschieben und entfernen.").font(.caption) }
                 }.padding(.horizontal, 19).padding(.bottom, 24)
             }
         }.background(StudioTheme.panel)
+        .sheet(isPresented: $showCaptions) { CaptionEditor(studio: studio) }
         .onChange(of: studio.selectedZoom) { _, value in if value != nil { tab = 1 } }
     }
 
@@ -44,6 +52,7 @@ struct InspectorView: View {
                 valueSlider("Ecken", value: $studio.project.cornerRadius, range: 0...60, valueText: "\(Int(studio.project.cornerRadius)) px")
                 Text("Ein weicher Schatten gibt deinem Video Tiefe.").font(.caption2).foregroundStyle(.secondary)
             }
+            if studio.project.cuts == nil {
             group("CURSOR") {
                 if studio.project.cursor != nil {
                     Toggle("Cursor anzeigen", isOn: cursorBinding(\.enabled, default: true))
@@ -67,6 +76,7 @@ struct InspectorView: View {
                     valueSlider("Größe", value: webcamBinding(\.size, fallback: webcam.size), range: 0.12...0.45,
                                 valueText: "\(Int(webcam.size * 100)) %").disabled(!webcam.enabled)
                 }
+            }
             }
             group("TON") {
                 Toggle("Originalton stummschalten", isOn: $studio.project.muted).font(.caption)

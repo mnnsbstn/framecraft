@@ -1,0 +1,37 @@
+name: Build FrameCraft editor
+on:
+  push:
+    branches: [codex/framecraft-timeline]
+    paths:
+      - 'Sources/**'
+      - 'script/**'
+      - 'Package.swift'
+      - '.github/workflows/editor-build.yml'
+  pull_request:
+    branches: [main]
+    paths: ['Sources/**', 'script/**', 'Package.swift', '.github/workflows/editor-build.yml']
+  workflow_dispatch:
+concurrency:
+  group: editor-build-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: macos-26
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Build and package without launching
+        env:
+          FRAMECRAFT_SIGNING_IDENTITY: '-'
+        run: |
+          bash script/build_and_run.sh --build
+          ditto -c -k --keepParent dist/FrameCraft.app dist/FrameCraft-preview.zip
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: FrameCraft-preview
+          path: dist/FrameCraft-preview.zip
+          retention-days: 14

@@ -97,3 +97,13 @@ November 12, 2026. FrameCraft 0.5.1 (build 13) was rebuilt and packaged for Appl
 0.7.0 (build 15), November 12, 2026. Added single-display region selection and cropped capture. Functional testing deferred by request, including selection on mixed-scale displays and cursor alignment in saved projects and exports.
 
 0.8.0 (build 16), November 12, 2026. Implemented time-indexed cursor images with top-left hotspots, point-size scaling and shared preview/export rendering. Capture without a separate system cursor uses ScreenCaptureKit’s embedded cursor. Functional testing deferred by request, including text, hand, resize pointers, Retina alignment and MP4/GIF playback.
+
+FrameCraft 0.9.0 (17) — hosted Apple Silicon preview, November 12, 2026
+Built source acc33251340cb7855b0dfbcee765933fceca8127 on a GitHub-hosted macOS runner.
+Release compilation, bundle creation, ad hoc signing and the build script's strict signature check succeeded.
+Build record: https://github.com/mnnsbstn/framecraft/actions/runs/43250524759
+Preview archive: https://github.com/mnnsbstn/framecraft/actions/runs/43250524759/artifacts/13959700154
+GitHub artifact digest (outer ZIP): sha256:64622763dcba1fa725332dd807eb43153666253441109f10a48a4e0a8311e853
+The artifact expires on November 26, 2026. The source remains in Git.
+No personal signing identity, device capture, app launch, installation or functional tests were used.
+Multi-clip and caption acceptance remains open under SBSTN-91 and SBSTN-92.

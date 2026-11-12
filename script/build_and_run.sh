@@ -93,8 +93,8 @@ cat > "$STAGED_APP/Contents/Info.plist" <<PLIST
 <key>CFBundleDisplayName</key><string>$APP_NAME</string>
 <key>CFBundlePackageType</key><string>APPL</string>
 <key>CFBundleIconFile</key><string>AppIcon.icns</string>
-<key>CFBundleShortVersionString</key><string>0.8.0</string>
-<key>CFBundleVersion</key><string>16</string>
+<key>CFBundleShortVersionString</key><string>0.9.0</string>
+<key>CFBundleVersion</key><string>17</string>
 <key>LSMinimumSystemVersion</key><string>15.0</string>
 <key>NSPrincipalClass</key><string>NSApplication</string>
 <key>NSCameraUsageDescription</key><string>FrameCraft nimmt auf deinen Wunsch ein lokales Webcam-Overlay zum Bildschirmvideo auf.</string>
