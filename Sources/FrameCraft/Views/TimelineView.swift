@@ -7,7 +7,13 @@ struct TimelineView: View {
             HStack {
                 Text("ZEITLEISTE").font(.system(size: 10, weight: .semibold)).tracking(1.2).foregroundStyle(.secondary)
                 Spacer()
+                Button("Clip hinzufügen …") { studio.appendClips() }
+                Button("Teilen") { studio.splitClip() }.help("An der Abspielposition teilen")
+                Button { studio.undoEdit() } label: { Image(systemName: "arrow.uturn.backward") }
+                    .disabled(studio.cutHistory.isEmpty).help("Bearbeitung rückgängig machen")
+                if studio.project.cuts == nil {
                 Button { studio.addZoom() } label: { Label("Zoom hinzufügen", systemImage: "plus.magnifyingglass") }.font(.caption)
+                }
             }
             GeometryReader { geometry in
                 let width = geometry.size.width
@@ -24,14 +30,47 @@ struct TimelineView: View {
                         RoundedRectangle(cornerRadius: 5).fill(StudioTheme.accent.opacity(0.16))
                             .frame(width: max(1, width * studio.project.outputDuration / duration))
                             .offset(x: width * studio.project.trimStart / duration)
+                        if let cuts = studio.project.cuts {
+                            ForEach(Array(cuts.segments.enumerated()), id: \.element.id) { i, clip in
+                                Rectangle().fill(studio.selectedSegment == clip.id ? StudioTheme.accent.opacity(0.35) : StudioTheme.accent.opacity(0.1))
+                                    .overlay(alignment: .leading) { Divider() }
+                                    .frame(width: width * clip.duration / duration)
+                                    .offset(x: width * cuts.start(of: i) / duration)
+                            }
+                        } else {
                         Label("Originalvideo", systemImage: "film")
                             .font(.system(size: 10, weight: .medium)).foregroundStyle(StudioTheme.accent)
                             .padding(.horizontal, 12).allowsHitTesting(false)
+                        }
                         Rectangle().fill(.primary).frame(width: 1.5).offset(x: min(width - 1, width * studio.currentTime / duration))
                     }
                     .frame(height: 42)
                     .contentShape(Rectangle())
-                    .gesture(DragGesture(minimumDistance: 0).onChanged { studio.seek(min(1, max(0, $0.location.x / width)) * duration) })
+                    .gesture(DragGesture(minimumDistance: 0).onChanged { let t = min(1, max(0, $0.location.x / width)) * duration
+                        studio.seek(t)
+                        if let cuts = studio.project.cuts, let i = cuts.index(at: t) { studio.selectedSegment = cuts.segments[i].id } })
+                    if let cuts = studio.project.cuts {
+                        ScrollView(.horizontal) {
+                            HStack {
+                                ForEach(Array(cuts.segments.enumerated()), id: \.element.id) { i, segment in
+                                    Button {
+                                        studio.selectedSegment = segment.id
+                                        studio.seek(cuts.start(of: i))
+                                    } label: {
+                                        Text("\(i + 1). \(cuts.sources.first(where: { $0.id == segment.sourceID })?.project.title ?? "Clip")")
+                                            .lineLimit(1)
+                                    }
+                                    .tint(studio.selectedSegment == segment.id ? StudioTheme.accent : .secondary)
+                                }
+                            }
+                        }
+                        HStack {
+                            let i = cuts.segments.firstIndex(where: { $0.id == studio.selectedSegment })
+                            Button("Nach links") { studio.changeSegment(move: -1) }.disabled((i ?? 0) < 1)
+                            Button("Nach rechts") { studio.changeSegment(move: 1) }.disabled(i == nil || i == cuts.segments.count - 1)
+                            Button("Abschnitt entfernen") { studio.changeSegment(move: nil) }.disabled(i == nil || cuts.segments.count < 2)
+                        }.controlSize(.small)
+                    } else {
                     ScrollView(.vertical) {
                         VStack(spacing: 5) {
                             ForEach(studio.project.zooms) { zoom in
@@ -45,6 +84,7 @@ struct TimelineView: View {
                     }
                     .coordinateSpace(name: "zoomTimeline")
                     .frame(height: 84)
+                    }
 
                 }
             }.frame(height: 164)
@@ -56,10 +96,10 @@ struct TimelineView: View {
                 if let zoom = studio.project.zooms.first(where: { $0.id == studio.selectedZoom }) {
                     Text(String(format: "Zoom: %.2f – %.2f s", zoom.start, zoom.end)).monospacedDigit()
                 } else {
-                    Text("Kanten ziehen · Mitte verschieben").foregroundStyle(.secondary)
+                    Text(studio.project.cuts == nil ? "Kanten ziehen · Mitte verschieben" : "\(studio.project.cuts?.segments.count ?? 0) Abschnitte").foregroundStyle(.secondary)
                 }
             }.font(.system(size: 10))
-            Text("Pfeile: 0,1 s · Umschalt + Pfeile: 0,5 s · Jede Zeile ist ein Zoom")
+            Text(studio.project.cuts != nil ? "Für einen inneren Schnitt an beiden Grenzen teilen und den Mittelteil entfernen." : "Pfeile: 0,1 s · Umschalt + Pfeile: 0,5 s · Jede Zeile ist ein Zoom")
                 .font(.system(size: 9)).foregroundStyle(.secondary)
         }
         .padding(22).frame(height: 278)

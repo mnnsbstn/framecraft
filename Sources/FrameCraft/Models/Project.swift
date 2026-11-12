@@ -60,7 +60,12 @@ struct Project: Codable, Equatable, Sendable {
     var clicks: [ClickSample] = []
     var webcam: WebcamOverlay? = nil
     var cursor: CursorTrack? = nil
+    var cuts: CutList?
+    var captions: [Caption]?
+    var captionStyle: CaptionStyle?
+
     var requiredVersion: Int {
+        if cuts != nil || captions?.isEmpty == false || captionStyle != nil { return 4 }
         if cursor?.appearances != nil { return 3 }
         return webcam == nil ? 1 : 2
     }

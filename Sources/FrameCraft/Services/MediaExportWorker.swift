@@ -7,15 +7,15 @@ import UniformTypeIdentifiers
 enum MediaExportWorker {
     static func write(source: URL, project: Project, settings: ExportSettings, destination: URL,
                       progress: @escaping @Sendable (Double) async -> Void) async throws {
-        let asset = try await WebcamComposition.asset(source: source, project: project)
+        let movie = try await EditedMovie.prepare(source: source, project: project, size: settings.size(for: project.format), fps: settings.frameRate)
+        let asset = movie.asset
         let duration = try await asset.load(.duration).seconds
         guard project.trimStart.isFinite, project.trimEnd.isFinite, duration.isFinite else { throw RenderError.invalidDuration }
         let start = max(0, project.trimStart), end = min(duration, project.trimEnd)
         guard end > start else { throw RenderError.invalidDuration }
         if let message = settings.validationMessage(duration: end - start) { throw RenderError.failed(message) }
         try Task.checkCancellation()
-        let composition = try await VideoRenderer.composition(asset: asset, project: project,
-                                                               outputSize: settings.size(for: project.format), fps: settings.frameRate)
+        let composition = movie.composition
         try Task.checkCancellation()
         if settings.format == .gif {
             try await gif(asset: asset, composition: composition, settings: settings, start: start, end: end,
